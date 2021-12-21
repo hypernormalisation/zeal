@@ -78,7 +78,7 @@
 		\item[miss] the attack misses the target and is negated.
 		\item[dodge] the target dodges and the attack is negated.
 		\item[parry] the target parries the attack, negating the attack and hasting their autoattack timer. Parries can only occur when attacking the target from the front.
-		\item[glance] when the target is three levels or more higher than the attacker, there is a chance for the attack to be a glancing blow, which deals reduced damage. The damage reduction on the attack is rolled uniformly between $15 - 35 \%$, for an average reduction of $25\%$. When the attacker is three levels lower than the target, the chance for a glancing blow to occur is $24\%$.
+		\item[glance] when the target is three levels or more higher than the attacker, there is a chance for the attack to be a glancing blow, which deals reduced damage. The damage reduction on the attack is rolled uniformly between $15 - 35 \%$, for an average reduction of $25\%$. When the attacker is three levels lower than the target, the chance for a glancing blow to occur is $24\%$. % should move this to its own section and give formulae
 		\item[block] the target blocks the attack, reducing the damage taken from the attack in accordance with the incoming damage and the target's \emph{Block Value} statistic.
 		\item[crit] the attack is a critical hit, dealing a base of $200\%$ the regular damage. Critical strike damage can be modified by gear and talents.
 		\item[hit] the attack is a hit, dealing regular damage.
@@ -114,7 +114,7 @@
 	The target's level also influences the amount of damage reduction that a given level of armor will provide.
 	The damage reduction formula for targets over level 60 is given as
 	\begin{equation}
-		\dr = 100 \frac{\armor + 1}{467.5 \lvl -22167.5}
+		\dr = \frac{100(\armor + 1)}{467.5 \lvl -22167.5}
 	\end{equation}
 	where \armor is the target's armor value, and \lvl is the target's level.
 	A significant proportion of a paladin's damage is physical, and so the target's armor level must be considered when evaluating rotations.
@@ -130,8 +130,8 @@
 	Therefore the chance for a seal to be partially resisted is therefore entirely dictated by the level difference between the caster and target.
 	
 	Against raid bosses, the level difference is always equal to 3.
-	In this case, the probabilities for a seal to be partially resisted are given in Table \ref{table:1}.
-	\begin{table}
+	In this case, the probabilities for a seal to be partially resisted are given in Table \ref{tab:glancing}.
+	\begin{table}[htb]
 		\centering
 			\begin{tabular}{r | l}
 				Resistance (\%) & Probability \\
@@ -144,7 +144,7 @@
 				\hline
 			\end{tabular}
 	    	\caption{Probabilities for spell partial resists against a Boss target}		
-			\label{table:1}
+			\label{tab:glancing}
 	\end{table}
 	Integrating these values gives an average damage resistance against a ret paladin's seals of $6\%$.
 
@@ -193,8 +193,27 @@
 	As such, a typical critical strike for a ret paladin will do $206\%$ of the base damage.
 	
 	\subsection{Spellpower}
-	A player's spellpower increases the damage of their spells, by a multiple of their total spellpower multiplied by the spell's spell damage coefficient.
-	As ret paladin's optimally do not use any gear that includes spellpower, we ignore it in this document.
+	A player's Spellpower increases the damage of their spells, by a multiple of their total Spellpower multiplied by the spell's Spell Damage Coefficient.
+	Spellpower can affect all schools of magic or individual schools.
+	Ret paladin's optimally do not use any gear that includes spellpower, however one of the paladin's judgement debuffs provides a flat amount of spellpower to the Holy school.
+	Some of the important abilities in ret paladin rotations have Spell Damage Coefficients, so we must include this in our calculations.
+	The spell coefficients for the spells relevant to a ret paladin's rotation are provided in Table \ref{tab:spellcoefficients}.
+	
+	\begin{table}[htb]
+		\centering
+		\begin{tabular}{r | l}
+			Spell & Coefficient \\
+			\hline \hline
+			Consecration & 0.9524 \\
+			Exorcism & 0.4286 \\
+			Hammer of Wrath & 0.4286 \\
+			Judgement of Blood & 0.43 \\
+			Seal of Command & 0.2 \\
+			\hline
+		\end{tabular}
+		\caption{Spellpower Coefficients relevant to a ret paladin.}		
+		\label{tab:spellcoefficients}
+	\end{table}
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{Ret Abilities}
@@ -216,20 +235,18 @@
 	The formula to calculate this extra damage is given by:
 	
 	\begin{equation}
-		d = \frac{578.5 \ws}{14}
+		d = \frac{511.75 \ws}{14}
 	\end{equation}
 	
 	\subsection{Seals and Judgements}
 	Seals are 30s duration buffs the paladin casts on themselves.
 	The effect of a seal can be expended by using the Judgement ability to produce a damaging action or to cast a debuff on the target.
 	Judgement is notably off the GCD, meaning it can be cast while the GCD is ticking.
-	
 	Retribution paladins do a significant portion of their damage as holy damage through offensive seals that enhance their auto-attacks.
-	The two most relevant to ret rotations, Seal of Command and Seal of Blood, are implemented in TBC in ways that are not strictly like spells or like autoattacks.
-	We will detail these seals and their behaviours below.
+
 		
 	\subsubsection{Seal of Command (SoC)}
-	This ability gives the paladin a chance to do $70\%$ of their weapon damage as holy on their swing.
+	This ability gives the paladin a chance to do $70\%$ of their weapon damage as holy on their attack.
 	The chance is determined by the base weapon speed of the paladin's weapon, and is normalised at 7 procs per minute (PPM).
 	The proc chance of SoC is therefore given by:
 	
@@ -237,16 +254,17 @@
 		\psoc = \frac{7 \ws}{60}
 	\end{equation}
 	where \ws is the base swing speed of the paladin's weapon in seconds.
-	This is the primary reason that rets favour slow weapons - under 0 haste and neglecting windfury hits, a quick weapon procs SoC on average 7 times for low damage due to the PPM normalisation, while a slow weapon procs SoC 7 times on average per minute for high damage.
+	This is the primary reason that ret paladins favour slow weapons - under no melee haste and neglecting Windfury hits, a fast-swinging weapon procs SoC on average 7 times for low damage due to the PPM normalisation, while a slow-swinging weapon procs SoC 7 times on average per minute for high damage.
 	The proc chance is unchanged by haste effects, meaning that one can proc SoC well over 7 times per minute while under high haste.
 	There is no limit on how many times SoC can proc in any given minute.
 	
-	SoC can be partially resisted unlike most spells, and it has a spellpower coefficient (meaning it benefits from spellpower on gear).
-	It is to some extent implemented as an attack that does holy damage, meaning that it can proc windfury.
-	It has an internal cooldown (ICD) of 1s, meaning that it cannot be procced on e.g. both melee hits in a windfury attack.
-	
-	SoC \emph{lingers}, meaning it persists for 400~ms after the paladin casts another seal.
-	As such, it can be used as the first seal in a twist attempt.
+	\begin{itemize}
+		\item SoC has an internal cooldown (ICD) of 1s, meaning that it cannot be procced on e.g. both melee hits in a windfury attack (but it can proc on a windfury attack if it \emph{does not} proc on the initial melee hit).
+		\item SoC \emph{lingers}, meaning it persists for 400~ms after the paladin casts another seal. As such, it can be used as the first seal in a twist attempt.
+		\item SoC is implemented as an attack that does Holy damage, and is subject to the basic attack table and to partial resists.
+		\item It has a spell damage coefficient of 0.2 (given in \tabref{tab:spellcoefficients}).		
+		\item SoC can proc Seal of Blood (See \secref{sec:sob}).		
+	\end{itemize}
 	
 	\subsubsection{Judgement of Command}
 	When the ret has SoC active, the Judgement ability will deal an amount of holy damage to the enemy, which is increased against incapacitated targets.
@@ -254,37 +272,88 @@
 	As such we will not go into detail on its damage, or any related libram effects that improve SoC's judgement.
 	
 	\subsubsection{Seal of Blood (SoB)}
- 	This seal gives the paladin a $100 \%$ chance to do $35 \%$ of their weapon damage as holy on their swing, at the cost of the paladin losing health equal to $10 \%$ of the damage inflicted.
- 	SoB is mostly a spell, and can be partially resisted, but it has no spellpower coefficient.
- 	It is not an attack, and therefore it cannot proc windfury.
- 	SoB has no ICD, meaning it can proc on both hits of a windfury attack.
- 	Seal of blood does not linger, meaning that it can only be twisted into, and not as the first seal in a twist.
-
+	\label{sec:sob}
+ 	This seal gives the paladin a $100 \%$ chance to do $35 \%$ of their weapon damage as holy on their attack, at the cost of the paladin losing health equal to $10 \%$ of the damage inflicted.
+	\begin{itemize}
+		\item SoB has no ICD, meaning it can proc on both hits of a swing under Windfury Attack.
+		\item SoB does not linger, meaning that it can only be twisted into, and not as the first seal in a twist.
+		\item SoB is implemented as an attack that deals holy damage, and is therefore subject to the attack table and to partial resists.
+		\item SoB cannot proc SoC or Windfury Attack.
+	\end{itemize}
+ 	
 	\subsubsection{Judgement of Blood}
 	When the ret has SoB active, the Judgement ability will deal 295 to 325 Holy damage at the cost of health equal to $33 \%$ of the damage caused.
-	The best Libram for rets in TBC is available starting in phase 1, the Libram of Avengement.
-	
+	The best Libram for rets in TBC is available starting in phase 1, the Libram of Avengement (see \figref{fig:loa}).
 	\begin{figure}[ht] 
 		\centering \includegraphics[width=0.44\columnwidth]{figs/libram_of_avengement.png}
-%		\caption{\label{fig1}}
+		\caption{The Libram of Avengement}
+		\label{fig:loa}
 	\end{figure}
-	
-	This libram causes several judgements, including Judgement of Blood, to increase the ret's critical strike rating by 53 for 5 seconds.
+	This libram causes several judgements, including Judgement of Blood, to increase the ret paladin's critical strike rating by 53 for 5 seconds.
 	As such, any rotations that provide the ret time to judge blood will affect the expected damage of the ret's attacks and seals for a subsequent 5 seconds, and critical strike chance must be included in any rigorous damage projections.
 	
 	\subsection{Crusader Strike (CS)}
 	CS is an instant cast strike that deals $110 \%$ weapon damage to the target, and refreshes all judgements on the target.
 	It has a 6 second cooldown.
 	
+	\todo{figure out exactly how the Crusader Strike weapon damage normalisation at 3.3s actually works and how it affects the outgoing damage of the ability.}
+	
 	\subsection{Consecrate}
-	...
+	Consecrate is an instant-cast spell that marks an area underneath the paladin, that at maximum rank deals 512 Holy damage to all enemies who are in or enter the area over 8s.
+
+	\todo{fill out info on filler spells.}
 	
 	\subsection{Exorcism}
-	...
+	Exorcism is an instant-cast, single-target spell that at maximum rank causes 626 to 698 Holy damage, that can only be cast on Undead or Demon targets.
+	
+	
+	\subsection{Judgement of the Crusader}
+	One of the paladin's seals is the Seal of the Crusader.
+	The effects of the seal are useless in PvE (outside of levelling weapon skill due to the haste on attacks) but when a properly specced ret paladin judges this seal on a target, a powerful debuff is cast.
+	By default, the judgement increases the Holy damage taken by the target (by 219 at max rank).
+	The ret paladin also takes 3/3 of the talent Improved Seal of the Crusader, which increases the targets chance to be critically hit \emph{by all attacks} (meaning all attacks and spells) by $3~\%$.	
+	
+	\subsection{Sanctity Aura}
+	Paladins have access to a suite of passive passive party buffs called ``auras''.
+	A paladin can only have one aura active at a time, but a party with multiple paladins can benefit simultaneously from multiple auras.
+	Aura effects of the same kind do not stack.
+	
+	Without exception, ret paladin's should utilise Sanctity Aura, which gives all holy damage done by the party a $10~\%$ increase.
+	This factors into the relative weight of a ret paladin's physical and holy damage, and should be considered in considerations of rotations.
+	The talent 2/2 Improved Sanctity Aura is also taken by ret paladins, which improves the amount of damage caused by targets subject to Sanctity Aura by $2~\%$.
+	
+	We note that the holy damage increase from Sanctity aura does not interact with the holy damage increase from Judgement of the Crusader.
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{Swing Damages}
-	Now that we have detailed BCC's combat system and its facets relevant to a ret paladin's damage output, we may now turn to the task of quantifying the projected damage of various actions a ret paladin can take. For the purposes of comparing rotations, it is useful to normalise the projected damage to the weapon damage of the ret paladin's weapon. This allows us to neglect gear dependencies to some extent.
+	Now that we have detailed BCC's combat system and its facets relevant to a ret paladin's damage output, we may now turn to the task of quantifying the projected damage of various actions a ret paladin can take. For the purposes of comparing rotations, it is useful to normalise the projected damage to the average weapon damage of the ret paladin's weapon. This allows us to neglect gear dependency to some extent.
+	
+	Because autoattack and seal damage are subject to different random outcomes, it is useful to define separate quantities for average physical attack damage and average holy attack damage.
+	Because different parts of a ret paladin's damage can chain-proc each other, and because dodges stop this chain, it is useful to treat dodge chances separately to these average weapon damage figures such that conditional probabilities of procs may be properly treated.
+	
+	We first define the average weapon damage as the damage that occurs when a weapon rolls a median value on its damage range, and is a regular hit (i.e. not a crit or a glancing blow).
+	\begin{equation}
+		\dave = \bar{\wdam} + \frac{x\ws}{14}
+	\end{equation}
+	where $\bar{\wdam}$ is the median damage on the weapon's damage range, $x$ is the paladin's attack power, and \ws is the paladin's weapon speed.
+	
+	We then define the average physical attack damage in terms of \dave, accounting for glancing blows and crit chance:
+	\begin{equation}
+		\dphys = \dave (\pglance \dglance + \pcrit \dcrit + (1 - \pglance - \pcrit - \pdodge))
+	\end{equation}
+	where \pglance and \dglance are the probability and damage scaling of a glancing blow, \pcrit and \dcrit are the probability and damage scaling of a critical hit, and \pdodge is the chance for the attack to be dodged.
+	Note that the above does not account for the chance for the attack to be dodged, but includes \pdodge as it affects the relative weightings of normal hits, crits, and glancing blows when the dodge outcome is not totally removed from the attack table.
+	
+	\todo{the above is incomplete with respect to the dodge chance, we are missing probability in the equation. need to better explain the expansion of regular hit to consume the rest of the attack table, and dodge affecting this and therefore the relative probabilities of crits, glances, and hits.}
+	
+	The typical values for the above for a ret paladin hitting a Boss level enemy are:
+		\begin{itemize}
+			\item \pglance = 0.24
+			\item \dglance = 0.75
+			\item \dcrit = 2.06
+		\end{itemize}
+
+
 	
 	\subsection{Naked Swing}
 	A naked swing is defined as a swing the paladin takes that has no Seal active.
@@ -293,32 +362,16 @@
 		\item windfury procs
 		\item dodge chance
 		\item boss armor value
+		\item critical strike rating
 	\end{itemize}
-	
-	The projected damage of a naked swing is given by
+	The projected physical damage of a naked swing is given by
 	\begin{equation}
 		d = 
 	\end{equation}
 	
-	
-%	\subsection{Simple Case}
-%	We assume no windfury buffs, and neglect dodge chance and armour/partial resists.
-%	
-%	\subsubsection{SoB swing}
-%	\noindent
-%	Swinging with SoB up we get an average swing damage of
-%	
-%	\begin{equation}
-%		\dswing = \dphys + 0.35~\dholy
-%	\end{equation}
-%	where \dphys is the average weapon damage as physical, and \dholy is the average weapon damage as holy.
-%	
-%	\subsubsection{SoC swing}
-%	
-%	\begin{equation}
-%		\dswing = \dphys + 0.7*
-%	\end{equation}
-%	
+
+
+
 
 	\appendix
 	
