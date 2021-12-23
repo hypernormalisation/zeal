@@ -64,7 +64,7 @@ We therefore define \dphys as the \emph{average damage from an attack that conne
 \end{equation}
 
 Note that despite the presence of two \pdodge terms, the average damage is projected \emph{only onto scenarios in which the attack connects and is not negated}.
-We also see the well-established concept of a maximum limit on critical hit probability, or ``crit cap'' manifest in this equation, in the form of the necessary inequality:
+We also see the well-established concept of a maximum limit below 1.0 on critical hit probability, or ``crit cap'' manifest in this equation, in the form of the necessary inequality:
 \begin{equation}
 	\pcrit \leq (1-\pglance - \pdodge)
 \end{equation}
@@ -104,11 +104,41 @@ In the limit that the paladin's attack power $x$ is very high, such the bonus at
 		d_\mathrm{wf}  &= \dphys(1 - \pdodge + \pwf(1 - 2\pdodge + \pdodge^2))
 	\end{aligned}
 \end{equation*}
-This equation is expressed entirely in terms of our \dphys variable, the dodge chance, and the windfury proc chance.
+This equation is expressed entirely in terms of our \dphys variable, the dodge chance, and the Windfury proc chance.
+Because \dphys contains the chance to be dodged as a term, it correlates with the critical strike chance.
+This has some slightly counter-intuitive effects:
+\begin{itemize}
+	\item Low Expertise gear sets do slightly more damage on average when they hit, do less overall damage on average from being dodged more, and benefit disproportionately from Critical Strike Chance.
+	\item Low Expertise gear sets do slightly less damage on average when they hit, do more overall damage on average from being dodged less, and benefit slightly less from Critical Strike Chance than low Expertise gear sets.
+\end{itemize}
+We provide some example calculations for varying dodge and crit strike chances in \tabref{tab:wfautos}, where we also evaluate the relative benefit of moving from $\pcrit = 0.1$ to $\pcrit = 0.4$ on autoattacking under Windfury.
 
-Substituting in an example \pdodge of $0.065$, for a hypothetical ret paladin with no Expertise, we find $d_\mathrm{wf} = 1.109845~\dphys$, while for a phase two BiS Blood Elf ret paladin with 24 Expertise and therefore a \pdodge of 0.005, we find $d_\mathrm{wf} = 1.193005~\dphys$.
+\begin{table}[htb]
+	\centering
+	\begin{tabular}{ r | r | r | r | r | l }
+		  \multicolumn{1}{c|}{}  & Dodge Chance & Crit Chance & Projected \dphys & Projected \dwf & Crit Benefit \\
+		\hline \hline
+		\multirow{2}{*}{Scenario 1}	 &	\multirow{2}{*}{0.065} & 0.1 & $1.049~\dave$ & $1.164~\dave$ & \multirow{2}{*}{1.324} \\
+					&  & 0.4 & $1.389~\dave$ & $1.542~\dave$ & \\
+		\hline
+		
+		\multirow{2}{*}{Scenario 2}	 &	\multirow{2}{*}{0.0325} & 0.1 & $1.048~\dave$ & $1.210~\dave$ & \multirow{2}{*}{1.314} \\
+		&  & 0.4 & $1.377~\dave$ & $1.589~\dave$ & \\
+		\hline
+		
+		\multirow{2}{*}{Scenario 3}	 &	\multirow{2}{*}{0.0} & 0.1 & $1.046~\dave$ & $1.255~\dave$ & \multirow{2}{*}{1.304} \\
+		&  & 0.4 & $1.364~\dave$ & $1.637~\dave$ & \\
+		\hline
+		
+	\end{tabular}
+	\caption{How dodge chance interacts with critical strike chance.
+		\dave encodes all information on the user's weapon and Attack Power, so these results hold across all gear sets.
+	The projected \dphys is the average damage of a connecting attack i.e. an attack that is not dodged.
+	The projected \dwf is the average damage of a swing under windfury, including the chances for the attacks to be dodged.}		
+	\label{tab:wfautos}
+\end{table}
 
-We note that because \pdodge is also included in the expression for \dphys, we cannot naively say that the P2 BiS scenario is better than the no-Expertise scenario by a factor of $1.193005/1.109845 \approx 1.075$.
+We therefore cannot naively say that e.g. the P2 BiS Blood-Elf scenario with 24 Expertise and $\pdodge = 0.005$ is better than a no-Expertise scenario with $\pdodge = 0.065$ by a factor of $1.193005/1.109845 \approx 1.075$.
 We can only say how the relative levels of Expertise compare \emph{as a function of Critical Strike Chance}.
 
 
