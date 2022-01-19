@@ -8,7 +8,7 @@ These effects are often small, but can be significant.
 For example:
 \begin{itemize}
 	\item the paladin's Expertise affects the chance for their attacks to be dodged. When the dodge chance is lower, swing actions that involve many segments of damage being chained together increase in relative value to ``simpler'' swings, as a dodge breaking the damage chain is less likely to occur.
-	\item the Libram of Avengement crit buff is \emph{relatively} more effective in gear sets that have low amounts of Critical Strike Chance, and therefore rotations that provide the ability to use judgement on cooldown benefit rise in \emph{relative} value (though the effects are almost certainly very small)
+	\item the Libram of Avengement crit buff is \emph{relatively} more effective in gear sets that have low amounts of Critical Strike Chance, and therefore rotations that provide the ability to use judgement on cooldown rise in \emph{relative} value more for lower crit gear sets (though the effects are almost certainly very small)
 \end{itemize}
 It is desirable to reduce gear sets to the lowest amount of input variables possible such that these effects can be accounted for.
 
@@ -16,7 +16,7 @@ It is desirable to reduce gear sets to the lowest amount of input variables poss
 Much of a ret paladin's damage output is already (to some extent) normalised to weapon damage.	
 Seal of Blood, Seal of Command, and Crusader Strike are all typically expressed in terms of a percentage of the paladin's weapon damage.
 The average weapon damage of a paladin's basic autoattack is therefore a useful metric to start with.
-We first define the average weapon damage as the damage that occurs when a weapon rolls a median value on its damage range, and is a regular hit (i.e. not a crit or a glancing blow).
+We first define the average weapon damage as the damage that occurs when a weapon rolls a median value on its damage range, and is a regular hit (i.e. not a crit, or a glancing blow) that is not negated (through a miss or dodge).
 \begin{equation}
 	\dave = \fimpsanc \ftwoh \fcrusade \left( \bar{\wdam} + \frac{x\ws}{14} \right)
 \end{equation}
