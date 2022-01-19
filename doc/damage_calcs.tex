@@ -42,7 +42,7 @@ Once this is done, we can then visualise the relative projected damages of these
 We now define the following global scaling factors for physical and holy damage, i.e. scale factors that will apply to \emph{every instance of physical or holy damage} that is not negated by a dodge.
 For physical damage:
 \begin{equation}
-	\fphys = 1 - \frac{100(\armor - \armpen + 1)}{467.5 \lvl -22167.5}
+	\fphys = 1 - \frac{\armor - \armpen + 1}{467.5 \lvl -22167.5}
 \end{equation}
 where \armor is the target armor, \armpen the ret's armor penetration, and \lvl the target level.
 \noindent
@@ -197,11 +197,12 @@ We do, on the other hand, now have to worry about the differences between holy a
 
 Using the units of damage we have arrived at previously, the damage of a SoC proc on a regular hit is simply:
 \begin{equation}
-	\dsocproc(\mathrm{hit}) = 0.7 \fholy \dave 
+	\dsocproc(\mathrm{hit}) = \fholy \left( 0.7  \dave + \fspell (\dspell + \bspell) \right)
 \end{equation}
-When we include the chance for regular hits and crits:
+where \fspell if the SoC spellpower coefficient of 0.2, \dspell is the ret's spellpower, and \bspell is the bonus spell power on the target (from abilities like JotC).
+When we include the chance for regular hits and crits (and because a successful seal attack can \emph{only} hit or crit):
 \begin{equation}
-	\dsocproc = 0.7 \fholy \dave ( \pcrit \dcrit + \phit)
+	\dsocproc = \dsocproc(\mathrm{hit}) \times ( \pcrit \dcrit + 1 - \pcrit)
 \end{equation}
 We also remember the proc chance for SoC:
 \begin{equation}
@@ -218,8 +219,8 @@ When we combine this with the auto that must connect to proc the SoC, taking int
 \end{equation*}
 
 \subsection{Seal of Command swing - with windfury}
-The SoC ICD means that only one swing can proc SoC.
-If the first procs it, the second cannot, and vice-versa.
+The SoC ICD means that only one melee hit can proc SoC.
+If the first hit procs SoC, the second cannot, and vice-versa.
 We also find two possible damage chains that can occur:
 \begin{enumerate}
 	\item The initial melee procs \emph{both} windfury attack and SoC.
@@ -238,18 +239,104 @@ In the second case the projected damage is:
 		\dsocswing (2) =&~ (1-\pdodge) \dphys + (1-\pdodge)^2 \pwf \fwf \dphys + \pwf (1-\pdodge)^3 \psoc\dsocproc\\
 	\end{aligned}
 \end{equation*}
-These cases are both mutually exclusive. Projecting over them both we find:
+These cases are mutually exclusive. Projecting over them both we find:
 \begin{equation*}
 	\begin{aligned}
 		\dsocswing =&~ (1-\pdodge) \dphys + (1-\pdodge)^2 \pwf \fwf \dphys \\
 		&+ (1-\pdodge)^2 \psoc\dsocproc \\
 		&+ (1-\psoc)(1-\pdodge)^3 \pwf \psoc \dsocproc \\
-		=&~  \dphys(1 - \pdodge + \pwf\fwf(1 -\pdodge)^2 \\
+		=&~  \dphys(1 - \pdodge + \pwf\fwf(1 -\pdodge)^2) \\
 		&+ (1-\pdodge)^2 (1+\pwf(1-\pdodge)(1-\psoc)) \psoc\dsocproc 
+	\end{aligned}
+\end{equation*}
+Note that the physical damage reduces down to the same result as for a naked swing under windfury; simply put, your attacks don't care what seal you have active, they hit all the same. We show the SoC under windfury as a function of the weapon speed in Figure \ref{fig:soc_wf} - it is very slightly nonlinear, with the proc chance increasing under windfury less at higher weapon speeds.
+
+\begin{figure}[ht] 
+	\centering \includegraphics[width=0.84\columnwidth]{figs/wf_soc_1.png}
+	\caption{SoC proc chance under windfury as a function of weapon speed, \pdodge = 0.01}
+	\label{fig:soc_wf}
+\end{figure}
+
+\newpage
+\subsection{Seal of Blood swing - no windfury}
+Seal of Blood is a simpler ability to forecast because it has no internal ICD, meaning that there is no correlation between the SoB procs, it has no spellpower coefficient, and the proc is guaranteed.
+The proc damage on a regular hit is therefore identical to the physical damage, times the $35~\%$ weapon damage scaling, and the global holy damage factor:
+\begin{equation}
+		\dsobproc(\mathrm{hit}) = \fholy 0.35  \dave
+\end{equation}
+and the corresponding damage accounting for crit chance is
+\begin{equation}
+	\dsobproc = \dsobproc(\mathrm{hit}) \times (\pcrit \dcrit + 1 - \pcrit)
+\end{equation}
+The damage for a SoB swing without windfury is therefore:
+\begin{equation}
+	\dsobswing = (1 - \pdodge) \dphys + (1-\pdodge)^2 \dsobproc
+\end{equation}
+
+\subsection{Seal of Blood swing - with windfury}
+There is only one dodge sequence for a SoB hit under windfury.
+The initial melee procs a SoB that must survive the standard two dodge rolls.
+The windfury attack if procced must also survive two dodge rolls, and its SoB proc must survive three dodge rolls.
+The damage projection for the full swing is therefore:
+\begin{equation*}
+	\begin{aligned}
+		\dsobswing =&~ (1 - \pdodge) \dphys + (1-\pdodge)^2 \dsobproc \\
+		&+ (1-\pdodge)^2 \pwf \fwf \dphys \\
+		&+ (1-\pdodge)^3 \dsobproc
 	\end{aligned}
 \end{equation*}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Twist attempt - no windfury}
+We now combine the information from swinging under blood and command to arrive at the damage projection for a twist attempt.
+The damage sequence is as follows:
+\begin{itemize}
+	\item the initial melee must survive a single dodge roll, proccing a SoB that must survive two dodge rolls
+	\item if command is procced, it must survive two dodge rolls, proccing a SoB that must survive three dodge rolls.
+\end{itemize}
+The expression is then:
+\begin{equation*}
+	\begin{aligned}
+		\dsobswing =&~ (1 - \pdodge) \dphys + (1-\pdodge)^2 \dsobproc \\
+		&+ (1-\pdodge)^2 \psoc (\dsocproc + (1-\pdodge) \dsobproc)
+	\end{aligned}
+\end{equation*}
 
-%We also know the expression for the physical portion of the damage should match our earlier derivation of the naked swing under windfury.
+\subsection{Twist attempt - with windfury}
+Windfury, as in the SoC swing case, introduces two possible chains for the damage procs:
+\begin{enumerate}
+	\item The initial melee procs both wf and SoC.
+	\item the initial melee procs wf, which in turn procs SoC.
+\end{enumerate}
+The damage projection over the first chain is:
+\begin{equation*}
+	\begin{aligned}
+		\dtwist (1) =&~ (1 - \pdodge) \dphys + (1-\pdodge)^2 \dsobproc \\
+		&+ \psoc (1-\pdodge)^2 (\dsocproc + (1-\pdodge) \dsobproc) \\
+		&+ \pwf (1-\pdodge)^2 (\fwf \dphys + (1-\pdodge)^3 \dsobproc) 
+	\end{aligned}
+\end{equation*}
+while the damage projection over the second chain is:
+\begin{equation*}
+	\begin{aligned}
+		\dtwist (2) =&~ (1 - \pdodge) \dphys + (1-\pdodge)^2 \dsobproc \\
+		&+ \pwf (1-\pdodge)^2 (\fwf \dphys + (1-\pdodge)^3 \dsobproc) \\
+		&+  \pwf \psoc (1-\pdodge)^3 (\dsocproc + (1-\pdodge) \dsobproc) \\
+	\end{aligned}
+\end{equation*}
+Combining these two mutually exclusive chains, we find:
+\begin{equation*}
+	\begin{aligned}
+		\dtwist =&~ (1 - \pdodge) \dphys + (1-\pdodge)^2 \dsobproc \\
+		&+ \psoc (1-\pdodge)^2 \left( \dsocproc + (1-\pdodge) \dsobproc \right) \\
+		&+ \psoc\pwf (1-\pdodge)^2 \left(\fwf \dphys + (1-\pdodge) \dsobproc \right) \\
+		&+ \pwf (1-\psoc) (1-\pdodge)^2 \left(\fwf \dphys + (1-\pdodge) \dsobproc \right) \\
+		&+ \pwf(1-\psoc)(1-\pdodge)^3 \left( \dsocproc + (1-\pdodge) \dsobproc \right) \\
+		=&~ (1 - \pdodge) \dphys + (1-\pdodge)^2 \dsobproc \\ 
+		&+ \pwf (1-\pdodge)^2 \left( \fwf \dphys + (1 - \pdodge) \dsobproc \right) \\ 
+		&+ \left( \psoc + \pwf(1-\psoc)(1-\pdodge) \right) \times (1-\pdodge)^2 \left( \dsocproc + (1-\pdodge)\dsobproc \right)
+	\end{aligned}
+\end{equation*}
+
 
