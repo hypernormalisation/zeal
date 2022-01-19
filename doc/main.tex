@@ -27,13 +27,14 @@
 
 \begin{document}
 	
-	\title{The Mathematics of Ret Paladin in BCC}
+	\title{The Mathematics of Ret Paladin Rotations}
 	\author{Swedge}
 	\date{\today}
 	\maketitle
 	
 	\begin{abstract}
-		This document details considerations relevant to a Burning Crusade Classic (BCC) retribution paladin's rotation and calculations for relative damage outputs of various rotations, in an attempt to help players understand paladin rotations and to ensure the rotations we use are the formally optimal ones.
+		This document describes a formulation of ret paladin rotations in BCC by considering relative damages of different options in a paladin's rotation.
+		We use this to verify the standard rotations as a function of haste, and to evaluate the optimal delays on Crusader Strike to enable imminent twists.
 	\end{abstract}
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -49,26 +50,23 @@
 	We will then define expected damage outputs as a relative fraction of weapon damage, starting with simple situations and later taking into account more complex considerations.
 	This allows us to somewhat ignore what gear the ret is using, with some notable exceptions.
 	
-	This is, of course, no substitute for a sim - but it can help theorycrafters to some extent quantify the expected damage output and value of different rotations, and perhaps to find new rotations that had been previously considered unviable.
-	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{Assumptions}
 	We make the following assumptions that generally hold in a PvE raiding scenario:
 	\begin{itemize}
 		\item the ret is lvl 70
-		\item the ret is in a raid group with an enhancement shaman casting Windfury Totem with $100~\%$ uptime
+		\item the ret is in a raid group with an enhancement shaman twisting Windfury Totem with $100~\%$ uptime
 		\item the ret is attacking a boss enemy at lvl 73
 		\item the ret's weapon skill is maxed out at 350
-		\item the ret is hit-capped, and has sufficient hit rating to remove misses from the attack table
+		\item the ret is hit-capped, i.e. has sufficient hit rating to remove misses from the attack table
 		\item the ret is hitting the target from behind, so cannot be parried
 		\item the ret is \emph{not} dodge-capped at $6.5\%$, meaning there is some finite chance for their attacks, seals, and some abilities to be dodged 
 	\end{itemize}
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\section{The BCC Combat System}
-	In this section we detail certain facets of the BCC combat system and character statistics relevant to a ret paladin's performance.
+	\section{Attack Rolls}
 	
-	\subsection{The Attack Table}
+	\subsection{The Melee Attack Table}
 	Basic attacks in TBC are determined as a single random roll on the server.
 	This means that every possible outcome for the attack is weighed together in one roll (as opposed to e.g. a multiple roll system that first evaluates the probability of an attack to
 	hit or miss, and then subsequently makes a second independent roll upon a hit to evaluate critical strike chance, glancing chance etc).
@@ -90,43 +88,60 @@
 	In our scenario, the target enemy is three levels higher than the ret and therefore glancing blows must be accounted for in the attack table.
 	Glancing blow chance cannot be reduced.
 	
+	\subsection{The Special Attack Table}
+	Any abilities that do ``yellow'' damage are considered special attacks (e.g. paladin's crusader strike, a Shaman's Stormstrike).
+	Unlike basic attacks, special attacks are calculated using multiple rolls; the first roll determines if the attack hits its target, or is avoided in some way.
+	The second roll determines if the attack is a critical hit or not.
+	Finally, if the damage done belongs to a non-physical magic school, e.g. holy, then the attack can be partially resisted by a boss level mob.
+	Special attacks cannot be glancing blows.
+	
+	\section{The GCD and ICDs}
 	\subsection{The Global Cooldown (GCD)}
 	The Global Cooldown or GCD is a period following an ability cast (and not a swing or seal hit) where no further casts are possible.
 	The base duration of the GCD is 1.5s, but it can be reduced by Spell Haste.
-	Ret paladin's commonly acquire Spell Haste through the Shaman's Bloodlust ability and the Leatherworker's Drums of Battle, which together reduce the GCD to 1.1s.
+	Ret paladin's commonly acquire Spell Haste through the Shaman's Bloodlust ability and the Leatherworker's Drums of Battle, which together reduce the GCD to around 1.1s.
 	
 	The GCD is of particular importance to a ret paladin's ability to seal twist.
-	In order to twist e.g. a SoC into a SoB, the SoC ability (which is typically not the seal at the start of the swing, favouring SoB under most scenarios) must be cast more than a GCD before the swing timer completes such that the paladin can cast the secondary seal before the swing completes and the attack is made.
+	In order to twist e.g. a SoC into a SoB, the SoC ability (which is typically not the seal at the start of the swing) must be cast more than a GCD before the swing timer completes such that the paladin can cast the secondary seal before the swing completes and the attack is made.
 	
 	We also note that the Crusader Strike ability is not a cast and does not benefit from Spell Haste, meaning the GCD following its use is \emph{always} 1.5s.
 	
 	\subsection{Internal Cooldowns (ICD)}
 	Internal Cooldowns refer to the time period where a given spell or ability cannot proc after proccing.
-	
 	The relevant ICDs to a ret paladin are:
 	\begin{itemize}
 		\item Seal of Command, which has a 1s ICD to prevent it from proccing on both an autoattack and Windfury Attack on the same swing
-		\item Windfury Attack itself, which has a very short ICD to prevent it from proccing on both an autoattack and a Seal of Command attack.
+		\item windfury attack, which has a very short ICD to prevent it from proccing on itself
 	\end{itemize}
 
+	\section{Relevant Stats}
+	In this section, we'll describe the stats relevant to the damage calculations in rotations.
+	The relevant stats are those that change the relative damage projections of ret actions relative to one another.
+	
+	A good example of this is dodge chance.
+	Large parts of a twist damage sequence must survive 2-4 dodge rolls.
+	By contrast, a CS must only survive one dodge roll.
+	Therefore, the relative damage projection of a CS vs a twist attempt is a function of the dodge chance.
+	
 	\subsection{Armor}
 	Armor is a stat that reduces the amount of physical damage received by a target.
-	All targets have an armor value, and BCC bosses typically have either 6200 or 7700 armor.
+	All targets have an armor value, and BCC bosses with few exceptions typically have either 6200 or 7700 armor.
 	The target's level also influences the amount of damage reduction that a given level of armor will provide.
 	The damage reduction formula for targets over level 60 is given as
 	\begin{equation}
 		\dr = \frac{100(\armor + 1)}{467.5 \lvl -22167.5}
 	\end{equation}
 	where \armor is the target's armor value, and \lvl is the target's level.
-	A significant proportion of a paladin's damage is physical, and so the target's armor level must be considered when evaluating rotations.
+
+	High armor targets, and lower armpen gearsets, will slightly favour rotations that twist more, and higher CS delays.	
+	
 	
 	\subsection{Spell Resistance}
-	In BCC, spells have a chance to be resisted either fully, such that the spell is nullified, and/or partially in the case of many damaging spells.
+	In BCC, spells that do non-physical school damage have a chance to be resisted either fully, such that the spell is nullified, and/or partially in the case of many damaging spells.
 	Partial resists result in the spell's damage being resisted by either $25\%$, $50\%$, or $75\%$.
 	The chance to be resisted is dependent on the level difference between the caster and the target, the caster's Spell Penetration stat, and the target's resistance to the relevant school of magic.
 	
-	Some of the ret paladin's offensive seals are partially implemented as spells that do holy damage.
-	They cannot be fully resisted, but they can be partially resisted.
+	Ret paladins seals are instances of holy damage that cannot be fully resisted, but can be partially resisted.
 	Holy is not a school of magic for which spell resistance can be acquired.
 	Therefore the chance for a seal to be partially resisted is therefore entirely dictated by the level difference between the caster and target.
 	
@@ -148,6 +163,13 @@
 			\label{tab:glancing}
 	\end{table}
 	Integrating these values gives an average damage resistance against a ret paladin's seals of $6\%$.
+	
+	This factor will slightly diminish the relative damage of a twist attempt vs a CS.
+	
+	\subsection{How to handle armor and partial resists}
+	These two effects apply uniformly to all instances of physical or seal damage a paladin can output.
+	It's therefore sufficient to apply these damage reductions as global factors to all physical and holy damage in the rotation.
+	All armor will have a scaling factor determined by the armor pen and target armor, and all seal damage will have a scaling factor of 0.94 to account for partial resists.
 
 	\subsection{Hit Rating and Hit Chance}
 	Against level 73 (or Boss level) targets, wielders of only a single weapon need a total of $9\%$ Hit Chance to never miss a target.
@@ -160,7 +182,7 @@
 		
 	\subsection{Expertise Rating and Expertise}
 	When melee attacking a target 3 levels higher, a player has a base $6.5\%$ chance to be dodged.
-	As parries can only occur when attacking the target from the front, and we attack the target from behind, parries are usually not present in the attack table.
+	As parries can only occur when attacking the target from the front, and we attack the target from behind, parries are usually not present in our attack table.
 
 	Each point of Expertise reduces the target's chance to dodge or parry an attack by $0.25\%$.
 	Expertise Rating is found on gear.
@@ -173,31 +195,40 @@
 	Human rets when using the appropriate weapon only require 82 points of Expertise Rating in order to reach 26 Expertise.
 	
 	Because Expertise Rating is relatively scarce on gear, most paladins retain some chance to be dodged even when wearing excellent or even optimal gear.
-	For instance, a non-human ret can only acquire a maximum of 95 Expertise Rating in phase two of BCC, and therefore retains a $0.5\%$ chance to be dodged.
+	A non-human ret can only acquire a maximum of 95 Expertise Rating in phase two of BCC, and therefore retains a $0.5\%$ chance to be dodged.
 	Due to Expertise typically being available on gear only in large increments, it is not optimal for human rets in phase two to run a gear setup that fully eliminates dodge chance.
-	
+	P3 bis loses Expertise across the board.
+
 	As we will cover when looking at the ret paladin's abilities later in this document, Seal spells also have a chance to be dodged.
-	Because of the chained nature of a paladin's damage rolls, ret paladin's benefit more from Expertise than any other melee class in BCC.
+	Because of the chained nature of a paladin's damage rolls, ret paladins benefit more from Expertise than any other melee class in BCC.
 	
 	\subsection{Attack Power (AP)}
 	Attack Power increases base melee damage per second by 1 point for every 14 Attack Power.
 	When considering rotations, this stat is of note because Windfury Attacks from an enhancement Shaman's Windfury Totem have a bonus to Attack Power.
-	Therefore rotations that favour twists and SoC swings will benefit \emph{very slightly} from the extra AP on those attacks because SoC can proc Windfury Attack.
+	
+	The stat, however, is actually not very relevant when considering rotations, given it scales seals, attacks, and CS uniformly.
+	It does become relevant when considering rotations that allow for more filler spells to be cast, but this effect should be marginal.
 	
 	\subsection{Critical Strike Chance}
 	Critical strike chance is the chance for an attack to critical strike.
-	It is relevant to evaluating rotations because of an interaction between the Libram of Avengement item and the Judgement of Blood ability (detailed later).
+	It is relevant to evaluating rotations because of:
+	\begin{itemize}
+		\item the interaction between the Libram of Avengement and Judgement of Blood
+		\item for basic attacks, the single-rolled nature of the attack table, which correlates crit strike with dodge
+	\end{itemize}
 		
 	\subsection{Critical Strike Damage}
 	Critical Strike Damage accounts for any improvements to the base $200\%$ critical strike damage.
 	Ret paladins without exception should use the Relentless Earthstorm Diamond as their helmet's meta gem, which provides $3~\%$ increased critical damage.
 	As such, a typical critical strike for a ret paladin will do $206\%$ of the base damage.
 	
+	As seals, attacks, and CS all benefit from the same crit strike damage bonus, this stat is only of relevance when considering Exorcism, which crits with the usual spell crit modifiers instead of melee crit.
+	
 	\subsection{Spellpower}
-	A player's Spellpower increases the damage of their spells, by a multiple of their total Spellpower multiplied by the spell's Spell Damage Coefficient.
+	A player's Spellpower increases the damage of some of their abilities, by a multiple of their total Spellpower multiplied by the spell's Spell Damage Coefficient (if it has one).
 	Spellpower can affect all schools of magic or individual schools.
-	Ret paladin's optimally do not use any gear that includes spellpower, however one of the paladin's judgement debuffs provides a flat amount of spellpower to the Holy school.
-	Some of the important abilities in ret paladin rotations have Spell Damage Coefficients, so we must include this in our calculations.
+	Outside of trash sets, rets optimally do not use any gear that includes spellpower, however one of the paladin's judgement debuffs provides a flat amount of spellpower to the Holy school.
+	Some of the important abilities in ret rotations have Spell Damage Coefficients, so we must include this in our calculations.
 	The spell coefficients for the spells relevant to a ret paladin's rotation are provided in Table \ref{tab:spellcoefficients}.
 	
 	\begin{table}[htb]
@@ -215,17 +246,17 @@
 		\caption{Spellpower Coefficients relevant to a ret paladin.}		
 		\label{tab:spellcoefficients}
 	\end{table}
+
+	\subsection{Haste and Haste Rating}
+	
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{Ret Abilities}
 	We will now detail the most important abilities to a ret's rotation.
 
 	\subsection{Autoattacks and Windfury Attacks}
-	The plurality of a ret's damage output comes from autoattack damage and Windfury Attacks.
-	A shaman's Windfury Totem has a short internal cooldown, that prevents a melee attack and a SoC attack (detailed later) from proccing on the same swing.
-	As our hypothetical ret is hit-capped, misses are removed from the attack table, but they are
-	not dodge-capped, so dodges will still be present in accordance with the ret's expertise stat.
-	Autoattacks and Windfury Attacks can both, of course, be dodged.
+	The largest portion of a ret's damage output comes from autoattacks and Windfury Attacks.
+	As our hypothetical ret is hit-capped, misses are removed from the attack table, but they are not dodge-capped, so dodges will still be present in accordance with the ret's expertise stat.
 	
 	Windfury Attacks get a bonus to AP, so they are more damaging than regular attacks by a constant damage factor.
 	This means that as the ret's total amount of AP goes up, the difference in the average damage between a regular attack and a windfury attack goes down.
@@ -240,11 +271,6 @@
 	\end{equation}
 	
 	\subsection{Seals and Judgements}
-	Seals are 30s duration buffs the paladin casts on themselves.
-	The effect of a seal can be expended by using the Judgement ability to produce a damaging action or to cast a debuff on the target.
-	Judgement is notably off the GCD, meaning it can be cast while the GCD is ticking.
-	Retribution paladins do a significant portion of their damage as holy damage through offensive seals that enhance their auto-attacks.
-
 		
 	\subsubsection{Seal of Command (SoC)}
 	This ability gives the paladin a chance to do $70\%$ of their weapon damage as holy on their attack.
@@ -280,19 +306,18 @@
 		\item SoB does not linger, meaning that it can only be twisted into, and not as the first seal in a twist.
 		\item SoB is implemented as an attack that deals holy damage, and is therefore subject to the attack table and to partial resists.
 		\item SoB cannot proc SoC or Windfury Attack.
-		\item it can be procced by SoC, resulting in three instances of SoB damage in a windfury twist.
 	\end{itemize}
  	
 	\subsubsection{Judgement of Blood}
 	When the ret has SoB active, the Judgement ability will deal 295 to 325 Holy damage at the cost of health equal to $33 \%$ of the damage caused.
-	The best Libram for rets in TBC is available starting in phase 1, the Libram of Avengement (see \figref{fig:loa}).
-	\begin{figure}[ht] 
-		\centering \includegraphics[width=0.44\columnwidth]{figs/libram_of_avengement.png}
-		\caption{The Libram of Avengement}
-		\label{fig:loa}
-	\end{figure}
-	This libram causes several judgements, including Judgement of Blood, to increase the ret paladin's critical strike rating by 53 for 5 seconds.
-	As such, any rotations that provide the ret time to judge blood will affect the expected damage of the ret's attacks and seals for a subsequent 5 seconds, and critical strike chance must be included in any rigorous damage projections.
+%	The best Libram for rets in TBC is available starting in phase 1, the Libram of Avengement (see \figref{fig:loa}).
+%	\begin{figure}[ht] 
+%		\centering \includegraphics[width=0.44\columnwidth]{figs/libram_of_avengement.png}
+%		\caption{The Libram of Avengement}
+%		\label{fig:loa}
+%	\end{figure}
+	The Libram of Avengement causes several judgements, including Judgement of Blood, to give a buff called Justice, increasing the ret's critical strike rating by 53 for 5 seconds.
+	Justice uptime varies significantly between different rotations, so should be accounted for.
 	
 	\subsection{Crusader Strike (CS)}
 	CS is an instant cast strike that deals $110 \%$ weapon damage to the target, and refreshes all judgements on the target.
@@ -310,39 +335,19 @@
 	
 	
 	\subsection{Judgement of the Crusader}
-	One of the paladin's seals is the Seal of the Crusader.
-	The effects of the seal are useless in PvE (outside of levelling weapon skill due to the haste on attacks) but when a properly specced ret paladin judges this seal on a target, a powerful debuff is cast.
-	By default, the judgement increases the Holy damage taken by the target (by 219 at max rank).
+	By default, this judgement increases the Holy damage taken by the target (by 219 at max rank).
 	The ret paladin also takes 3/3 of the talent Improved Seal of the Crusader, which increases the targets chance to be critically hit \emph{by all attacks} (meaning all attacks and spells) by $3~\%$.	
 	
 	\subsection{Sanctity Aura}
-	Paladins have access to a suite of passive passive party buffs called ``auras''.
-	A paladin can only have one aura active at a time, but a party with multiple paladins can benefit simultaneously from multiple auras.
-	Aura effects of the same kind do not stack.
-	
 	Without exception, ret paladin's should utilise Sanctity Aura, which gives all holy damage done by the party a $10~\%$ increase.
-	This factors into the relative weight of a ret paladin's physical and holy damage, and should be considered in considerations of rotations.
-	The talent 2/2 Improved Sanctity Aura is also taken by ret paladins, which improves the amount of damage caused by targets subject to Sanctity Aura by $2~\%$.
+	This factors into the relative weight of a ret paladin's physical and holy damage, and should be considered in the rotations.
+	2/2 Improved Sanctity Aura is also taken by ret paladins, which improves the amount of damage caused by targets subject to Sanctity Aura by $2~\%$.
 	
-	We note that the holy damage increase from Sanctity aura does not interact with the holy damage increase from Judgement of the Crusader.
+	The holy damage increase from Sanctity aura does not interact with the holy damage increase from Judgement of the Crusader.
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 	\input{damage_calcs}
-
-%	Because autoattack and seal damage are subject to different random outcomes, it is useful to define separate quantities for average physical attack damage and average holy attack damage.
-%	
-%	We then define the average physical attack damage in terms of \dave, accounting for glancing blows and crit chance:
-%	\begin{equation}
-%		\dphys = \dave (\pglance \dglance + \pcrit \dcrit + (1 - \pglance - \pcrit - \pdodge))
-%	\end{equation}
-%	where \pglance and \dglance are the probability and damage scaling of a glancing blow, \pcrit and \dcrit are the probability and damage scaling of a critical hit, and \pdodge is the chance for the attack to be dodged.
-%	Note that the above does not account for the chance for the attack to be dodged, but includes \pdodge as it affects the relative weightings of normal hits, crits, and glancing blows when the dodge outcome is not totally removed from the attack table.
-%	
-%	\todo{the above is incomplete with respect to the dodge chance, we are missing probability in the equation. need to better explain the expansion of regular hit to consume the rest of the attack table, and dodge affecting this and therefore the relative probabilities of crits, glances, and hits.}
-%	
-%
-
 
 	\appendix
 	

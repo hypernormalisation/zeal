@@ -1,39 +1,77 @@
-input{symbols}
+%input{symbols}
 
-\section{Measuring and Projecting Damage}
-Now that we have detailed BCC's combat system and its facets relevant to a ret paladin's damage output, we may now turn to the task of quantifying the projected damage of various actions a ret paladin can take.
-It is of interest to be able to compare projected damage outputs of various individual actions and rotations without having to simulate entire gear sets.
-Unfortunately, many aspects of a paladin's gear directly affect the relative effectiveness of different actions and rotations.
-These effects are often small, but can be significant.
-For example:
+\section{Projecting damages of individual actions}
+%Now that we have detailed BCC's combat system and its facets relevant to a ret paladin's damage output, we may now turn to the task of quantifying the projected damage of various actions a ret paladin can take.
+%It is of interest to be able to compare projected damage outputs of various individual actions and rotations without having to simulate entire gear sets.
+%Unfortunately, many aspects of a paladin's gear directly affect the relative effectiveness of different actions and rotations.
+%These effects are often small, but can be significant.
+%For example:
+%\begin{itemize}
+%	\item the paladin's Expertise affects the chance for their attacks to be dodged. When the dodge chance is lower, swing actions that involve many segments of damage being chained together increase in relative value to ``simpler'' swings, as a dodge breaking the damage chain is less likely to occur.
+%	\item the Libram of Avengement crit buff is \emph{relatively} more effective in gear sets that have low amounts of Critical Strike Chance, and therefore rotations that provide the ability to use judgement on cooldown rise in \emph{relative} value more for lower crit gear sets (though the effects are almost certainly very small)
+%\end{itemize}
+%It is desirable to reduce gear sets to the lowest amount of input variables possible such that these effects can be accounted for.
+
+This guide is most concerned with rotations, which means comparing different possible actions.
+As such, any global damage modifiers to a ret's damage output such as Improved Sancity Aura do not affect what is the optimal rotation.
+
+We are primarily concerned with damage modifiers that only affect a \emph{subset} of a ret's damage output.
+An example of this is Sanctity Aura itself, which increases all holy damage done by $10~\%$.
+This modifier skews actions with a high component of holy damage, like twists, to be more favourable.
+
+In this section, we will only be analysing the following actions as independent events:
 \begin{itemize}
-	\item the paladin's Expertise affects the chance for their attacks to be dodged. When the dodge chance is lower, swing actions that involve many segments of damage being chained together increase in relative value to ``simpler'' swings, as a dodge breaking the damage chain is less likely to occur.
-	\item the Libram of Avengement crit buff is \emph{relatively} more effective in gear sets that have low amounts of Critical Strike Chance, and therefore rotations that provide the ability to use judgement on cooldown rise in \emph{relative} value more for lower crit gear sets (though the effects are almost certainly very small)
+	\item autoattacks and windfury attacks
+	\item seal damage
+	\item crusader strike
 \end{itemize}
-It is desirable to reduce gear sets to the lowest amount of input variables possible such that these effects can be accounted for.
+The statistics affecting the relative damage of each of these actions are:
+\begin{itemize}
+	\item AP, given the differing normalisations of CS and the other actions
+	\item dodge chance
+	\item armor penetration and boss armor
+	\item crit strike chance (because it is correlated with dodges in autoattacks but not for seals)
+	\item the base weapon speed
+	\item the mean base weapon damage
+\end{itemize}
+With each of these variables, it is possible to evaluate the relative projected damages of each action entirely.
+Once this is done, we can then visualise the relative projected damages of these actions as functions of these variables.
 
-\subsection{Damage Projections and Correlation}
-Much of a ret paladin's damage output is already (to some extent) normalised to weapon damage.	
-Seal of Blood, Seal of Command, and Crusader Strike are all typically expressed in terms of a percentage of the paladin's weapon damage.
+\subsection{Physical and Holy global scale factors}
+
+We now define the following global scaling factors for physical and holy damage, i.e. scale factors that will apply to \emph{every instance of physical or holy damage} that is not negated by a dodge.
+For physical damage:
+\begin{equation}
+	\fphys = 1 - \frac{100(\armor - \armpen + 1)}{467.5 \lvl -22167.5}
+\end{equation}
+where \armor is the target armor, \armpen the ret's armor penetration, and \lvl the target level.
+\noindent
+For holy damage:
+\begin{equation}
+	\fholy = 0.94 \times 1.1 = 1.034
+\end{equation}
+where the first term is the average reduction from partial resists, and the latter term the damage bonus to holy abilities from Sanctity Aura.
+
+\subsection{Units of damage}
+Seal of Blood, Seal of Command, and Crusader Strike are all evaluated in terms of a percentage of the paladin's weapon damage.
 The average weapon damage of a paladin's basic autoattack is therefore a useful metric to start with.
 We first define the average weapon damage as the damage that occurs when a weapon rolls a median value on its damage range, and is a regular hit (i.e. not a crit, or a glancing blow) that is not negated (through a miss or dodge).
 \begin{equation}
-	\dave = \fimpsanc \ftwoh \fcrusade \left( \bar{\wdam} + \frac{x\ws}{14} \right)
+	\dave = \left( \bar{\wdam} + \frac{x\ws}{14} \right)
 \end{equation}
-where \fimpsanc is the scale factor from Improved Sanctity Aura, \ftwoh is the scale factor from the Two-handed Weapon Specialisation talent, \fcrusade is the scale factor from the Crusade talent (which is simply 1.0 if not fighting a humanoid, undead, demon, or elemental), $\bar{\wdam}$ is the median damage on the weapon's damage range, $x$ is the paladin's attack power, and \ws is the paladin's weapon speed.
+where $\bar{\wdam}$ is the median damage on the weapon's damage range, $x$ is the paladin's attack power, and \ws is the paladin's weapon speed.
+We note that this is not applicable to CS, which has a different scaling with attack power, but this value can be used for autoattack and seal damages.
 
-We note that when considering \emph{relative} damages of actions or rotations, global multipliers to outgoing damage like those from the Improved Sanctity Aura or Two-handed Weapon Specialisation talents are not important, because they will always cancel out in the ratio between the two choices.
-
-\subsubsection{Attacks}
+\subsection{Correlation of attacks}
 Let us first consider the damage \dauto of so-called ``white hits'', meaning a simple autoattack.
 The \dave figure is useful because it allows for all results of an attack table roll to be expressed in some multiple of \dave:
 \begin{equation}
-	\dauto = \dave \sum_n p_{\mathrm{n}} f_{\mathrm{n}}
+	\dauto = \fphys \dave \sum_n p_{\mathrm{n}} f_{\mathrm{n}}
 \end{equation}
 where the sum is over the $n$ possible outcomes for the attack roll that are left on the table (e.g. crit, dodge \ldots), with each scenario having a probability to occur $p_{\mathrm{n}}$, and a damage scaling factor for its outcome of $f_{\mathrm{n}}$ (e.g. $\fcrit = 2.06$ with an activated Relentless Earthstorm Diamond meta-gem).
 Giving these outcomes explicitly, we arrive at the expression:
 \begin{equation}
-	\dauto = \dave (\pdodge \fdodge + \pglance \fglance + \pcrit \fcrit + \phit \fhit)
+	\dauto = \fphys \dave (\pdodge \fdodge + \pglance \fglance + \pcrit \fcrit + \phit \fhit)
 \end{equation}
 where \pdodge and \fdodge are the probability and damage scaling of a dodge, and the other outcomes correspond to glances, crits, and regular hits. 
 
@@ -43,24 +81,25 @@ This expression can be simplified first by giving $\fdodge = 0$ (as dodges are n
 \end{equation}
 The expression for the projected autoattack damage then becomes:
 \begin{equation}
-	\dauto = \dave (\pglance \fglance + \pcrit \fcrit + (1 - \pdodge - \pglance - \pcrit))
+	\dauto = \fphys \dave (\pglance \fglance + \pcrit \fcrit + (1 - \pdodge - \pglance - \pcrit))
 \end{equation}
+The above expression projects the expected average damage from a simple autoattack, including outcomes where the attack is negated entirely from a dodge.
 
-The above expression projects the expected average damage from a simple autoattack.
-We note, however, that many components of a paladin's damage output \emph{proc subsequent instances of damage}, and also \emph{have internal cooldowns}.
-This means that instances of a paladin's damage output are highly \emph{correlated} with one another.
+We note, however, that many parts of a paladin's damage output \emph{proc subsequent instances of damage that are conditional on the result of the initial part}.
+In other words, a dodged attack cannot proc anything else.
+If the outcome for negated attacks is included in our standard damage unit, then damage chains get messily correlated in ways that make the calculations very difficult.
 
-Let us consider the case of the projected damage for a simple naked swing in the presence of a Windfury Totem.
-The chance for the first attack to glance or crit is independent from the Windfury attack, but if the first attack is \emph{dodged}, then any possible Windfury attack is also fully negated.
-In this way, dodge \emph{correlates} the two attacks, meaning that we cannot naively combine instances of $d$ when considering the sequence of damage because the probability for a dodge is encoded into $d$.
-It is therefore advantageous to formulate an expression for the projected physical damage of an attack \emph{independently of the chance for it to be dodged}.
+Take windfury as an example.
+It's not possible to say that the expected damage under windfury is therefore just an extra $20\%$ of \dauto because the expression for \dauto includes the chance for the attacks to be dodged - and if the first attack is dodged, the windfury attack never occurs.
 
+\subsection{Fixing this problem}
+We therefore want to derive an expression for the projected physical damage of an attack \emph{independently of the chance for it to be dodged}.
 This is complicated by \pdodge affecting the relative magnitudes of \phit, \pglance, and \pcrit arising from the use of a single-roll attack table.
 Therefore even when deriving an expression that describes only the case when the attack is \emph{not dodged}, we still expect to see \pdodge as a relevant factor.
 
 We therefore define \dphys as the \emph{average damage from an attack that connects with the enemy}, i.e. is not dodged.
 \begin{equation}
-	\dphys = \dave \frac{(\pglance \fglance + \pcrit \fcrit + (1 - \pglance - \pdodge - \pcrit)}{1 - \pdodge}
+	\dphys = \fphys \dave \frac{(\pglance \fglance + \pcrit \fcrit + (1 - \pglance - \pdodge - \pcrit)}{1 - \pdodge}
 \end{equation}
 
 Note that despite the presence of two \pdodge terms, the average damage is projected \emph{only onto scenarios in which the attack connects and is not negated}.
@@ -70,13 +109,12 @@ We also see the well-established concept of a maximum limit below 1.0 on critica
 \end{equation}
 As glance and dodge have higher \emph{precedence} than crit, it can never push them off the attack table.
 As such, any crit probability above $1 - \pglance - \pdodge$ will be ignored.
-This concept is more significant (and more usually encountered) when considering dual-wielding classes and miss chance, but in our example we are assuming a hit-capped ret paladin with a two-handed weapon and can neglect misses.
 
 \subsubsection{An Example Calculation with Windfury Attack}
 To see why this formulation is useful, let us now derive the projected damage in the case of a naked windfury swing in these terms.
-The typical values for the above for a sensibly-geared ret paladin hitting a Boss level enemy correspond to $\pglance = 0.24$, $\fglance = 0.75$, $\fcrit = 2.06$, with a probability of proccing Windfury $\pwf = 0.2$.
+%The typical raiding values for the above correspond to $\pglance = 0.24$, $\fglance = 0.75$, $\fcrit = 2.06$, with a probability of proccing Windfury $\pwf = 0.2$.
 
-We must also consider that the windfury attack has an amount of bonus attack power, that depends on the rank of the Windfury Totem and the Shaman's talents.
+To be exact, we must consider that the windfury attack has an amount of bonus attack power, that depends on the rank of the Windfury Totem and the Shaman's talents.
 If the ret paladin's attack power is $x$ and the bonus attack power on the Windfury Attack is $y$, the $\dave(\mathrm{wf})$ on the Windfury attack can be expressed as a fraction of the autoattack's \dave as:
 \begin{equation*}
 	\begin{aligned}
@@ -93,28 +131,36 @@ which is the relative damage of a Windfury hit (with bonus Windfury attack power
 The projected damage of a naked hit with Windfury active and a non-zero \pdodge is then:
 \begin{equation*}
 	\begin{aligned}
-		d_\mathrm{wf} &= (1 - \pdodge) \dphys + (1 - \pdodge) (1 - \pdodge) \pwf \fwf \dphys\\
-		&= (1 - \pdodge) \dphys + (1 - 2\pdodge + \pdodge^2) \pwf \fwf \dphys \\
-		&= \dphys(1 - \pdodge + \pwf\fwf(1 - 2\pdodge + \pdodge^2))
+		d_\mathrm{wf} &= (1 - \pdodge) \dphys + (1 - \pdodge)^2 \pwf \fwf \dphys\\
+		&= (1 - \pdodge) \dphys + (1 - \pdodge)^2 \pwf \fwf \dphys \\
+				&= \dphys(1 - \pdodge + \pwf\fwf(1 -\pdodge)^2) \\
 	\end{aligned}
 \end{equation*}
-In the limit that the paladin's attack power $x$ is very high, such the bonus attack power $y$ on their windfury attack becomes negligible and \fwf tends to 1, we find
+In the limit that the paladin's attack power $x$ is very high, such the bonus attack power $y$ on their windfury attack becomes negligible and \fwf tends towards 1, we find
 \begin{equation*}
 	\begin{aligned}
-		d_\mathrm{wf}  &= \dphys(1 - \pdodge + \pwf(1 - 2\pdodge + \pdodge^2))
+		d_\mathrm{wf}  &= \dphys(1 - \pdodge + \pwf(1 -\pdodge)^2)
 	\end{aligned}
 \end{equation*}
 This equation is expressed entirely in terms of our \dphys variable, the dodge chance, and the Windfury proc chance.
-Because \dphys contains the chance to be dodged as a term, it correlates with the critical strike chance.
-This has some slightly counter-intuitive effects:
+With this equation, you can plug in some values for the ret's gear and determine exactly how much their naked autoattacks benefit from windfury as a percent.
+
+
+\subsubsection{Quick aside: single attack table weirdness}
+This all has some slightly counter-intuitive effects:
 \begin{itemize}
 	\item Low Expertise gear sets do slightly more damage on average when they hit, do less overall damage on average from being dodged more, and benefit disproportionately from Critical Strike Chance.
 	\item Low Expertise gear sets do slightly less damage on average when they hit, do more overall damage on average from being dodged less, and benefit slightly less from Critical Strike Chance than low Expertise gear sets.
 \end{itemize}
-We provide some example calculations for varying dodge and crit strike chances in \tabref{tab:wfautos}, where we also evaluate the relative benefit of moving from $\pcrit = 0.1$ to $\pcrit = 0.4$ on autoattacking under Windfury.
+Ultimately because of the construction of the single-roll attack table, this makes sense.
+Crits are independent of negations like miss or dodge, so regardless of your dodge chance (provided you are not near the crit cap) you will crit on average the same number of swings with a given crit chance.
+
+We provide in \tabref{tab:wfautos} some example calculations of windfury damage for three different dodge chance scenarios, in each calculating the projected damage of a set with $10\%$ crit and one with $40\%$ crit.
+For each scenario, we can see that the relative benefit of moving to a higher crit value changes as a function of the dodge chance, again due to quirks in the single-roll attack table.
 
 \begin{table}[htb]
 	\centering
+%	\title{Windfury attacks w.r.t. crit and dodge chance}
 	\begin{tabular}{ r | r | r | r | r | l }
 		  \multicolumn{1}{c|}{}  & Dodge Chance & Crit Chance & Projected \dphys & Projected \dwf & Crit Benefit \\
 		\hline \hline
@@ -138,7 +184,72 @@ We provide some example calculations for varying dodge and crit strike chances i
 	\label{tab:wfautos}
 \end{table}
 
-We therefore cannot naively say that e.g. the P2 BiS Blood-Elf scenario with 24 Expertise and $\pdodge = 0.005$ is better than a no-Expertise scenario with $\pdodge = 0.065$ by a factor of $1.193005/1.109845 \approx 1.075$.
-We can only say how the relative levels of Expertise compare \emph{as a function of Critical Strike Chance}.
+Somewhat frustratingly, we cannot naively say that e.g. the P2 BiS Blood-Elf scenario with 24 Expertise and $\pdodge = 0.005$ is better than a no-Expertise scenario with $\pdodge = 0.065$ by a factor of $1.193005/1.109845 \approx 1.075$.
+We can only say how the relative levels of Expertise compare \emph{as a function of Critical Strike Chance}, even if the effect is marginal in most cases.
 
+This is also why, if you somehow manage to hit a rogue with Evasion up, it will have a very high chance of being a crit, as all the lower precedence regular hits have been pushed off the table.
+In that very fringe case, you don't benefit much from a high value of critical strike chance; even low crit chance gear sets will crit if they hit.
+
+\subsection{Seal of Command swing - no windfury}
+We now turn to projecting the damage of swinging with Seal of Command active, without windfury.
+We no longer have to worry about the single-rolled attack table given that special attacks use an independent roll to determine if the attack connects.
+We do, on the other hand, now have to worry about the differences between holy and physical damage to properly quantify the projected damage.
+
+Using the units of damage we have arrived at previously, the damage of a SoC proc on a regular hit is simply:
+\begin{equation}
+	\dsocproc(\mathrm{hit}) = 0.7 \fholy \dave 
+\end{equation}
+When we include the chance for regular hits and crits:
+\begin{equation}
+	\dsocproc = 0.7 \fholy \dave ( \pcrit \dcrit + \phit)
+\end{equation}
+We also remember the proc chance for SoC:
+\begin{equation}
+	\psoc = \frac{7 \ws}{60}
+\end{equation}
+When we combine this with the auto that must connect to proc the SoC, taking into account the relevant dodge chances, we find the following damage projection for a swing with SoC active:
+\begin{equation*}
+	\begin{aligned}
+		\dsocswing =&~ (1-\pdodge) \left( \dphys + (1 - \pdodge) \psoc \dsocproc \right) \\
+%		=& \dphys - \pdodge \dphys + (1-\pdodge) \psoc \dsocproc - \pdodge(1 - \pdodge) \psoc \dsocproc\\
+		=&~ (1 - \pdodge) \dphys + (1 - \pdodge)^2 \psoc \dsocproc\\
+		=&~ (1 - \pdodge) \dphys + (1 - 2\pdodge + \pdodge^2 ) \psoc \dsocproc\\
+	\end{aligned}
+\end{equation*}
+
+\subsection{Seal of Command swing - with windfury}
+The SoC ICD means that only one swing can proc SoC.
+If the first procs it, the second cannot, and vice-versa.
+We also find two possible damage chains that can occur:
+\begin{enumerate}
+	\item The initial melee procs \emph{both} windfury attack and SoC.
+	\item The initial melee procs \emph{only} windfury attack, which subsequently procs SoC.
+\end{enumerate}
+Each case results in a different number of dodge checks to be passed.
+In the first case the projected damage is:
+\begin{equation*}
+	\begin{aligned}
+		\dsocswing (1) =&~ (1-\pdodge) \dphys + (1-\pdodge)^2 \psoc\dsocproc + (1-\pdodge)^2 \pwf \fwf \dphys\\
+	\end{aligned}
+\end{equation*}
+In the second case the projected damage is:
+\begin{equation*}
+	\begin{aligned}
+		\dsocswing (2) =&~ (1-\pdodge) \dphys + (1-\pdodge)^2 \pwf \fwf \dphys + \pwf (1-\pdodge)^3 \psoc\dsocproc\\
+	\end{aligned}
+\end{equation*}
+These cases are both mutually exclusive. Projecting over them both we find:
+\begin{equation*}
+	\begin{aligned}
+		\dsocswing =&~ (1-\pdodge) \dphys + (1-\pdodge)^2 \pwf \fwf \dphys \\
+		&+ (1-\pdodge)^2 \psoc\dsocproc \\
+		&+ (1-\psoc)(1-\pdodge)^3 \pwf \psoc \dsocproc \\
+		=&~  \dphys(1 - \pdodge + \pwf\fwf(1 -\pdodge)^2 \\
+		&+ (1-\pdodge)^2 (1+\pwf(1-\pdodge)(1-\psoc)) \psoc\dsocproc 
+	\end{aligned}
+\end{equation*}
+
+
+
+%We also know the expression for the physical portion of the damage should match our earlier derivation of the naked swing under windfury.
 
