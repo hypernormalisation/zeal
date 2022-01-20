@@ -1,6 +1,8 @@
 %input{symbols}
 
 \section{Projecting damages of individual actions}
+Given all the relevant factors in a damage calculation, it is possible to express the average damage of an ability or action.
+In this section, we'll derive expressions that give the average damage, or projected damage, of various actions a ret can perform.
 %Now that we have detailed BCC's combat system and its facets relevant to a ret paladin's damage output, we may now turn to the task of quantifying the projected damage of various actions a ret paladin can take.
 %It is of interest to be able to compare projected damage outputs of various individual actions and rotations without having to simulate entire gear sets.
 %Unfortunately, many aspects of a paladin's gear directly affect the relative effectiveness of different actions and rotations.
@@ -12,22 +14,24 @@
 %\end{itemize}
 %It is desirable to reduce gear sets to the lowest amount of input variables possible such that these effects can be accounted for.
 
-This guide is most concerned with rotations, which means comparing different possible actions.
-As such, any global damage modifiers to a ret's damage output such as Improved Sancity Aura do not affect what is the optimal rotation.
+\subsection{Relative damages}
+When figuring out what the best option for a ret's rotation, it is not always strictly necessary to include the full damage calculation.
+Let us consider the case of evaluating how riding blood and command for a swing compare to one another.
+Both benefit equally from any global modifiers to a paladin's damage, e.g. $2~\%$ from the Improved Sanctity Aura talent.
+They also benefit equally from the $6~\%$ damage modifier to damage dealt with two-handed weapons from the Two-Handed Weapon Specialisation talent.
+We therefore do not need to include these damage scaling factors when comparing riding SoC to SoB.
 
-We are primarily concerned with damage modifiers that only affect a \emph{subset} of a ret's damage output.
-An example of this is Sanctity Aura itself, which increases all holy damage done by $10~\%$.
-This modifier skews actions with a high component of holy damage, like twists, to be more favourable.
-
+An example of a relevant damage factor is Sanctity Aura itself, which increases all holy damage done by $10~\%$.
+If swinging SoB and SoC have a different average amounts of holy damage (spoiler: they do) then sanctity aura affects the relative worth of riding SoC vs SoB.
 In this section, we will only be analysing the following actions as independent events:
 \begin{itemize}
 	\item autoattacks and windfury attacks
-	\item seal damage
+	\item seal damage, including twists
 	\item crusader strike
 \end{itemize}
 The statistics affecting the relative damage of each of these actions are:
 \begin{itemize}
-	\item AP, given the differing normalisations of CS and the other actions
+	\item total attack AP, given the differing normalisations of CS and the other actions, and the bonus AP scaling on windfury attacks
 	\item dodge chance
 	\item armor penetration and boss armor
 	\item crit strike chance (because it is correlated with dodges in autoattacks but not for seals)
@@ -35,10 +39,8 @@ The statistics affecting the relative damage of each of these actions are:
 	\item the mean base weapon damage
 \end{itemize}
 With each of these variables, it is possible to evaluate the relative projected damages of each action entirely.
-Once this is done, we can then visualise the relative projected damages of these actions as functions of these variables.
 
 \subsection{Physical and Holy global scale factors}
-
 We now define the following global scaling factors for physical and holy damage, i.e. scale factors that will apply to \emph{every instance of physical or holy damage} that is not negated by a dodge.
 For physical damage:
 \begin{equation}
@@ -75,7 +77,7 @@ Giving these outcomes explicitly, we arrive at the expression:
 \end{equation}
 where \pdodge and \fdodge are the probability and damage scaling of a dodge, and the other outcomes correspond to glances, crits, and regular hits. 
 
-This expression can be simplified first by giving $\fdodge = 0$ (as dodges are negated entirely), \fhit as simply 1 (as normal hits to standard damage), and then describing \phit as the difference of 1 and the probability of all other attack outcomes (given hit expands to take up the remainder of the attack table), or
+This expression can be simplified first by giving $\fdodge = 0$ (as dodges are negated entirely), \fhit as simply 1, and then describing \phit as the difference of 1 and the probability of all other attack outcomes (given hit expands to take up the remainder of the attack table), or
 \begin{equation}
 	\phit = 1 - \pglance - \pdodge - \pcrit
 \end{equation}
@@ -118,7 +120,7 @@ To be exact, we must consider that the windfury attack has an amount of bonus at
 If the ret paladin's attack power is $x$ and the bonus attack power on the Windfury Attack is $y$, the $\dave(\mathrm{wf})$ on the Windfury attack can be expressed as a fraction of the autoattack's \dave as:
 \begin{equation*}
 	\begin{aligned}
-		\frac{\dave(\mathrm{wf})}{\dave} &= \frac{\fimpsanc \ftwoh \fcrusade \left( \wdamave + \frac{(x+y)\ws}{14} \right)}{\fimpsanc \ftwoh \fcrusade \left( \bar{\wdam} + \frac{x\ws}{14} \right)} \\
+		\frac{\dave(\mathrm{wf})}{\dave} &= \frac{\wdamave + \frac{(x+y)\ws}{14}}{\bar{\wdam} + \frac{x\ws}{14}} \\
 		&= \frac{\wdamave + \frac{\ws x + \ws y}{14}}{\wdamave + \frac{\ws x}{14}}
 	\end{aligned}
 \end{equation*}
@@ -132,18 +134,11 @@ The projected damage of a naked hit with Windfury active and a non-zero \pdodge 
 \begin{equation*}
 	\begin{aligned}
 		d_\mathrm{wf} &= (1 - \pdodge) \dphys + (1 - \pdodge)^2 \pwf \fwf \dphys\\
-		&= (1 - \pdodge) \dphys + (1 - \pdodge)^2 \pwf \fwf \dphys \\
-				&= \dphys(1 - \pdodge + \pwf\fwf(1 -\pdodge)^2) \\
+				&= \dphys\left(1 - \pdodge + \pwf\fwf(1 -\pdodge)^2\right) \\
 	\end{aligned}
 \end{equation*}
-In the limit that the paladin's attack power $x$ is very high, such the bonus attack power $y$ on their windfury attack becomes negligible and \fwf tends towards 1, we find
-\begin{equation*}
-	\begin{aligned}
-		d_\mathrm{wf}  &= \dphys(1 - \pdodge + \pwf(1 -\pdodge)^2)
-	\end{aligned}
-\end{equation*}
-This equation is expressed entirely in terms of our \dphys variable, the dodge chance, and the Windfury proc chance.
-With this equation, you can plug in some values for the ret's gear and determine exactly how much their naked autoattacks benefit from windfury as a percent.
+This equation is expressed entirely in terms of our \dphys variable, the dodge chance, and the Windfury proc chance and damage scaling factor.
+With this equation, you can plug in some values for the ret's stats and determine the relative benefit of swinging with windfury up over not having it.
 
 
 \subsubsection{Quick aside: single attack table weirdness}
@@ -153,7 +148,7 @@ This all has some slightly counter-intuitive effects:
 	\item Low Expertise gear sets do slightly less damage on average when they hit, do more overall damage on average from being dodged less, and benefit slightly less from Critical Strike Chance than low Expertise gear sets.
 \end{itemize}
 Ultimately because of the construction of the single-roll attack table, this makes sense.
-Crits are independent of negations like miss or dodge, so regardless of your dodge chance (provided you are not near the crit cap) you will crit on average the same number of swings with a given crit chance.
+Crits are independent of negations like miss or dodge, so regardless of your dodge chance you will crit on average the same number of swings with a given crit chance (provided you are not near the crit cap).
 
 We provide in \tabref{tab:wfautos} some example calculations of windfury damage for three different dodge chance scenarios, in each calculating the projected damage of a set with $10\%$ crit and one with $40\%$ crit.
 For each scenario, we can see that the relative benefit of moving to a higher crit value changes as a function of the dodge chance, again due to quirks in the single-roll attack table.
@@ -199,12 +194,12 @@ Using the units of damage we have arrived at previously, the damage of a SoC pro
 \begin{equation}
 	\dsocproc(\mathrm{hit}) = \fholy \left( 0.7  \dave + \fspell (\dspell + \bspell) \right)
 \end{equation}
-where \fspell if the SoC spellpower coefficient of 0.2, \dspell is the ret's spellpower, and \bspell is the bonus spell power on the target (from abilities like JotC).
+where \fspell if the SoC spellpower coefficient of 0.2, \dspell is the ret's spellpower, and \bspell is the bonus spell power to abilities cast on the target (from abilities like JotC).
 When we include the chance for regular hits and crits (and because a successful seal attack can \emph{only} hit or crit):
 \begin{equation}
 	\dsocproc = \dsocproc(\mathrm{hit}) \times ( \pcrit \dcrit + 1 - \pcrit)
 \end{equation}
-We also remember the proc chance for SoC:
+AS a reminder, the proc chance for SoC is determined by the base weapon speed \ws:
 \begin{equation}
 	\psoc = \frac{7 \ws}{60}
 \end{equation}
@@ -214,7 +209,6 @@ When we combine this with the auto that must connect to proc the SoC, taking int
 		\dsocswing =&~ (1-\pdodge) \left( \dphys + (1 - \pdodge) \psoc \dsocproc \right) \\
 %		=& \dphys - \pdodge \dphys + (1-\pdodge) \psoc \dsocproc - \pdodge(1 - \pdodge) \psoc \dsocproc\\
 		=&~ (1 - \pdodge) \dphys + (1 - \pdodge)^2 \psoc \dsocproc\\
-		=&~ (1 - \pdodge) \dphys + (1 - 2\pdodge + \pdodge^2 ) \psoc \dsocproc\\
 	\end{aligned}
 \end{equation*}
 
@@ -249,7 +243,7 @@ These cases are mutually exclusive. Projecting over them both we find:
 		&+ (1-\pdodge)^2 (1+\pwf(1-\pdodge)(1-\psoc)) \psoc\dsocproc 
 	\end{aligned}
 \end{equation*}
-Note that the physical damage reduces down to the same result as for a naked swing under windfury; simply put, your attacks don't care what seal you have active, they hit all the same. We show the SoC under windfury as a function of the weapon speed in Figure \ref{fig:soc_wf} - it is very slightly nonlinear, with the proc chance increasing under windfury less at higher weapon speeds.
+Note that the physical damage reduces down to the same result as for a naked swing under windfury; simply put, your basic attacks don't care what seal you have active, they hit all the same. We show the SoC under windfury as a function of the weapon speed in Figure \ref{fig:soc_wf} - it is very slightly nonlinear, with the proc chance increasing under windfury less at higher weapon speeds.
 
 \begin{figure}[ht] 
 	\centering \includegraphics[width=0.84\columnwidth]{figs/wf_soc_1.png}
@@ -274,15 +268,13 @@ The damage for a SoB swing without windfury is therefore:
 \end{equation}
 
 \subsection{Seal of Blood swing - with windfury}
-There is only one dodge sequence for a SoB hit under windfury.
-The initial melee procs a SoB that must survive the standard two dodge rolls.
+There is only one damage sequence for a SoB hit under windfury: the initial melee procs a SoB that must survive the standard two dodge rolls.
 The windfury attack if procced must also survive two dodge rolls, and its SoB proc must survive three dodge rolls.
 The damage projection for the full swing is therefore:
 \begin{equation*}
 	\begin{aligned}
 		\dsobswing =&~ (1 - \pdodge) \dphys + (1-\pdodge)^2 \dsobproc \\
-		&+ (1-\pdodge)^2 \pwf \fwf \dphys \\
-		&+ (1-\pdodge)^3 \dsobproc
+		&+ \pwf \left( (1-\pdodge)^2 \fwf \dphys + (1-\pdodge)^3 \dsobproc \right)
 	\end{aligned}
 \end{equation*}
 
@@ -299,7 +291,7 @@ The expression is then:
 \begin{equation*}
 	\begin{aligned}
 		\dsobswing =&~ (1 - \pdodge) \dphys + (1-\pdodge)^2 \dsobproc \\
-		&+ (1-\pdodge)^2 \psoc (\dsocproc + (1-\pdodge) \dsobproc)
+		&+  \psoc  \left( (1-\pdodge)^2\dsocproc + (1-\pdodge)^3 \dsobproc \right)
 	\end{aligned}
 \end{equation*}
 
@@ -325,7 +317,7 @@ while the damage projection over the second chain is:
 		&+  \pwf \psoc (1-\pdodge)^3 (\dsocproc + (1-\pdodge) \dsobproc) \\
 	\end{aligned}
 \end{equation*}
-Combining these two mutually exclusive chains, we find:
+Combining these two mutually exclusive chains, we find the projected damage for a windfury twist attempt:
 \begin{equation*}
 	\begin{aligned}
 		\dtwist =&~ (1 - \pdodge) \dphys + (1-\pdodge)^2 \dsobproc \\
@@ -334,8 +326,8 @@ Combining these two mutually exclusive chains, we find:
 		&+ \pwf (1-\psoc) (1-\pdodge)^2 \left(\fwf \dphys + (1-\pdodge) \dsobproc \right) \\
 		&+ \pwf(1-\psoc)(1-\pdodge)^3 \left( \dsocproc + (1-\pdodge) \dsobproc \right) \\
 		=&~ (1 - \pdodge) \dphys + (1-\pdodge)^2 \dsobproc \\ 
-		&+ \pwf (1-\pdodge)^2 \left( \fwf \dphys + (1 - \pdodge) \dsobproc \right) \\ 
-		&+ \left( \psoc + \pwf(1-\psoc)(1-\pdodge) \right) \times (1-\pdodge)^2 \left( \dsocproc + (1-\pdodge)\dsobproc \right)
+		&+ (1-\pdodge)^2 \pwf \left( \fwf \dphys + (1 - \pdodge) \dsobproc \right) \\ 
+		&+ (1-\pdodge)^2  \left( \psoc + (1-\pdodge)(1-\psoc)\pwf \right) \times \left( \dsocproc + (1-\pdodge)\dsobproc \right)
 	\end{aligned}
 \end{equation*}
 
