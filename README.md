@@ -1,3 +1,3 @@
-# retator
-Sim to explore optimal retribution paladin rotations wrt haste
+# zeal
+Tools and docs for TBC ret paladin calcs
 
