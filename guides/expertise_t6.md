@@ -25,7 +25,7 @@ For all races:
 - If Shat legs give you 5 Expertise, Murderous Intent and Bloodwarders are better.
 - If Shat legs give you 6 Expertise, they are better than Murderous Intent and Bloodwarders.
 
-For humans:
+Additionally, for humans:
 - If Shat legs take you over your Expertise cap when using a mace/sword, you wear Murderous Intent or Bloodwarders.
 
 If you want to understand how you can determine how much Expertise the rating is giving you, you can read on.
