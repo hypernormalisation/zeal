@@ -43,27 +43,18 @@ Each point of Expertise you have reduces your 6.5% chance to be dodged on a boss
 import math
 
 ​
-
 def print_expertise_info(rating, human=False):
 
     """Print info on a player's expertise and dodge chance."""
-
     expertise_unrounded = rating/3.9
-
     expertise = math.floor(expertise_unrounded)  # rounds down to nearest integer
 
     print(f'Total rating = {rating}')
-
     print(f'Unrounded Expertise = {expertise_unrounded}')
-
     print(f'Expertise gained = {expertise}')
-
     if human:
-
         expertise += 5
-
     print(f'Chance to be dodged = {6.5 - expertise*0.25}%')
-
 ​
 
 # shat (22 rating) + shapeshifters (20) + searing grip (18)
