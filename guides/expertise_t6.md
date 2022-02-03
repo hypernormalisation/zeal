@@ -21,7 +21,7 @@ Bow-stitched are your BiS on high-armor bosses, Divine Retribution are your BiS 
 
 ### What about Murderous Intent/Bloodwarders compared to Shattrath Legs?
 
-That to some extent depends. For all races:
+For all races:
 - If Shat legs give you 5 Expertise, Murderous Intent and Bloodwarders are better.
 - If Shat legs give you 6 Expertise, they are better than Murderous Intent and Bloodwarders.
 
