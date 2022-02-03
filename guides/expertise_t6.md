@@ -28,7 +28,7 @@ For all races:
 Additionally, for humans:
 - If Shat legs take you over your Expertise cap when using a mace/sword, you wear Murderous Intent or Bloodwarders.
 
-If you want to understand how you can determine how much Expertise the rating is giving you, you can read on.
+If you want to calculate how much Expertise the Expertise Rating on your gear is giving you, you can read on.
 
 ## Expertise and Expertise Rating
 
