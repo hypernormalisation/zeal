@@ -44,7 +44,6 @@ import math
 
 ​
 def print_expertise_info(rating, human=False):
-
     """Print info on a player's expertise and dodge chance."""
     expertise_unrounded = rating/3.9
     expertise = math.floor(expertise_unrounded)  # rounds down to nearest integer
@@ -58,9 +57,7 @@ def print_expertise_info(rating, human=False):
 ​
 
 # shat (22 rating) + shapeshifters (20) + searing grip (18)
-
 my_rating = 22 + 20 + 18
-
 print_expertise_info(my_rating)
 ```
 
