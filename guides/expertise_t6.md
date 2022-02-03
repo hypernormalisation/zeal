@@ -237,7 +237,7 @@ HOWEVER: the effect is very marginal. Increasing returns only become strongly vi
 ## What does this mean for gearing?
 
 Because the increasing returns on Expertise are incredibly marginal, to a rough approximation:
-- your other expertise doesn't matter for increasing returns on expertise
+- your other gear doesn't matter for increasing returns on expertise
 - your other gear *does* matter for determining how much Expertise your rating will round down to.
 
 ## But Swedge, when can I take off my Shat legs?
