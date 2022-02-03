@@ -1,5 +1,4 @@
 # Expertise Legs in T5/T6
-Summary:
 
 ## I have Clefthoof Legs, when do I drop them?
 If you have Clefthoof and no access to Shat, get rid of Clefthoof *regardless of race or your other gear* as soon as you have either:
