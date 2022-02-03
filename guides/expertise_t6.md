@@ -1,20 +1,43 @@
-# Expertise in T6
+# Expertise Legs in T5/T6
 
 ## The tl;dr
+### T6
 
 *Regardless of your race or other gear you can get rid of Shattrath Leggings/Clefthoof Hide Leggings as soon as you get any of the following*:
 
 - Leggings of Divine Retribution
 - Bow-stitched Leggings
 - Legguards of Endless Rage
+- (probably, not simmed) T6 legs
 
-(For Endless Rage, although this is barely an upgrade, it is an upgrade especially if you can now use Glyph of the Outcast instead of Glyph of Ferocity as your leg enchant.)
+(For Endless Rage/T6, although this is barely an upgrade, it is still an upgrade - especially if you can now use Glyph of the Outcast instead of Glyph of Ferocity as your leg enchant.)
 
 Bow-stitched are your BiS on high-armor bosses, Divine Retribution are your BiS on low-armor bosses.
 
-If you want to understand this more fully, you can read on.
+### T5 - nonhuman
+
+*Shat Legs and Clefthoof Legs are BiS or within a few dps of being BiS at all points of gearing*.
+
+There are points when gearing up that Shat/Cleft will be slightly lower than murderous intent because of Expertise Rating breakpoints, but not by much, and the P2 BiS setup still uses Shat.
+
+If you get 5 Expertise out of Shat, you can wear Bloodwarders/Murderous Intent.
+
+### T5 - human
+
+*Shat Legs and Clefthoof Legs are BiS or within a few dps of being BiS until you hit Expertise cap, at which point Murderous Intent is your BiS.*
+
+There are points when gearing up that Shat/Cleft will be slightly lower than murderous intent because of Expertise Rating breakpoints, but not by much.
+
+If you get 5 Expertise out of Shat, you can wear Bloodwarders/Murderous Intent.
+
+If Shat/Cleft brings you over your Expertise cap, you should wear Bloodwarders/Murderous Intent.
+
 
 ---
+
+If you want to understand this more fully, you can read on.
+
+
 ## Expertise and Expertise Rating
 
 Each point of Expertise you have reduces your 6.5% chance to be dodged on a boss-lvl mob by 0.25%. Each point of Expertise rating on gear converts to Expertise at a 3.9:1 ratio.
