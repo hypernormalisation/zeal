@@ -1,7 +1,8 @@
 # Expertise Legs in T5/T6
 
 ## The tl;dr
-### T6
+
+### T6 - all races
 
 *Regardless of your race or other gear you can get rid of Shattrath Leggings/Clefthoof Hide Leggings as soon as you get any of the following*:
 
@@ -14,21 +15,27 @@
 
 Bow-stitched are your BiS on high-armor bosses, Divine Retribution are your BiS on low-armor bosses.
 
+---
 ### T5 - nonhuman
 
-*Shat Legs and Clefthoof Legs are BiS or within a few dps of being BiS at all points of gearing*.
+*Shat Legs (or if you don't have them, Clefthoof Legs) are BiS or within a few dps of being BiS at all points of gearing*.
 
 There are points when gearing up that Shat/Cleft will be slightly lower than murderous intent because of Expertise Rating breakpoints, but not by much, and the P2 BiS setup still uses Shat.
 
-If you get 5 Expertise out of Shat, you can wear Bloodwarders/Murderous Intent.
+For Shat:
+- If you get 5 Expertise out of Shat, you can wear Bloodwarders/Murderous Intent.
+- If you get 6 Expertise out of Shat, you wear Shat.
 
+---
 ### T5 - human
 
-*Shat Legs and Clefthoof Legs are BiS or within a few dps of being BiS until you hit Expertise cap, at which point Murderous Intent is your BiS.*
+*Shat Legs (or if you don't have them, Clefthoof Legs) Legs are BiS or within a few dps of being BiS until you hit Expertise cap, at which point Murderous Intent is your BiS.*
 
 There are points when gearing up that Shat/Cleft will be slightly lower than murderous intent because of Expertise Rating breakpoints, but not by much.
 
-If you get 5 Expertise out of Shat, you can wear Bloodwarders/Murderous Intent.
+For Shat:
+- If you get 5 Expertise out of Shat, you can wear Bloodwarders/Murderous Intent.
+- If you get 6 Expertise out of Shat, you wear Shat.
 
 If Shat/Cleft brings you over your Expertise cap, you should wear Bloodwarders/Murderous Intent.
 
