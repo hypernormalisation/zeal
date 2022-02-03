@@ -15,7 +15,7 @@ If you have Clefthoof and no access to Shat, get rid of Clefthoof *regardless of
 - Legguards of Endless Rage
 - T6 legs
 
-(For Endless Rage/T6, although this is barely an upgrade, it is still an upgrade - especially if you can now use Glyph of the Outcast instead of Glyph of Ferocity as your leg enchant.)
+(For Endless Rage/T6, although this is barely an upgrade, it is still an upgrade - especially if you can now use Glyph of the Outcast instead of Glyph of Ferocity as your head enchant.)
 
 Bow-stitched are your BiS on high-armor bosses, Divine Retribution are your BiS on low-armor bosses.
 
