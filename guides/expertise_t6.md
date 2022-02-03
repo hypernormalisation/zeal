@@ -227,7 +227,7 @@ Outputs:
 
 ![dodge_chains_4.png](figs/dodge_rolls_4.png)
 
-You can see that as we add more and more rolls, the graph displays increasing diminishing returns.
+You can see that as we add more and more rolls, the graph displays increasingly obvious increasing returns.
 
 HOWEVER: the effect is very marginal. Increasing returns only become strongly visible at 4 dodge rolls, and in PvE the only time you have to worry about 4 dodge rolls is for the final SoB hit in about half of your windfury twists (in the other half this SoB proc only needs to survive 3 dodge rolls).
 
