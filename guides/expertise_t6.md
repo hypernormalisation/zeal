@@ -19,8 +19,7 @@ If you have Clefthoof and no access to Shat, get rid of Clefthoof *regardless of
 
 Bow-stitched are your BiS on high-armor bosses, Divine Retribution are your BiS on low-armor bosses.
 
----
-## What about Murderous Intent/Bloodwarders compared to Shattrath Legs?
+### What about Murderous Intent/Bloodwarders compared to Shattrath Legs?
 
 That to some extent depends. For all races:
 - If Shat legs give you 5 Expertise, Murderous Intent and Bloodwarders are better.
