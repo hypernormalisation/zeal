@@ -176,41 +176,47 @@ class CombatAnalyser:
         return self.player.global_dmg_factor * self.target.global_dmg_factor
 
     ###########################################################################################
-    # Properties for physical weapon damages
+    # Properties for physical damages
     ###########################################################################################
     @property
     def d_ave(self):
-        """Return the average damage of the weapon swing."""
-        return self.player.median_weapon_dmg + self.player.weapon.speed * self.final_ap / 14.0
+        """Return the average damage of a weapon standard hit."""
+        return (self.player.median_weapon_dmg + self.player.weapon.speed * self.final_ap / 14.0) * \
+            self.phys_dmg_scale_factor * self.global_dmg_factor
 
     @property
     def autoattack_outcomes_factor(self):
-        """Returns the average damage of a non-negated autoattack accounting for glance, crit."""
+        """Returns the damage scale factor for non-negated autoattacks accounting for glance, crit etc."""
         return (zeal.data.p_glance * zeal.data.d_glance + self.player.crit_dmg_factor * self.final_crit_chance
                 + (1 - zeal.data.p_glance - self.player.dodge_chance - self.final_crit_chance)
                 ) / (1 - self.player.dodge_chance)
 
     @property
     def d_phys(self):
-        return self.autoattack_outcomes_factor * self.phys_dmg_scale_factor * self.d_ave * self.global_dmg_factor
+        """Returns the average weapon damage accounting for hits, crits, glances, dodges."""
+        return self.autoattack_outcomes_factor * self.d_ave
 
     @property
     def wf_d_ave(self):
-        return self.player.median_weapon_dmg + self.player.weapon.speed * (self.final_ap+self.player.bonus_wf_ap) / 14.0
+        """Returns the average damage of a windfury attack standard hit."""
+        return (self.player.median_weapon_dmg + self.player.weapon.speed * (self.final_ap + self.player.bonus_wf_ap)
+                / 14.0) * self.phys_dmg_scale_factor * self.global_dmg_factor
 
     @property
     def wf_d_phys(self):
-        return self.autoattack_outcomes_factor * self.phys_dmg_scale_factor * self.wf_d_ave * self.global_dmg_factor
+        """Returns the average damage of a windfury attack accounting for hits, crits, glances, dodges."""
+        return self.autoattack_outcomes_factor * self.wf_d_ave
 
     @property
     def wf_factor(self):
-        """Returns the windfury factor."""
+        """Returns the windfury scale factor, i.e. the dmg ratio of a windfury attack over a normal attack."""
         return self.wf_d_ave / self.d_ave
 
     @property
     def d_ave_crusader_strike(self):
+        """Returns the average damage of a Crusader Strike attack's standard hit."""
         return (self.player.median_weapon_dmg * 1.1 + 3.3 * self.final_ap / 14.0) * self.phys_dmg_scale_factor * \
-                    self.global_dmg_factor
+            self.global_dmg_factor
 
     @property
     def d_crusader_strike(self):
@@ -222,23 +228,28 @@ class CombatAnalyser:
     ###########################################################################################
     @property
     def special_attack_outcome_scale_factor(self):
-        """The outcome factor for seal spells, using special attack table."""
+        """The outcomes factor for seal spells, using special attack table. Only accounts for hit and crit."""
         return self.final_crit_chance * self.player.crit_dmg_factor + 1 - self.final_crit_chance
 
     @property
     def soc_proc_dmg_normal_hit(self):
-        return self.holy_dmg_scale_factor * self.global_dmg_factor * (0.7 * self.d_ave + 0.2 * self.final_holy_spell_dmg)
+        """Returns the average damage of a SoC proc on a regular hit."""
+        return self.holy_dmg_scale_factor * self.global_dmg_factor * (0.7 * self.d_ave + 0.2 *
+                                                                      self.final_holy_spell_dmg)
 
     @property
     def soc_proc_dmg(self):
+        """Returns the average damage of a SoC proc for all non-negated outcomes."""
         return self.special_attack_outcome_scale_factor * self.soc_proc_dmg_normal_hit
 
     @property
     def sob_proc_dmg_normal_hit(self):
+        """Returns the average damage of a SoB proc on a regular hit."""
         return self.holy_dmg_scale_factor * self.global_dmg_factor * 0.35 * self.d_ave
 
     @property
     def sob_proc_dmg(self):
+        """Returns the average damage of a SoB proc for all non-negated outcomes."""
         return self.special_attack_outcome_scale_factor * self.sob_proc_dmg_normal_hit
 
     ###########################################################################################
