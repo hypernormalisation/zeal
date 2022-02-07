@@ -26,19 +26,34 @@ class Weapon:
     def soc_proc_chance(self):
         return 7 * self.speed / 60
 
+    @property
+    def median_weapon_dmg(self):
+        return (self.max_dmg + self.min_dmg) / 2.0
+
 
 class Player:
     """Class to contain player info."""
     weapon: Weapon
     expertise: int
     ap: float
+    arm_pen: int
+    crit_chance: float
+    crit_dmg_factor: float
+    bonus_wf_ap: float
 
-    def __init__(self, expertise=18, ap=2000,
-                 crit_chance=0.3,
-                 weapon=None):
+    two_hand_spec_factor = 1.06
+    improved_sanctity_aura_factor = 1.02
+
+    def __init__(self, expertise=18, ap=3000, arm_pen=0,
+                 crit_chance=0.3, crit_dmg_factor=2.06,
+                 weapon=None,
+                 bonus_wf_ap=511.75):
         self.expertise = expertise
         self.ap = ap
         self.crit_chance = crit_chance
+        self.crit_dmg_factor = crit_dmg_factor
+        self.bonus_wf_ap = bonus_wf_ap
+        self.arm_pen = arm_pen
 
         if isinstance(weapon, Weapon):
             self.weapon = weapon
@@ -53,6 +68,135 @@ class Player:
     def soc_proc_chance(self):
         return self.weapon.soc_proc_chance
 
+    @property
+    def global_dmg_factor(self):
+        return self.two_hand_spec_factor * self.improved_sanctity_aura_factor
+
+    @property
+    def median_weapon_dmg(self):
+        return self.weapon.median_weapon_dmg
+
 
 class Target:
-    pass
+    """Class to contain target information."""
+    base_armor: int
+    affected_by_ff = True  # faerie fire
+    affected_by_imp_ea = True  # improved expose armor
+    affected_by_sunder_armor = True
+    affected_by_coe = True  # curse of recklessness
+    affected_by_crusade: bool  # is the target a humanoid, demon or undead?
+
+    expose_weakness_agi: int
+
+    def __init__(self, base_armor=6200, crusade=True, expose_weakness_agi=1200):
+        self.base_armor = base_armor
+        self.affected_by_crusade = crusade
+        self.expose_weakness_agi = expose_weakness_agi
+
+    @property
+    def bonus_ap_on_attacks(self):
+        return self.expose_weakness_agi / 4.0
+
+    @property
+    def global_dmg_factor(self):
+        factor = 1.0
+        if self.affected_by_crusade:
+            factor = factor * 1.03
+        return factor
+
+    @property
+    def modified_armor(self):
+        """Return the modified boss armor after debuffs."""
+        base = self.base_armor
+        if self.affected_by_ff:
+            base -= 610
+        if self.affected_by_coe:
+            base -= 800
+        # Only subtract sunder armor if no IEA.
+        if self.affected_by_imp_ea:
+            base -= 3075
+        elif self.affected_by_sunder_armor:
+            base -= 2600
+        return base
+
+
+class CombatAnalyser:
+    """Class to combine Player and Target information for calcs."""
+    player: Player
+    target: Target
+
+    def __init__(self, player, target):
+        self.player = player
+        self.target = target
+
+    ###########################################################################################
+    # Properties to get the final stats where player and target are both relevant.
+    ###########################################################################################
+    @property
+    def final_crit_chance(self):
+        """Return the crit chance modifies by crit suppression."""
+        return self.player.crit_chance - 0.03
+
+    @property
+    def final_armor(self):
+        """Return the final armor value to be used in the damage calc."""
+        return max(0, self.target.modified_armor - self.player.arm_pen)
+
+    @property
+    def final_ap(self):
+        return self.player.ap + self.target.bonus_ap_on_attacks
+
+    ###########################################################################################
+    # Properties for damage scaling factors.
+    ###########################################################################################
+    @property
+    def phys_dmg_scale_factor(self):
+        return 1 - ((self.final_armor + 1)/(467.5*73 - 22167.5))
+
+    @property
+    def holy_dmg_scale_factor(self):
+        return 0.94 * 1.1
+
+    @property
+    def global_dmg_factor(self):
+        return self.player.global_dmg_factor * self.target.global_dmg_factor
+
+    ###########################################################################################
+    # Properties for physical weapon damages
+    ###########################################################################################
+    @property
+    def d_ave(self):
+        """Return the average damage of the weapon swing."""
+        return self.player.median_weapon_dmg + self.player.weapon.speed * self.final_ap / 14.0
+
+    @property
+    def autoattack_outcomes_factor(self):
+        """Returns the average damage of a non-negated autoattack accounting for glance, crit."""
+        return (zeal.data.p_glance * zeal.data.d_glance + self.player.crit_dmg_factor * self.final_crit_chance
+                + (1 - zeal.data.p_glance - self.player.dodge_chance - self.final_crit_chance)
+                ) / (1 - self.player.dodge_chance)
+
+    @property
+    def d_phys(self):
+        return self.autoattack_outcomes_factor * self.phys_dmg_scale_factor * self.d_ave * self.global_dmg_factor
+
+    @property
+    def wf_d_ave(self):
+        return self.player.median_weapon_dmg + self.player.weapon.speed * (self.final_ap+self.player.bonus_wf_ap) / 14.0
+
+    @property
+    def wf_d_phys(self):
+        return self.autoattack_outcomes_factor * self.phys_dmg_scale_factor * self.wf_d_ave * self.global_dmg_factor
+
+    @property
+    def wf_factor(self):
+        """Returns the windfury factor."""
+        return self.wf_d_ave / self.d_ave
+
+    ###########################################################################################
+    # Now functions to get average damage numbers.
+    ###########################################################################################
+    def get_naked_wf_swing_dmg(self):
+        p_d = self.player.dodge_chance
+        dmg = (1 - p_d) * self.d_phys + (1 - p_d)**2 * self.wf_d_phys
+        return dmg

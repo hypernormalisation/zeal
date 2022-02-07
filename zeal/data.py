@@ -19,3 +19,6 @@ weapon_stats_dict = {
     }
 
 }
+
+p_glance = 0.25
+d_glance = 0.76
