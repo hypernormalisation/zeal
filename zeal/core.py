@@ -1,4 +1,5 @@
 import zeal.data
+import zeal.data as zd
 
 
 class Weapon:
@@ -40,12 +41,13 @@ class Player:
     crit_chance: float
     crit_dmg_factor: float
     bonus_wf_ap: float
+    holy_spell_dmg = 0
 
     two_hand_spec_factor = 1.06
     improved_sanctity_aura_factor = 1.02
 
-    def __init__(self, expertise=18, ap=3000, arm_pen=0,
-                 crit_chance=0.3, crit_dmg_factor=2.06,
+    def __init__(self, expertise=18, ap=3400, arm_pen=0,
+                 crit_chance=0.35, crit_dmg_factor=2.06,
                  weapon=None,
                  bonus_wf_ap=511.75):
         self.expertise = expertise
@@ -87,6 +89,7 @@ class Target:
     affected_by_crusade: bool  # is the target a humanoid, demon or undead?
 
     expose_weakness_agi: int
+    affected_by_jotc = True
 
     def __init__(self, base_armor=6200, crusade=True, expose_weakness_agi=1200):
         self.base_armor = base_armor
@@ -96,6 +99,13 @@ class Target:
     @property
     def bonus_ap_on_attacks(self):
         return self.expose_weakness_agi / 4.0
+
+    @property
+    def bonus_holy_sp_on_attacks(self):
+        bonus_sp = 0
+        if self.affected_by_jotc:
+            bonus_sp += 219
+        return bonus_sp
 
     @property
     def global_dmg_factor(self):
@@ -146,6 +156,10 @@ class CombatAnalyser:
     def final_ap(self):
         return self.player.ap + self.target.bonus_ap_on_attacks
 
+    @property
+    def final_holy_spell_dmg(self):
+        return self.player.holy_spell_dmg + self.target.bonus_holy_sp_on_attacks
+
     ###########################################################################################
     # Properties for damage scaling factors.
     ###########################################################################################
@@ -193,10 +207,77 @@ class CombatAnalyser:
         """Returns the windfury factor."""
         return self.wf_d_ave / self.d_ave
 
+    @property
+    def d_ave_crusader_strike(self):
+        return self.player.median_weapon_dmg * 1.1 + 3.3 * self.final_ap / 14.0 * self.phys_dmg_scale_factor * \
+                    self.global_dmg_factor
+
+    @property
+    def d_crusader_strike(self):
+        """The damage of a crusader strike that is not negated."""
+        return self.special_attack_outcome_scale_factor * self.d_ave_crusader_strike
+
     ###########################################################################################
-    # Now functions to get average damage numbers.
+    # Properties for holy seal procs.
     ###########################################################################################
-    def get_naked_wf_swing_dmg(self):
+    @property
+    def special_attack_outcome_scale_factor(self):
+        """The outcome factor for seal spells, using special attack table."""
+        return self.final_crit_chance * self.player.crit_dmg_factor + 1 - self.final_crit_chance
+
+    @property
+    def soc_proc_dmg_normal_hit(self):
+        return self.holy_dmg_scale_factor * self.global_dmg_factor * (0.7 * self.d_ave + 0.2 * self.final_holy_spell_dmg)
+
+    @property
+    def soc_proc_dmg(self):
+        return self.special_attack_outcome_scale_factor * self.soc_proc_dmg_normal_hit
+
+    @property
+    def sob_proc_dmg_normal_hit(self):
+        return self.holy_dmg_scale_factor * self.global_dmg_factor * 0.35 * self.d_ave
+
+    @property
+    def sob_proc_dmg(self):
+        return self.special_attack_outcome_scale_factor * self.sob_proc_dmg_normal_hit
+
+    ###########################################################################################
+    # Functions to get average damage numbers.
+    ###########################################################################################
+    def get_naked_swing_dmg(self, wf=True):
+        """The projected damage of a naked swing with or without windfury."""
         p_d = self.player.dodge_chance
-        dmg = (1 - p_d) * self.d_phys + (1 - p_d)**2 * self.wf_d_phys
+        prob_wf = zd.p_wf if wf else 0
+        dmg = (1 - p_d) * self.d_phys + (1 - p_d)**2 * prob_wf * self.wf_d_phys
         return dmg
+
+    def get_cs_dmg(self):
+        """The projected damage of a Crusader Strike attack."""
+        return (1 - self.player.dodge_chance) * self.d_crusader_strike
+
+    def get_soc_swing_dmg(self, wf=True):
+        """The projected damage of a SoC swing with or without windfury."""
+        p_d = self.player.dodge_chance
+        p_wf = zd.p_wf if wf else 0
+        p_soc = self.player.soc_proc_chance
+        phys_dmg = (1 - p_d) * self.d_phys + (1 - p_d) ** 2 * p_wf * self.wf_d_phys
+        holy_dmg = (1 - p_d)**2 * (1 + p_wf * (1-p_d)*(1-p_soc)) * p_soc * self.soc_proc_dmg
+        return phys_dmg + holy_dmg
+
+    def get_sob_swing_dmg(self, wf=True):
+        """The projected damage of a SoB swing with or without windfury."""
+        p_d = self.player.dodge_chance
+        p_wf = zd.p_wf if wf else 0
+        phys_dmg = (1 - p_d) * self.d_phys + (1 - p_d) ** 2 * p_wf * self.wf_d_phys
+        holy_dmg = (1 - p_d)**2 * self.sob_proc_dmg + p_wf * (1 - p_d)**3 * self.sob_proc_dmg
+        return phys_dmg + holy_dmg
+
+    def get_twist_dmg(self, wf=True):
+        """The projected damage of a twist swing with or without windfury."""
+        p_d = self.player.dodge_chance
+        p_wf = zd.p_wf if wf else 0
+        p_soc = self.player.soc_proc_chance
+        phys_dmg = (1 - p_d) * self.d_phys + (1 - p_d) ** 2 * p_wf * self.wf_d_phys
+        holy_dmg = (1 - p_d)**2 * self.sob_proc_dmg + (1 - p_d)**3 * p_wf * self.sob_proc_dmg + \
+                   (1 - p_d)**2 * (p_soc + (1-p_d)*(1-p_soc)*p_wf) * (self.soc_proc_dmg + (1-p_d)*self.sob_proc_dmg)
+        return phys_dmg + holy_dmg
