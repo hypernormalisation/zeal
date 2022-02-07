@@ -1,49 +1,33 @@
 # Expertise Legs in T5/T6
 
-## The tl;dr
+## I have Clefthoof Legs, when do I drop them?
+If you have Clefthoof and no access to Shat, get rid of Clefthoof *regardless of race or your other gear* as soon as you have either:
+- Murderous Intent
+- Bloodwarders
+- any T6 option
 
-### T6 - all races
+## I have Shattrath Legs, when do I drop them?
 
-*Regardless of your race or other gear you can get rid of Shattrath Leggings/Clefthoof Hide Leggings as soon as you get any of the following*:
-
+*Regardless of your race or other gear you can get rid of Shattrath Leggings as soon as you get any of the following*:
 - Leggings of Divine Retribution
 - Bow-stitched Leggings
 - Legguards of Endless Rage
-- (probably, not simmed) T6 legs
+- T6 legs
 
-(For Endless Rage/T6, although this is barely an upgrade, it is still an upgrade - especially if you can now use Glyph of the Outcast instead of Glyph of Ferocity as your leg enchant.)
+(For Endless Rage/T6, although this is barely an upgrade, it is still an upgrade - especially if you can now use Glyph of the Outcast instead of Glyph of Ferocity as your head enchant.)
 
-Bow-stitched are your BiS on high-armor bosses, Divine Retribution are your BiS on low-armor bosses.
+Bow-stitched are your BiS on high-armor bosses, although Divine Retribution can match them on low-armor bosses.
 
----
-### T5 - nonhuman
+### What about Murderous Intent/Bloodwarders compared to Shattrath Legs?
 
-*Shat Legs (or if you don't have them, Clefthoof Legs) are BiS or within a few dps of being BiS at all points of gearing*.
+For all races:
+- If Shat legs give you 5 Expertise, Murderous Intent and Bloodwarders are better.
+- If Shat legs give you 6 Expertise, they are better than Murderous Intent and Bloodwarders.
 
-There are points when gearing up that Shat/Cleft will be slightly lower than murderous intent because of Expertise Rating breakpoints, but not by much, and the P2 BiS setup still uses Shat.
+Additionally, for humans:
+- If Shat legs take you over your Expertise cap when using a mace/sword, you wear Murderous Intent or Bloodwarders.
 
-For Shat:
-- If you get 5 Expertise out of Shat, you can wear Bloodwarders/Murderous Intent.
-- If you get 6 Expertise out of Shat, you wear Shat.
-
----
-### T5 - human
-
-*Shat Legs (or if you don't have them, Clefthoof Legs) Legs are BiS or within a few dps of being BiS until you hit Expertise cap, at which point Murderous Intent is your BiS.*
-
-There are points when gearing up that Shat/Cleft will be slightly lower than murderous intent because of Expertise Rating breakpoints, but not by much.
-
-For Shat:
-- If you get 5 Expertise out of Shat, you can wear Bloodwarders/Murderous Intent.
-- If you get 6 Expertise out of Shat, you wear Shat.
-
-If Shat/Cleft brings you over your Expertise cap, you should wear Bloodwarders/Murderous Intent.
-
-
----
-
-If you want to understand this more fully, you can read on.
-
+If you want to calculate how much Expertise the Expertise Rating on your gear is giving you, you can read on.
 
 ## Expertise and Expertise Rating
 
@@ -58,33 +42,21 @@ Each point of Expertise you have reduces your 6.5% chance to be dodged on a boss
 import math
 
 ​
-
 def print_expertise_info(rating, human=False):
-
     """Print info on a player's expertise and dodge chance."""
-
     expertise_unrounded = rating/3.9
-
     expertise = math.floor(expertise_unrounded)  # rounds down to nearest integer
 
     print(f'Total rating = {rating}')
-
     print(f'Unrounded Expertise = {expertise_unrounded}')
-
     print(f'Expertise gained = {expertise}')
-
     if human:
-
         expertise += 5
-
     print(f'Chance to be dodged = {6.5 - expertise*0.25}%')
-
 ​
 
 # shat (22 rating) + shapeshifters (20) + searing grip (18)
-
 my_rating = 22 + 20 + 18
-
 print_expertise_info(my_rating)
 ```
 
@@ -257,14 +229,14 @@ Outputs:
 
 ![dodge_chains_4.png](figs/dodge_rolls_4.png)
 
-You can see that as we add more and more rolls, the graph displays increasingly obvious increasing returns.
+You can see that as we add more and more rolls, the graph displays more and more obvious increasing returns.
 
 HOWEVER: the effect is very marginal. Increasing returns only become strongly visible at 4 dodge rolls, and in PvE the only time you have to worry about 4 dodge rolls is for the final SoB hit in about half of your windfury twists (in the other half this SoB proc only needs to survive 3 dodge rolls).
 
 ## What does this mean for gearing?
 
 Because the increasing returns on Expertise are incredibly marginal, to a rough approximation:
-- your other expertise doesn't matter for increasing returns on expertise
+- your other gear doesn't matter for increasing returns on expertise
 - your other gear *does* matter for determining how much Expertise your rating will round down to.
 
 ## But Swedge, when can I take off my Shat legs?
