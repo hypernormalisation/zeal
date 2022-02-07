@@ -209,7 +209,7 @@ class CombatAnalyser:
 
     @property
     def d_ave_crusader_strike(self):
-        return self.player.median_weapon_dmg * 1.1 + 3.3 * self.final_ap / 14.0 * self.phys_dmg_scale_factor * \
+        return (self.player.median_weapon_dmg * 1.1 + 3.3 * self.final_ap / 14.0) * self.phys_dmg_scale_factor * \
                     self.global_dmg_factor
 
     @property
