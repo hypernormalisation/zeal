@@ -41,7 +41,7 @@ class Player:
     crit_chance: float
     crit_dmg_factor: float
     bonus_wf_ap: float
-    holy_spell_dmg = 0
+    holy_spell_dmg: int
 
     two_hand_spec_factor = 1.06
     improved_sanctity_aura_factor = 1.02
@@ -49,13 +49,14 @@ class Player:
     def __init__(self, expertise=18, ap=3400, arm_pen=0,
                  crit_chance=0.35, crit_dmg_factor=2.06,
                  weapon=None,
-                 bonus_wf_ap=511.75):
+                 bonus_wf_ap=511.75, sp=0):
         self.expertise = expertise
         self.ap = ap
         self.crit_chance = crit_chance
         self.crit_dmg_factor = crit_dmg_factor
         self.bonus_wf_ap = bonus_wf_ap
         self.arm_pen = arm_pen
+        self.holy_spell_dmg = sp
 
         if isinstance(weapon, Weapon):
             self.weapon = weapon
@@ -82,19 +83,25 @@ class Player:
 class Target:
     """Class to contain target information."""
     base_armor: int
-    affected_by_ff = True  # faerie fire
-    affected_by_imp_ea = True  # improved expose armor
-    affected_by_sunder_armor = True
-    affected_by_coe = True  # curse of recklessness
+    affected_by_ff: bool  # faerie fire
+    affected_by_imp_ea: bool  # improved expose armor
+    affected_by_sunder_armor: bool
+    affected_by_coe: bool  # curse of recklessness
     affected_by_crusade: bool  # is the target a humanoid, demon or undead?
-
     expose_weakness_agi: int
-    affected_by_jotc = True
+    affected_by_jotc: bool
 
-    def __init__(self, base_armor=6200, crusade=True, expose_weakness_agi=1200):
+    def __init__(self, base_armor=6200, crusade=True, expose_weakness_agi=1200,
+                 ff=True, imp_ea=True, sunder=True, coe=True, crusade=True, jotc=True):
         self.base_armor = base_armor
         self.affected_by_crusade = crusade
+        self.affected_by_jotc = jotc
         self.expose_weakness_agi = expose_weakness_agi
+
+        self.affected_by_ff = ff
+        self.affected_by_coe = coe
+        self.affected_by_sunder_armor = sunder
+        self.affected_by_imp_ea = imp_ea
 
     @property
     def bonus_ap_on_attacks(self):
@@ -271,7 +278,7 @@ class CombatAnalyser:
         p_d = self.player.dodge_chance
         p_wf = zd.p_wf if wf else 0
         p_soc = self.player.soc_proc_chance
-        phys_dmg = (1 - p_d) * self.d_phys + (1 - p_d) ** 2 * p_wf * self.wf_d_phys
+        phys_dmg = (1 - p_d) * self.d_phys + (1 - p_d)**2 * p_wf * self.wf_d_phys
         holy_dmg = (1 - p_d)**2 * (1 + p_wf * (1-p_d)*(1-p_soc)) * p_soc * self.soc_proc_dmg
         return phys_dmg + holy_dmg
 
@@ -279,7 +286,7 @@ class CombatAnalyser:
         """The projected damage of a SoB swing with or without windfury."""
         p_d = self.player.dodge_chance
         p_wf = zd.p_wf if wf else 0
-        phys_dmg = (1 - p_d) * self.d_phys + (1 - p_d) ** 2 * p_wf * self.wf_d_phys
+        phys_dmg = (1 - p_d) * self.d_phys + (1 - p_d)**2 * p_wf * self.wf_d_phys
         holy_dmg = (1 - p_d)**2 * self.sob_proc_dmg + p_wf * (1 - p_d)**3 * self.sob_proc_dmg
         return phys_dmg + holy_dmg
 
@@ -288,7 +295,7 @@ class CombatAnalyser:
         p_d = self.player.dodge_chance
         p_wf = zd.p_wf if wf else 0
         p_soc = self.player.soc_proc_chance
-        phys_dmg = (1 - p_d) * self.d_phys + (1 - p_d) ** 2 * p_wf * self.wf_d_phys
+        phys_dmg = (1 - p_d) * self.d_phys + (1 - p_d)**2 * p_wf * self.wf_d_phys
         holy_dmg = (1 - p_d)**2 * self.sob_proc_dmg + (1 - p_d)**3 * p_wf * self.sob_proc_dmg + \
                    (1 - p_d)**2 * (p_soc + (1-p_d)*(1-p_soc)*p_wf) * (self.soc_proc_dmg + (1-p_d)*self.sob_proc_dmg)
         return phys_dmg + holy_dmg
