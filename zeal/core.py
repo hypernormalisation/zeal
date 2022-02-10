@@ -7,9 +7,12 @@ class Weapon:
     speed: float
     min_dmg: int
     max_dmg: int
+    label: str
 
     def __init__(self, label=None, speed=None, min_dmg=None, max_dmg=None):
+        self.label = None
         if label:
+            self.label = label
             weapon_stats = zeal.data.weapon_stats_dict.get(label)
             if not weapon_stats:
                 raise ValueError('Weapon label not recognised.')
@@ -31,6 +34,12 @@ class Weapon:
     def median_weapon_dmg(self):
         return (self.max_dmg + self.min_dmg) / 2.0
 
+    def print_weapon_info(self):
+        if self.label:
+            return self.label
+        else:
+            return f'Custom Weapon (speed={self.speed}, min={self.min_dmg}, max={self.max_dmg})'
+
 
 class Player:
     """Class to contain player info."""
@@ -48,7 +57,7 @@ class Player:
 
     def __init__(self, expertise=18, ap=3400, arm_pen=0,
                  crit_chance=0.35, crit_dmg_factor=2.06,
-                 weapon=None,
+                 weapon='torch',
                  bonus_wf_ap=511.75, sp=0):
         self.expertise = expertise
         self.ap = ap
@@ -62,6 +71,15 @@ class Player:
             self.weapon = weapon
         elif isinstance(weapon, str):
             self.weapon = Weapon(label=weapon)
+
+    def print_properties(self):
+        print('Player properties:')
+        print(f'--                   AP = {self.ap}')
+        print(f'--          crit chance = {self.crit_chance}')
+        print(f'--               weapon = {self.weapon.print_weapon_info()}')
+        print(f'--              arm pen = {self.arm_pen}')
+        print(f'--            expertise = {self.expertise}')
+        print(f'--  chance to be dodged = {self.dodge_chance}')
 
     @property
     def dodge_chance(self):
@@ -92,7 +110,7 @@ class Target:
     affected_by_jotc: bool
 
     def __init__(self, base_armor=6200, crusade=True, expose_weakness_agi=1200,
-                 ff=True, imp_ea=True, sunder=True, coe=True, crusade=True, jotc=True):
+                 ff=True, imp_ea=True, sunder=True, coe=True, jotc=True):
         self.base_armor = base_armor
         self.affected_by_crusade = crusade
         self.affected_by_jotc = jotc
@@ -102,6 +120,13 @@ class Target:
         self.affected_by_coe = coe
         self.affected_by_sunder_armor = sunder
         self.affected_by_imp_ea = imp_ea
+
+    def print_properties(self):
+        print('Target properties:')
+        print(f'--        base armor = {self.base_armor}')
+        print(f'--    modified armor = {self.modified_armor}')
+        print(f'--             JotCr = {self.affected_by_jotc}')
+        print(f'--   expose weakness = {self.expose_weakness_agi} agi')
 
     @property
     def bonus_ap_on_attacks(self):
@@ -188,8 +213,8 @@ class CombatAnalyser:
     @property
     def d_ave(self):
         """Return the average damage of a weapon standard hit."""
-        return (self.player.median_weapon_dmg + self.player.weapon.speed * self.final_ap / 14.0) * \
-            self.phys_dmg_scale_factor * self.global_dmg_factor
+        return (self.player.median_weapon_dmg + self.player.weapon.speed * self.final_ap / 14.0)
+
 
     @property
     def autoattack_outcomes_factor(self):
@@ -201,7 +226,7 @@ class CombatAnalyser:
     @property
     def d_phys(self):
         """Returns the average weapon damage accounting for hits, crits, glances, dodges."""
-        return self.autoattack_outcomes_factor * self.d_ave
+        return self.autoattack_outcomes_factor * self.d_ave * self.phys_dmg_scale_factor * self.global_dmg_factor
 
     @property
     def wf_d_ave(self):
@@ -299,3 +324,22 @@ class CombatAnalyser:
         holy_dmg = (1 - p_d)**2 * self.sob_proc_dmg + (1 - p_d)**3 * p_wf * self.sob_proc_dmg + \
                    (1 - p_d)**2 * (p_soc + (1-p_d)*(1-p_soc)*p_wf) * (self.soc_proc_dmg + (1-p_d)*self.sob_proc_dmg)
         return phys_dmg + holy_dmg
+
+    ###########################################################################################
+    # Functions to evaluate the relative damages of actions
+    ###########################################################################################
+    def rank_actions(self, normalise=True):
+        """Returns a dictionary of the action rankings."""
+        rankings = {
+            'naked_swing': self.get_naked_swing_dmg(),
+            'sob_swing': self.get_sob_swing_dmg(),
+            'soc_swing': self.get_soc_swing_dmg(),
+            'twist': self.get_twist_dmg(),
+            'cs': self.get_cs_dmg(),
+        }
+        normalised_rankings = {key: rankings[key]/rankings['sob_swing'] for key in rankings}
+        # print(rankings)
+        # print(normalised_rankings)
+        if normalise:
+            return normalised_rankings
+        return rankings
