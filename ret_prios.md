@@ -8,7 +8,7 @@ https://thesorm.github.io/Ret-Prioritizer/
 
 People are finding that the optimal rotations can vary significantly according to fight lengths, even when the variance in fight length is set to be quite high.
 
-I believe that while useful, placing too much emphasis on these prio rankings at specifically *low fight times* might not be wise, for a couple of reasons.
+I believe that while evaluating prio w.r.t practical fight times can be interesting, placing too much emphasis on these prio rankings at specifically *low fight times* might not be wise, for a couple of reasons.
 
 ### Ideal play in the final GCDs
 You, as a player with a rough knowledge of how long in the encounter you have left, will play a fight differently than a basic prio system.
