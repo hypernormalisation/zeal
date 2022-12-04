@@ -21,7 +21,7 @@ You, as a player with a rough knowledge of how long in the encounter you have le
 
 For instance, in a prio with Cons > Exo > HW (i.e. most good ones for clash resolution, sometimes including DS below Cons), you know not to cast a Consecrate over an available alternative when e.g. Noth the Plaguebringer is at 5% hp, because he's probably dying in about 2 GCDs, and you won't get enough consecrate ticks off for it to be worthwhile. The sim doesn't account for this, only casting according to prio.
 
-There are also issues with certain fight times just "dividing into" your high cooldown abilities like Exo or HW particularly well, to the point where a 2-3s fight length change can increase your effective exo dps by a huge fraction by getting, say, 6 casts instead of 5 casts in the generated sequence.
+There are also issues with certain fight times just "dividing into" your high cooldown abilities like Exo or HW particularly well, to the point where a 2-3s fight length change can increase e.g. your effective Exorcism dps by a huge fraction by getting, say, 6 casts instead of 5 casts in the generated sequence.
 
 ### Variable Fight Length
 Both the sim and Sulis' tool get around this to some extent by introducing variance to the fight length:
