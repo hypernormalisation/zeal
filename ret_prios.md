@@ -68,7 +68,7 @@ But also some you don't care about, like
 - the likelihood of suboptimal closers in the final GCDs
 - how well the rotation syncs up with the execute phase on average across the fight range when played perfectly and without any variance at all
 
-These latter factors are less important for actual play. We should all know how to close out a fight by casting any hard-hitting abilities available to you, or close to off cooldown. e.g. if I can cast a consecrate or alternately wait 1s for HoW to come off cooldown as the boss is dying, HoW is probably the better call because we're weighing up an almost guaranteed 700ish damage tick against a possible 9-10k nuke.
+These latter factors are less important for actual play. We should all know how to close out a fight by casting any hard-hitting abilities available to you, or close to off cooldown. e.g. if I can cast a consecrate or alternately wait 0.5s for HoW to come off cooldown as the boss is dying, HoW is probably the better call because we're weighing up an almost guaranteed 700ish damage tick against a possible 9-10k nuke.
 
 You also have to move the boss in some fights and can no longer cast consecrate. You can have to cast a quick heal or a utility spell, and suddenly everything in your rotation desyncs. After that point, it's very hard to imagine what the new sequence looks like, and how long it takes for it to resync, if it even does at all.
 
