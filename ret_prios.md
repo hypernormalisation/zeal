@@ -39,7 +39,7 @@ Are suboptimal cast sequences vs optimal cast sequences periodic? If so, over wh
 
 Assuming no haste procs and with a predefined haste-related cooldown usage (Potion of Speed/Hyperspeed Accelerators), the cast sequence at a given fight length, for a given prio, is deterministic, i.e. always the same.
 
-But this does not mean that the generated sequences between close fight times are similar. This is because the sim enters the execution phase at a different point in the rotation even across fight length changes of just 1-2s, and the fight after that point often looks totally different between say, 102s and 104s.
+But this does not mean that the generated sequences between close fight times are similar. This is because the sim enters the execution phase at a different point in the rotation even across fight length changes of just 1-2s, and the fight after that point often looks totally different between say, a 102 second and a 104 second fight.
 
 ### Checking this out in actual cast sequences
 
