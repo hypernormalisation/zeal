@@ -1,3 +1,3 @@
 # zeal
-Tools and docs for TBC ret paladin calcs
+Tools and docs for Ret paladin in TBC/WotLK Classic
 
