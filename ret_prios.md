@@ -23,6 +23,8 @@ You, as a player with a rough knowledge of how long in the encounter you have le
 
 For instance, in a prio with Cons > Exo > HW (i.e. most good ones for clash resolution, sometimes including DS below Cons), you know not to cast a Consecrate over an available alternative when e.g. Noth the Plaguebringer is at 5% hp, because he's probably dying in about 2 GCDs, and you won't get enough consecrate ticks off for it to be worthwhile. The sim doesn't account for this, only casting according to prio.
 
+![image](https://user-images.githubusercontent.com/52763122/205487882-53e2a179-c192-49ea-bf02-2d9664d498e1.png)
+
 There are also issues with certain fight times just "dividing into" your high cooldown abilities like Exo or HW particularly well, to the point where a 2-3s fight length change can increase e.g. your effective Exorcism dps by a huge fraction by getting, say, 6 casts instead of 5 casts in the generated sequence.
 
 ### Variable Fight Length
@@ -91,19 +93,13 @@ It'd be nice to have a "standard rotation" that performs well on paper and in th
 Some of the above effects that we do care about can be isolated from the undesirable ones by running extremely long fights with high degrees of time variance.
 That way you really cut down on the effects of N cast edge effects (especially in execution phases with HoW), and patterns of suboptimal final casts arising over time ranges for a given prio.
 
-This will let us isolate the effects of cooldown clash more efficiently.
-
-Extreme fight times and variance help with:
-- reducing consecrate clipping issues
-- reduce edge effects around overall number of casts
-- in particular for the above, reducing edge effects around HoW in execute phase
-
 Let's run on Sulis' prio tool between 800s and 1200s, 0.5s timestep.
 We'll use a miss chance of 0.5%, representative of most people's gearsets while training on one of the BiS or close-to-BiS P1 setups
 
 We'll show the top 100 results for posterity at the bottom of this note.
 
-For now let's take the top 20, and prune anything with judgement below third prio, because you might run into mana issues on longer fights. That gets rid of 3. The difference between the top and the bottom is about 19dps. This isn't very significant.
+For now let's take the top 20, and prune anything with JoW below third prio, because you might run into mana issues on longer fights. That gets rid of 3. The difference between the top and the bottom is about 19dps. This isn't very significant!
+
 ```
 3873.2733: [HammerOfWrath,CrusaderStrike,Judgement,Consecration,DivineStorm,HolyWrath,Exorcism]
 3873.0289: [HammerOfWrath,Judgement,CrusaderStrike,DivineStorm,Consecration,Exorcism,HolyWrath]
@@ -124,7 +120,9 @@ For now let's take the top 20, and prune anything with judgement below third pri
 3854.9753: [Judgement,Consecration,HammerOfWrath,DivineStorm,CrusaderStrike,HolyWrath,Exorcism]
 3854.7317: [Judgement,CrusaderStrike,DivineStorm,Consecration,Exorcism,HammerOfWrath,HolyWrath]
 ```
+
 Let's look at the average ability rankings and how stable they are.
+
 ```
 - HoW  : 1,1,1,1,2,5,1,5,1,1,4,1,2,2,3,4,3,6
 - JoW  : 3,2,2,2,3,1,3,2,2,3,1,2,1,1,1,2,1,1
@@ -134,7 +132,11 @@ Let's look at the average ability rankings and how stable they are.
 - Exo  : 7,6,7,7,7,6,5,7,4,6,6,6,6,7,6,7,7,5
 - HW   : 6,7,6,6,6,7,7,6,7,7,7,5,7,6,7,6,6,7
 ```
+
+Let's posit that we can conduct some meta-analysis of this that, when combined with real-life considerations, can inform our standard rotation.
+
 Average ranks and std deviations:
+
 ```
 JoW   - 1.83 +/- 0.76
 HoW   - 2.44 +/- 1.64
@@ -148,43 +150,45 @@ HW    - 6.44 +/- 0.60
 So it seems like the sim places JoW/HoW/CS in a league of their own with regards to prio most of the time.
 DS and Consecrate slot in nicely below that, with Exo and HW propping up the bottom of the table.
 
-But... the effects can be quite marginal.
-
 # Using these to develop a standard prio
 So with that in mind, I think the following are worth adopting for a "standard rotation":
 
 ### Keep HoW at #1
-Hammer of Wrath is well represented as top ranking among the very best prios.
+Hammer of Wrath is well represented as the top ranking among the very highest performing prios.
 
 There is, imo, no reason to not ever prio HoW as your top ability. It's your hardest hitting ability by some way post bug-fix, and its cooldown is relatively short at 6s; even shorter while wings is up if you glyph AW.
 
-The effects of cooldown clash are going to be relatively low over a short execute phase where you are saturated with abilities, so you only really care about maximising the number of high-impact casts before the fight ends in an execute phase.
+The effects of cooldown clash are going to be relatively low over a short execute phase where you are saturated with abilities, so you only really care about maximising the number of high-impact casts before the fight ends in an execute phase. So, get HoW off cooldown quickly and use it often. This goes doubly so if you glyph AW, which is looking very powerful atm.
 
 ### Keep JoW at #2
 2. Even accounting for us constraining Judgement to the top 3 ranks due to mana concerns, it is still very very well represented at the top 2 spots. It hits extremely hard due to its high base damage and your Fanatacism talent boosting its base dps. Hoever, the tradeoff between CS and judge appears to not amount to a whole lot. If you prio CS higher, it's very short 4s cooldown probably gives you slightly more casts on average, which can overcome the higher damage Judgement.
 
-However, given when you approach a boss, you can cast JoW at range as you close in. For some bosses you rocketboot in so the effect is marginal, but on many fights you want to save boots to cheese some mechanic. You get only one cast of them on any but the absolute longest of multi-phase fights.
+However, when you approach a boss, you can cast JoW at range as you close in. For some bosses you rocketboot in so the effect is marginal, but on many fights you want to save boots to cheese a particular fight mechanic. You get only one cast of them on any but the absolute longest of multi-phase fights.
 
-As such, I think having JoW fixed at #2 will result in your opening sequence of casts naturally lend itself to syncing up with the prio over the majority of the fight.
+As such, I think having JoW fixed at #2 will result in your opening sequence of casts naturally lend itself to syncing up with the prio over the majority of the fight, and result in you getting slightly more casts off overall.
 
 ### Keep CS at #3
 In most setups, the sim and Sulis' tool show the value of keeping your CS on its short 4s cooldown. It's definitely better than any alternatives for this slot, especially when the Libram buff is taken into account.
 
 ### Consecrate and DS at #4/#5
-There appears to be very little difference between Consecrate and DS over the prios. Over the top prios, they have exactly the same average position.
+There appears to be very little difference between Consecrate and DS over the prios. Over the top prios, they have exactly the same average position. They have almost exactly the same damage-per-cast/cooldown ratio. Not much in it.
 
-There is, however, something to be said in real-life terms for having consecrate be on a higher priority:
-1 - If you cast it first on your opener, it is already doing full consecrate damage. DS's damage is partially tied up in a SoV proc, which on opener is still stacking. By delaying DS a little, you'll get another melee off to stack vengeance before you cast your first DS for a bit more SoV damage, usually 3 stacks vs 2 stacks.
-2 - When you get into execute phase, you want to avoid a situation where you're in the last few GCDs with only consecrate left to cast, when you're only going to get a few ticks off before the fight ends. Having it as a higher prio keeps it on cooldown in execute phase more often, so you're more likely to have a high impact instant-damage ability like DS or Exo to use as an alternative.
+There is, however, something to be said in real-life terms for having Consecrate be on a higher priority:
+1 - If you cast it first on your opener, it is already doing full consecrate damage. DS's damage is partially tied up in a SoV proc, which on opener is still stacking. By delaying DS a little, you'll reliably get another melee off to stack vengeance before you cast your first DS for a bit more SoV damage, usually 3 stacks vs 2 stacks.
+2 - When you get into execute phase, you want to avoid a situation where you're in the last few GCDs with only Consecrate left to cast, when you're only going to get a few ticks off before the fight ends. Having it as a higher prio keeps it on cooldown in execute phase more often, so you're more likely to have a high impact instant-damage ability like DS or Exorcism to use as an alternative.
 
 ### Exo and HW at #6/#7
 With these abilities, it ultimately just comes down to their extremely long cooldowns yielding a very marginal increase to Effective Cooldown if you prio them below everything else.
 
-In execute, just be aware that Exo hits harder than a CS, so if you have the choice of one or another before the boss will die, cast the Exo.
+If you see a sim prio one close to the top, you're probably running into N cast edge effects. My advice would be to ignore them.
+
+In execute, just be aware that Exo hits harder than a CS, so if you have the choice of one or another before you think the boss will die, cast the Exo.
 
 
 
 # Appendix: Top 100 sequences
+
+For the masochists:
 
 3873.2733: [HammerOfWrath,CrusaderStrike,Judgement,Consecration,DivineStorm,HolyWrath,Exorcism]
 3873.0289: [HammerOfWrath,Judgement,CrusaderStrike,DivineStorm,Consecration,Exorcism,HolyWrath]
