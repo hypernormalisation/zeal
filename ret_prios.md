@@ -27,6 +27,8 @@ For instance, in a prio with Cons > Exo > HW (i.e. most good ones for clash reso
 |:--:| 
 | *A cast sequence from the sim where consecrate is favoured over an available exorcism cast at the very close of the fight* |
 
+When simming at real-world fight times, these effects can result in significant dps swings.
+
 ### N-cast edge effects
 There are also issues with certain fight times just "dividing into" your high cooldown abilities like Exo or HW particularly well, to the point where a 2-3s fight length change can increase e.g. your effective Exorcism dps by a huge fraction by getting, say, 6 casts instead of 5 casts in the generated sequence.
 
