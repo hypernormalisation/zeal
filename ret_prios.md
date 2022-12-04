@@ -194,19 +194,34 @@ There is perhaps something to be said in real-life terms for having Consecrate b
 However, the results from Sulis' tool do not produce `HoW > JoW > CS > Cons > DS > Exo > HW` in the top 100 results.
 This may be indicative of a cooldown clash issue with that particular priority that significantly decreases dps.
 
-On the other hand, `HoW > JoW > CS > DS > Cons > Exo > HW` is the second highest ranked prio for dps, being within margin of error of the top spot.
+As such, it may be better to keep DS over Consecrate in your prio.
+
+<!-- On the other hand, `HoW > JoW > CS > DS > Cons > Exo > HW` is the second highest ranked prio for dps, being within margin of error of the top spot.
 As such, this document recommends that one should run `DS > Cons` in slot 4/5 respectively.
 
 One should perhaps move Consecrate up in priority above DS during the execute phase, which should not drastically affect cooldown clash resolution.
-
-On the other hand, using an early Consecrate to give SoV time to stack before the first DS cast might have a severe knockon effect over the rest of your rotation that is hard to predict or measure. As such, probably avoid it.
-
+ -->
+ 
 ### Exo and HW at #6/#7
 With these abilities, it ultimately just comes down to their extremely long cooldowns yielding a very marginal increase to Effective Cooldown if you prio them below everything else.
-
-If you see a sim prio one close to the top, you're probably running into N cast edge effects. My advice would be to ignore them.
+If you see a sim prio one close to the top, you're probably running into N-cast edge effects. My advice would be to ignore them.
 
 In execute, just be aware that Exo hits harder than a CS, so if you have the choice of one or another before you think the boss will die, cast the Exo.
+
+# Our final rotation
+Given these real life constraints and common-sense considerations, there is one prio listed in our tests that fits the bill very well:
+
+`HoW > JoW > CS > DS > Cons > Exo > HW`
+
+This prio was one of the most performant, being within the likely margin of error of the absolute highest ranking prio.
+It also respects the trends that our meta-analysis indicates are shared by lots of the top-performing prios.
+
+Your opener of Judge > CS makes sense as regards using a ranged attack as you close, and getting up your Libram's AP buff (and later on in WotLK, your Three Truths strength stacking).
+
+It should be noted that for the opener, we discussed the possibility of casting consecrate first over DS; we note that the prio that results from switching DS and Consecrate does not feature in the top 100 prios. As such, we may tepidly conclude that its cooldown clash resolution is significantly worse than the prio we recommend.
+
+Given the short length of execute phases, however, cooldown clash is less relevant.
+I would still perhaps recommend that the user switch up their prio in execute phase to favour consecrate over DS, because keeping consecrate on cooldown at a higher priority decreases the likelihood you have of finding yourself locked into casting Consecrate or Holy Wrath in your last couple of GCDs.
 
 # Caveat: Gearing
 As your gear changes, the different abilities scale at different levels relative to one another.
