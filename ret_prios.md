@@ -30,7 +30,9 @@ Both the sim and Sulis' tool get around this to some extent by introducing varia
 - the sim lets you select a central fight time and a variance, and then randomly selects a fight time each iteration with a uniform selection between the highest and lowest possible times.
 - Sulis' tool scans the cast sequences generated at each timestep between the min and max fight times
 
-This aims to produce enough different cast sequences from which to sample, that on average optimal and suboptimal setups get averaged out, and differences between overall numbers of casts at given thresholds get averaged out.
+This aims to produce enough different cast sequences from which to sample, that on average:
+- optimal and suboptimal closing sequences get averaged out
+- differences between overall numbers of casts at given time thresholds get averaged out.
 
 But... what fight length is required to totally get rid of these effects? The answer doesn't seem at all obvious to me.
 Are suboptimal cast sequences vs optimal cast sequences periodic? If so, over what time interval do they average out? Are they instead more localised and in clumps?
