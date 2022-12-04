@@ -4,7 +4,7 @@ tl;dr: regardless of fight length, using
 ```
 HoW > JoW > CS > Cons > DS > Exo > HW
 ```
-is going to be a fine prio system for almost any situation against undead you find yourself in. For non-undead, just trim Holy Wrath off the bottom.
+is going to be a fine prio system for almost any situation against undead you find yourself in. For non-undead, just trim Holy Wrath off the bottom. I doubt you're going to see huge swings in your damage by using alternate prios, but this one has a couple of real-life considerations baked in that I think make it worth running.
 
 Note: this document uses the term "cast sequence" to describe the series of casts that a deterministic tool like the sim uses at given settings. It has *nothing to do* with `/castsequence` in the WoW API, or with one-button macros.
 
