@@ -222,7 +222,7 @@ Your opener of Judge > CS makes sense as regards using a ranged attack as you cl
 It should be noted that for the opener, we discussed the possibility of casting consecrate first over DS; we note that the prio that results from switching DS and Consecrate does not feature in the top 100 prios. As such, we may tepidly conclude that its cooldown clash resolution is significantly worse than the prio we recommend.
 
 Given the short length of execute phases, however, cooldown clash is less relevant.
-I would still perhaps recommend that the user switch up their prio in execute phase to favour consecrate over DS, because keeping consecrate on cooldown at a higher priority decreases the likelihood you have of finding yourself locked into casting Consecrate or Holy Wrath in your last couple of GCDs.
+I would still perhaps recommend that the user switch up their prio in execute phase to favour consecrate over DS, because keeping consecrate on cooldown at a higher priority decreases the likelihood of finding yourself locked into casting Consecrate or Holy Wrath in your last couple of GCDs.
 
 # Caveat: Gearing
 As your gear changes, the different abilities scale at different levels relative to one another.
