@@ -40,7 +40,7 @@ This aims to produce enough different cast sequences from which to sample, that 
 - differences between overall numbers of casts at given time thresholds get averaged out.
 
 But... what fight length variance is required to totally get rid of these effects? The answer doesn't seem at all obvious to me.
-Are suboptimal cast sequences vs optimal cast sequences periodic? If so, over what time interval do they average out? Are they instead more localised and in clumps?
+Are suboptimal cast sequences vs optimal cast sequences periodic with respect to total fight time? If so, over what time variance do they average out? Are they instead more localised and in clumps?
 
 Assuming no haste procs and with a predefined haste-related cooldown usage (Potion of Speed/Hyperspeed Accelerators), the cast sequence at a given fight length, for a given prio, is deterministic, i.e. always the same.
 
