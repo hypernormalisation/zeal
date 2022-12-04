@@ -4,7 +4,7 @@
 
 Sulis' new ret prioritiser tool lets us quickly evaluate priorities across a variety of fight lengths.
 It's a great tool, and you can find it at:
-https://thesorm.github.io/Ret-Prioritizer/
+https://thesorm.github.io/Ret-Prioritizer
 
 People are finding that the optimal rotations derived from both the Ret Sim (https://wowsims.github.io/wotlk/retribution_paladin) and from Sulis' tool can vary significantly according to fight lengths, even when the variance in fight length is set to be quite high.
 
