@@ -164,7 +164,7 @@ There is, imo, no reason to not ever prio HoW as your top ability. It's your har
 The effects of cooldown clash are going to be relatively low over a short execute phase where you are saturated with abilities, so you only really care about maximising the number of high-impact casts before the fight ends in an execute phase. So, get HoW off cooldown quickly and use it often. This goes doubly so if you glyph AW, which is looking very powerful atm.
 
 ### Keep JoW at #2
-2. Even accounting for us constraining Judgement to the top 3 ranks due to mana concerns, it is still very very well represented at the top 2 spots. It hits extremely hard due to its high base damage and your Fanatacism talent boosting its base dps. Hoever, the tradeoff between CS and judge appears to not amount to a whole lot. If you prio CS higher, it's very short 4s cooldown probably gives you slightly more casts on average, which can overcome the higher damage Judgement.
+Even accounting for us constraining Judgement to the top 3 ranks due to mana concerns, it is still very very well represented at the top 2 spots. It hits extremely hard due to its high base damage and your Fanatacism talent boosting its base dps. Hoever, the tradeoff between CS and judge appears to not amount to a whole lot. If you prio CS higher, it's very short 4s cooldown probably gives you slightly more casts on average, which can overcome the higher damage Judgement.
 
 However, when you approach a boss, you can cast JoW at range as you close in. For some bosses you rocketboot in so the effect is marginal, but on many fights you want to save boots to cheese a particular fight mechanic. You get only one cast of them on any but the absolute longest of multi-phase fights.
 
