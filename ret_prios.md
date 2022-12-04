@@ -39,7 +39,7 @@ Are suboptimal cast sequences vs optimal cast sequences periodic? If so, over wh
 
 Assuming no haste procs and with a predefined haste-related cooldown usage (Potion of Speed/Hyperspeed Accelerators), the cast sequence at a given fight length, for a given prio, is deterministic, i.e. always the same.
 
-But this does not mean that the generated sequences between close fight times are similar. This is because the sim enters the execution phase at a different point in the rotation even across fight length changes of just 1-2s, and the fight after that point often looks totally different between say, a 102 second and a 104 second fight.
+But this does not mean that the generated sequences between close fight times are similar. This is because the sim enters the execution phase at a different point in the rotation even across fight length changes of just 1-2s, and the fight after that point often looks totally different between, say, a 102 second and a 104 second fight.
 
 ### Checking this out in actual cast sequences
 
@@ -51,25 +51,28 @@ The scattering of suboptimal casts and threshold effects was often very localise
 
 For instance, the first prio had a particularly bad region of around 95-105s where it was consistently casting consecrate for its final GCD and getting between 0 and 2 ticks off, where either Exo or HW were available. The second prio didn't have this issue at all in that range.
 
-So, someone simming a fight length of say, 90s +/- 15s, is going to find prio one artificially deflated in dps compared to prio two at the level of around 50-100dps, and might conclude that it's worth to prio Cons over DS in this situation, when in reality it probably doesn't matter very much at all.
+So, someone simming a fight length of say, 90s +/- 15s, may find prio one artificially deflated in dps compared to prio two at the level of around 50-100dps, and might conclude that it's worth to prio Cons over DS in this situation, when in reality it probably doesn't matter very much at all.
 
-## What simming at a given fight time range actually measures
+## What simming at a real-world time range actually measures
 
-When simming different fight lengths and evaluating different prios, you're conflating a bunch of different effects:
+When simming different fight lengths and evaluating different prios, you're conflating a bunch of different effects. Some you genuinely care about, like:
+- cooldown clash resolution
+- number of casts over a fight
+
+But also some you don't care about, like
 - the likelihood of suboptimal closers in the final GCDs
-- how well the rotation syncs up with the execute phase on average across the fight range when played perfectly and without variance.
-- how well the rotation syncs up with dps procs on your gear
+- how well the rotation syncs up with the execute phase on average across the fight range when played perfectly and without any variance at all
 
-But really, these factors are less important for actual play. We should all know how to close out a fight by casting any hard-hitting abilities off cooldown, or close to off cooldown. e.g. if I can cast a consecrate or alternately wait 1s for HoW to come off cooldown as the boss is dying, HoW is probably the better call because we're weighing up an almost guaranteed 700ish damage tick against a possible 9-10k nuke.
+These latter factors are less important for actual play. We should all know how to close out a fight by casting any hard-hitting abilities available to you, or close to off cooldown. e.g. if I can cast a consecrate or alternately wait 1s for HoW to come off cooldown as the boss is dying, HoW is probably the better call because we're weighing up an almost guaranteed 700ish damage tick against a possible 9-10k nuke.
 
-You also have to move in some fights and can no longer cast consecrate etc. You can have to cast a quick heal or a utility spell, and suddenly everything in your rotation desyncs. After that point, it's very hard to imagine what the new sequence looks like, and how long it takes for it to resync, if it even does at all.
+You also have to move the boss in some fights and can no longer cast consecrate. You can have to cast a quick heal or a utility spell, and suddenly everything in your rotation desyncs. After that point, it's very hard to imagine what the new sequence looks like, and how long it takes for it to resync, if it even does at all.
 
 As such, it's really not worthwhile in my opinion to try and derive optimal rotations at given fight times; real world fights have too much variance, and the sim conflates too many different, hard to measure things.
 
 What we should perhaps do, is find an overall prio that consistently performs well, and stick to it.
 
 ### A note on adaptive prios
-Sulis is already working on an adaptive prio to deploy in the tooling that will be very useful to this end.
+Sulis is thinking about working on an adaptive prio to deploy in the tooling that will be very useful to this end.
 Once it's validated there, it might make its way into his weak aura, which would be incredibly powerful.
 
 Towards that end, let's try to isolate the general-purpose effects that actually make for a good prio.
@@ -85,7 +88,7 @@ It'd be nice to have a "standard rotation" that performs well on paper and in th
 
 # Isolating cooldown clash with extreme fight times
 
-Some of the above can be isolated by just running extremely long fights with high degrees of variance.
+Some of the above effects that we do care about can be isolated from the undesirable ones by running extremely long fights with high degrees of time variance.
 That way you really cut down on the effects of N cast edge effects (especially in execution phases with HoW), and patterns of suboptimal final casts arising over time ranges for a given prio.
 
 This will let us isolate the effects of cooldown clash more efficiently.
