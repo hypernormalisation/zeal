@@ -186,7 +186,10 @@ If you see a sim prio one close to the top, you're probably running into N cast 
 
 In execute, just be aware that Exo hits harder than a CS, so if you have the choice of one or another before you think the boss will die, cast the Exo.
 
+# Caveat: Gearing
+As your gear changes, the different abilities scale at different levels relative to one another.
 
+This doc assumes a solid P1 setup. As your gear changes in coming phases, other priorities might become more viable.
 
 # Appendix: Top 100 sequences
 
