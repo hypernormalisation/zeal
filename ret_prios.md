@@ -193,7 +193,7 @@ There is perhaps something to be said in real-life terms for having Consecrate b
 
 However, the results from Sulis' tool do not produce `HoW > JoW > CS > Cons > DS > Exo > HW` in the top 100 results.
 We do see the priority system `HoW > JoW > CS > Cons > HW > Exo > DS` appear, but it's relatively far down the list, clocking in at almost 30dps behind the top contenders.
-If this is statistically significant, which is admittedly hard to determine, this may be indicative of a cooldown clash issue with that particular priority that significantly decreases dps.
+If this is statistically significant, which is admittedly hard to determine, this may be indicative of a cooldown clash issue with that particular priority that makes it less performant than other possibilities.
 
 As such, it may be better to keep DS over Consecrate in your prio in these positions.
 
