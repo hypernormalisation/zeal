@@ -37,7 +37,7 @@ This aims to produce enough different cast sequences from which to sample, that 
 But... what fight length is required to totally get rid of these effects? The answer doesn't seem at all obvious to me.
 Are suboptimal cast sequences vs optimal cast sequences periodic? If so, over what time interval do they average out? Are they instead more localised and in clumps?
 
-Assuming no haste procs and with a predefined haste-related cooldown usage (Potion of Speed/Hyperspeed Accelerators), the cast sequence at a given fight length, for a given prio, is always static.
+Assuming no haste procs and with a predefined haste-related cooldown usage (Potion of Speed/Hyperspeed Accelerators), the cast sequence at a given fight length, for a given prio, is deterministic, i.e. always the same.
 
 But this does not mean that the generated sequences between close fight times are similar. This is because the sim enters the execution phase at a different point in the rotation even across fight length changes of just 1-2s, and the fight after that point often looks totally different between say, 102s and 104s.
 
