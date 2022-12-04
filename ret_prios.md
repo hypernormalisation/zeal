@@ -1,4 +1,4 @@
-# A general-purpose priority for ret
+# A general-purpose single-target priority for ret
 
 tl;dr: regardless of fight length, using 
 ```
