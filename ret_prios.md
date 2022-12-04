@@ -2,9 +2,15 @@
 
 tl;dr: regardless of fight length, using 
 ```
-HoW > JoW > CS > DS > Cons > Exo > HW
+JoW > CS > DS > Cons > Exo > HW
 ```
-is going to be a fine prio system for almost any situation against undead you find yourself in. For non-undead, just trim Holy Wrath off the bottom. I doubt you're going to see huge swings in your damage by using alternate prios, but this one has a couple of real-life considerations baked in that I think make it worth running.
+outside of execute phase, and
+```
+HoW > JoW > CS > Cons > DS > Exo > HW
+```
+inside execute phase, is going to be a fine prio system for almost any situation against undead you find yourself in.
+
+For non-undead, just trim Holy Wrath off the bottom. I doubt you're going to see huge swings in your damage by using alternate prios, but this one has a couple of real-life considerations baked in that I think make it worth running.
 
 Note: this document uses the term "cast sequence" to describe the series of casts that a deterministic tool like the sim uses at given settings. It has *nothing to do* with `/castsequence` in the WoW API, or with one-button macros.
 
@@ -187,6 +193,10 @@ This may be indicative of a cooldown clash issue with that particular priority t
 
 On the other hand, `HoW > JoW > CS > DS > Cons > Exo > HW` is the second highest ranked prio for dps, being within margin of error of the top spot.
 As such, this document recommends that one should run `DS > Cons` in slot 4/5 respectively.
+
+One should perhaps move Consecrate up in priority above DS during the execute phase, which should not drastically affect cooldown clash resolution.
+
+On the other hand, using an early Consecrate to give SoV time to stack before the first DS cast might have a severe knockon effect over the rest of your rotation that is hard to predict or measure. As such, probably avoid it.
 
 ### Exo and HW at #6/#7
 With these abilities, it ultimately just comes down to their extremely long cooldowns yielding a very marginal increase to Effective Cooldown if you prio them below everything else.
