@@ -168,7 +168,7 @@ DS and Consecrate slot in nicely below that, with Exo and HW propping up the bot
 So with that in mind, I think the following are worth adopting for a "standard rotation":
 
 ### Keep HoW at #1
-Hammer of Wrath is well represented as the top ranking among the very highest performing prios.
+Hammer of Wrath is well represented as the top ranking cast among the very highest performing prios.
 
 There is, imo, no reason to not ever prio HoW as your top ability. It's your hardest hitting ability by some way post bug-fix, and its cooldown is relatively short at 6s; even shorter while wings is up if you glyph AW.
 
