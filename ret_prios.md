@@ -6,6 +6,8 @@ HoW > JoW > CS > Cons > DS > Exo > HW
 ```
 is going to be a fine prio system for almost any situation against undead you find yourself in. For non-undead, just trim Holy Wrath off the bottom.
 
+Note: this document uses the term "cast sequence" to describe the series of casts that a deterministic tool like the sim uses at given settings. It has *nothing to do* with `/castsequence` in the WoW API, or with one-button macros.
+
 ## Prio Tooling
 
 Sulis' new ret prioritiser tool lets us quickly evaluate priorities across a variety of fight lengths.
