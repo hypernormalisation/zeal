@@ -132,6 +132,11 @@ For now let's take the top 20, and prune anything with JoW below third prio, bec
 3854.7317: [Judgement,CrusaderStrike,DivineStorm,Consecration,Exorcism,HammerOfWrath,HolyWrath]
 ```
 
+Let's posit that we can conduct some meta-analysis of these rotations that, when combined with real-life considerations, can inform our standard rotation.
+We'll restrict the possible rotation we choose to be one of these rotations, because we know that each of these has excellent cooldown clash resolution.
+
+## Simple rotation meta-analysis
+
 Let's look at the average ability rankings and how stable they are.
 
 ```
@@ -143,8 +148,6 @@ Let's look at the average ability rankings and how stable they are.
 - Exo  : 7,6,7,7,7,6,5,7,4,6,6,6,6,7,6,7,7,5
 - HW   : 6,7,6,6,6,7,7,6,7,7,7,5,7,6,7,6,6,7
 ```
-
-Let's posit that we can conduct some meta-analysis of this that, when combined with real-life considerations, can inform our standard rotation.
 
 Average ranks and std deviations:
 
