@@ -179,7 +179,7 @@ There appears to be very little difference between Consecrate and DS over the pr
 There is, however, something to be said in real-life terms for having Consecrate be on a higher priority:
 
 1. If you cast it first on your opener, it is already doing full consecrate damage. DS's damage is partially tied up in a SoV proc, which on opener is still stacking. By delaying DS a little, you'll reliably get another melee off to stack vengeance before you cast your first DS for a bit more SoV damage, usually 3 stacks vs 2 stacks.
-2. When you get into execute phase, you want to avoid a situation where you're in the last few GCDs with only Consecrate left to cast, when you're only going to get a few ticks off before the fight ends. Having it as a higher prio keeps it on cooldown in execute phase more often, so you're more likely to have a high impact instant-damage ability like DS or Exorcism to use as an alternative.
+2. When you get into execute phase, you want to avoid a situation where you're in the last few GCDs with only Consecrate left to cast, when you're only going to get a few ticks off before the fight ends. Having it as a higher prio keeps it on cooldown in execute phase more often, so you're more likely to have a high impact instant-damage ability like DS or Exorcism to use as an alternative when you know the boss is about to die.
 
 ### Exo and HW at #6/#7
 With these abilities, it ultimately just comes down to their extremely long cooldowns yielding a very marginal increase to Effective Cooldown if you prio them below everything else.
