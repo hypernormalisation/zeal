@@ -195,6 +195,8 @@ However, the results from Sulis' tool do not produce `HoW > JoW > CS > Cons > DS
 We do see the priority system `HoW > JoW > CS > Cons > HW > Exo > DS` appear, but it's relatively far down the list, clocking in at almost 30dps behind the top contenders.
 If this is statistically significant, which is admittedly hard to determine, this may be indicative of a cooldown clash issue with that particular priority that makes it less performant than other possibilities.
 
+It should ofc be noted that consecrate cannot crit, so casting it earlier in your opener may have a second-order effect on how quickly your Vengeance stacks.
+
 As such, it may be better to keep DS over Consecrate in your prio in these positions.
 
 <!-- On the other hand, `HoW > JoW > CS > DS > Cons > Exo > HW` is the second highest ranked prio for dps, being within margin of error of the top spot.
