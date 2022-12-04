@@ -191,7 +191,7 @@ In execute, just be aware that Exo hits harder than a CS, so if you have the cho
 # Appendix: Top 100 sequences
 
 For the masochists:
-
+```
 3873.2733: [HammerOfWrath,CrusaderStrike,Judgement,Consecration,DivineStorm,HolyWrath,Exorcism]
 3873.0289: [HammerOfWrath,Judgement,CrusaderStrike,DivineStorm,Consecration,Exorcism,HolyWrath]
 3872.8424: [HammerOfWrath,Judgement,DivineStorm,Consecration,CrusaderStrike,HolyWrath,Exorcism]
@@ -293,3 +293,4 @@ For the masochists:
 3834.2545: [Judgement,Exorcism,CrusaderStrike,DivineStorm,Consecration,HammerOfWrath,HolyWrath]
 3834.1183: [Judgement,CrusaderStrike,Consecration,HolyWrath,Exorcism,DivineStorm,HammerOfWrath]
 3834.0412: [CrusaderStrike,HammerOfWrath,Judgement,HolyWrath,Consecration,DivineStorm,Exorcism]
+```
