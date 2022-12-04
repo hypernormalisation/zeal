@@ -176,7 +176,7 @@ As such, I think having JoW fixed at #2 will result in your opening sequence of 
 In most setups, the sim and Sulis' tool show the value of keeping your CS on its short 4s cooldown. It's definitely better than any alternatives for this slot, especially when the Libram buff is taken into account.
 
 ### DS and Consecrate at #4/#5
-There appears to be very little difference between Consecrate and DS over the prios. Over the top prios, they have exactly the same average position. They have almost exactly the same damage-per-cast/cooldown ratio. Not much in it.
+There appears to be very little difference between Consecrate and DS over the prio meta-analysis. Over the top prios, they have exactly the same average position. They have almost exactly the same damage-per-cast/cooldown ratio.
 
 There is perhaps something to be said in real-life terms for having Consecrate be on a higher priority:
 1. If you cast it first on your opener, it is already doing full consecrate damage. DS's damage is partially tied up in a SoV proc, which on opener is still stacking. By delaying DS a little, you'll reliably get another melee off to stack vengeance before you cast your first DS for a bit more SoV damage, usually 3 stacks vs 2 stacks.
