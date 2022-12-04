@@ -2,7 +2,7 @@
 
 tl;dr: regardless of fight length, using 
 ```
-HoW > JoW > CS > Cons > DS > Exo > HW
+HoW > JoW > CS > DS > Cons > Exo > HW
 ```
 is going to be a fine prio system for almost any situation against undead you find yourself in. For non-undead, just trim Holy Wrath off the bottom. I doubt you're going to see huge swings in your damage by using alternate prios, but this one has a couple of real-life considerations baked in that I think make it worth running.
 
@@ -175,13 +175,18 @@ As such, I think having JoW fixed at #2 will result in your opening sequence of 
 ### Keep CS at #3
 In most setups, the sim and Sulis' tool show the value of keeping your CS on its short 4s cooldown. It's definitely better than any alternatives for this slot, especially when the Libram buff is taken into account.
 
-### Consecrate and DS at #4/#5
+### DS and Consecrate at #4/#5
 There appears to be very little difference between Consecrate and DS over the prios. Over the top prios, they have exactly the same average position. They have almost exactly the same damage-per-cast/cooldown ratio. Not much in it.
 
-There is, however, something to be said in real-life terms for having Consecrate be on a higher priority:
-
+There is perhaps something to be said in real-life terms for having Consecrate be on a higher priority:
 1. If you cast it first on your opener, it is already doing full consecrate damage. DS's damage is partially tied up in a SoV proc, which on opener is still stacking. By delaying DS a little, you'll reliably get another melee off to stack vengeance before you cast your first DS for a bit more SoV damage, usually 3 stacks vs 2 stacks.
 2. When you get into execute phase, you want to avoid a situation where you're in the last few GCDs with only Consecrate left to cast, when you're only going to get a few ticks off before the fight ends. Having it as a higher prio keeps it on cooldown in execute phase more often, so you're more likely to have a high impact instant-damage ability like DS or Exorcism to use as an alternative when you know the boss is about to die.
+
+However, the results from Sulis' tool do not produce `HoW > JoW > CS > Cons > DS > Exo > HW` in the top 100 results.
+This may be indicative of a cooldown clash issue with that particular priority that significantly decreases dps.
+
+On the other hand, `HoW > JoW > CS > DS > Cons > Exo > HW` is the second highest ranked prio for dps, being within margin of error of the top spot.
+As such, this document recommends that one should run `DS > Cons` in slot 4/5 respectively.
 
 ### Exo and HW at #6/#7
 With these abilities, it ultimately just comes down to their extremely long cooldowns yielding a very marginal increase to Effective Cooldown if you prio them below everything else.
