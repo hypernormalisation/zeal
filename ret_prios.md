@@ -133,7 +133,7 @@ For now let's take the top 20, and prune anything with JoW below third prio, bec
 ```
 
 Let's posit that we can conduct some meta-analysis of these rotations that, when combined with real-life considerations, can inform our standard rotation.
-We'll restrict the possible rotation we choose to be one of these rotations, because we know that each of these has excellent cooldown clash resolution.
+We'll also restrict ourselves to choosing one of these top rotations for our generally recommended one, because we know that each of these has excellent cooldown clash resolution.
 
 ## Simple rotation meta-analysis
 
