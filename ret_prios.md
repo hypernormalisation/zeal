@@ -3,7 +3,7 @@
 ## The limitations of evaluating prios
 
 Sulis' new ret prioritiser tool lets us quickly evaluate priorities across a variety of fight lengths.
-It's a great tool, and you can find the tool at:
+It's a great tool, and you can find it at:
 https://thesorm.github.io/Ret-Prioritizer/
 
 People are finding that the optimal rotations can vary significantly according to fight lengths, even when the variance in fight length is set to be quite high.
