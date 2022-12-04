@@ -6,7 +6,7 @@ HoW > JoW > CS > Cons > DS > Exo > HW
 ```
 is going to be a fine prio system for almost any situation against undead you find yourself in. For non-undead, just trim Holy Wrath off the bottom.
 
-## The limitations of evaluating prios
+## Prio Tooling
 
 Sulis' new ret prioritiser tool lets us quickly evaluate priorities across a variety of fight lengths.
 It's a great tool, and you can find it at:
