@@ -102,7 +102,7 @@ It'd be nice to have a "standard rotation" that performs well on paper and in th
 # Isolating cooldown clash with extreme fight times
 
 Some of the above effects that we do care about can be isolated from the undesirable ones by running extremely long fights with high degrees of time variance.
-That way you really cut down on the effects of N cast edge effects (especially in execution phases with HoW), and patterns of suboptimal final casts arising over time ranges for a given prio.
+That way you really cut down on the effects of N-cast edge effects (especially in execution phases with HoW), and patterns of suboptimal final casts arising over time ranges for a given prio.
 
 Let's run on Sulis' prio tool between 800s and 1200s, 0.5s timestep.
 We'll use a miss chance of 0.5%, representative of most people's gearsets while training on one of the BiS or close-to-BiS P1 setups
