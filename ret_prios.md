@@ -95,7 +95,7 @@ Towards that end, let's try to isolate the general-purpose effects that actually
 In a FCFS rotation that attempts to maximise dps, you care about the following:
 - maximising the number of high impact casts given the time available to you, especially when that time is short (e.g. execution phase)
 - lowering the cooldown clash of abilities, and reducing the open GCD time (when you're off GCD but have no dps abilities to cast)
-- lowering the "Effective Cooldown" of abilities in the rotation, where you generally want lower cooldown abilities used more quickly. For instance, if you delay CS by 3s, you effectively lose on average 50% of a CS cast in opportunity cost for casting other abilities. If you delay Exo by 3s, you comparatively lose 20% of an exo cast.
+- lowering the "Effective Cooldown" of abilities in the rotation, where you generally want lower cooldown abilities used more quickly. For instance, if you delay CS by 3s, you effectively lose on average 75% of a CS cast in opportunity cost for casting other abilities. If you delay Exo by 3s, you comparatively lose 20% of an exo cast.
 
 It'd be nice to have a "standard rotation" that performs well on paper and in the sim, that someone can use across all fight lengths, and to fall back upon when their rotation gets interrupted.
 
