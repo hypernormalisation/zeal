@@ -1,6 +1,6 @@
 # A general-purpose single-target priority for ret
 
-tl;dr: regardless of fight length, using 
+tl;dr: For a setup *without T7 4pc*: regardless of fight length, using 
 ```
 JoW > CS > DS > Cons > Exo > HW
 ```
