@@ -179,7 +179,7 @@ Even accounting for us constraining Judgement to the top 3 ranks due to mana con
 
 However, when you approach a boss, you can cast JoW at range as you close in. For some bosses you rocketboot in so the effect is marginal, but on many fights you want to save boots to cheese a particular fight mechanic; and you get only one cast of them on any but the absolute longest of multi-phase fights.
 
-As such, I think having JoW fixed at #2 will result in your opening sequence of casts naturally lend itself to syncing up with the prio over the majority of the fight, and result in you getting slightly more casts off overall.
+As such, I think having JoW fixed at #2 will result in your opening sequence of casts naturally syncing up well with the prio over the majority of the fight, and result in you getting slightly more casts off overall.
 
 ### Keep CS at #3
 In most setups, the sim and Sulis' tool show the value of keeping your CS on its short 4s cooldown. It's definitely better than any alternatives for this slot, especially when the Libram buff is taken into account.
