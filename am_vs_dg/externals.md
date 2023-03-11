@@ -74,11 +74,11 @@ We also note that in this log DSac provided a higher (but not statistically sign
 
 These are also presented in graphs below for just AM vs DG:
 
-![](./dg_vs_am.png)
+![1](./dg_vs_am.png)
 
 And including the instances of both externals, and including no externals:
 
-![](./dg_vs_am_2.png)
+![2](./dg_vs_am_2.png)
 
 ## Conclusion
 
