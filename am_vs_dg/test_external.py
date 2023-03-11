@@ -195,8 +195,10 @@ print(f'Average miti for DSac = ({dsac_mean:0.1f} +/- {dsac_std:0.1f})%')
 print(f'Average miti for both = ({both_mean:0.1f} +/- {both_std:0.1f})%')
 print(f'Average miti for none = ({none_mean:0.1f} +/- {none_std:0.1f})%')
 
-plt.hist(am, bins=9, label = "AM", color = "blue")
-plt.hist(dsac, bins=9, alpha = 0.7, label = "DG", color = "purple")
+b = np.linspace(10.0, 65.0, num = 11)
+
+plt.hist(am, bins=b, label = "AM", color = "blue")
+plt.hist(dsac, bins=b, alpha = 0.8, label = "DG", color = "teal")
 plt.title("Dsac vs AM total miti vs black hole explosion, 1 fight")
 plt.xlabel("Average Mitigation (%)")
 plt.ylabel("N")
@@ -204,8 +206,8 @@ plt.gca().yaxis.set_major_locator(plt.MultipleLocator(2))
 plt.legend()
 plt.savefig('dg_vs_am.png')
 
-plt.hist(none, bins=9, alpha = 0.6, label = "No External", color = "red")
-plt.hist(both, bins=9, alpha = 0.9, label = "AM & DG", color = "green")
+plt.hist(none, bins=b, alpha = 0.6, label = "No External", color = "red")
+plt.hist(both, bins=b, alpha = 0.9, label = "AM & DG", color = "green")
 plt.legend()
 
 plt.savefig('dg_vs_am_2.png')
