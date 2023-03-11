@@ -39,15 +39,15 @@ WCL link: https://classic.warcraftlogs.com/reports/RBxK7mGNdZgQp9yf#fight=59
 This kill was interesting because we had the following cooldown usage:
 
 Black holes:
-1 - 0:27 - AM (Pinkmale)
-2 - 0:53 - DG (Pinkmale)
-3 - 1:14 - DG (Attlee)
-4 - 1:46 - AM (Attlee)
-5 - 2:14 - DG (Tomcatfish)
-6 - 2:30 - DG & AM (Pukko/Retail)
-7 - 2:51 - nothing
-8 - 3:25 - nothing
-9 - 3:43 - AM (Attlee)
+- 1 - 0:27 - AM (Pinkmale)
+- 2 - 0:53 - DG (Pinkmale)
+- 3 - 1:14 - DG (Attlee)
+- 4 - 1:46 - AM (Attlee)
+- 5 - 2:14 - DG (Tomcatfish)
+- 6 - 2:30 - DG & AM (Pukko/Retail)
+- 7 - 2:51 - nothing
+- 8 - 3:25 - nothing
+- 9 - 3:43 - AM (Attlee)
 
 We nominally have three instances of just a cancelled DG, three instances of just AM, one instance where we used both at the same time by accident, and two instances where we used no external.
 Shadow resist aura is active all fight.
