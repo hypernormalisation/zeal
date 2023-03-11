@@ -54,6 +54,7 @@ Shadow resist aura is active all fight.
 Let's look at some of the individual hits people took where they don't have personal mitigation spells active (e.g. Feint) to simplify things.
 
 We also note that Tomcatfish is tank so DG at 2:10 misses a lot of ranged who position incorrectly, hence some missing data.
+The dsac the tank casts is also not cancelled, so we ignore any instances of black hole damage taken from his party members for star 5 (the DKs and the feral tank).
 
 What are the total mitigations of each explosion hit, separated into the type of external that was used?
 
