@@ -13,6 +13,12 @@ The increase to damage resists should be the following:
 For more info on how these are calculated vs a lvl 83 boss mob see:
 https://wowpedia.fandom.com/wiki/Resistance
 
+So the average mitigation on a black hole explosion on algalon should be:
+- 34% with aura mastery and shadow resist aura
+- 36% with divine guardian (cancelled dsac) and base shadow resist aura
+
+i.e. DG should give slightly better mitigation.
+
 ## Why this doc?
 
 Someone was insisting today in ret-questions that AM was providing better mitigation than DG, over "every log they looked at across 10 kills".
@@ -22,7 +28,7 @@ Now, given the amount of time it took for me to go through the data for one kill
 But anyway, the expected differences of Damage Reduction (DR) between the two are exceptionally small relative to the very high variance in DR that your elemental resist can roll.
 So you shouldn't be able to meaningfully say anything about which one is better from empirical data unless you were looking at a few tens or even a few hundreds of kills.
 
-Is the data consistent with the theory over a single log?
+But why not have a look, is the data consistent with the theory over a single log?
 
 ## Let's look at a random log
 
@@ -72,7 +78,20 @@ These are also presented in graphs below for just AM vs DG:
 
 And including the instances of both externals, and including no externals:
 
-![](./dg_vs_am2.png)
+![](./dg_vs_am_2.png)
+
+## Conclusion
+
+Which should you use in Ulduar?
+
+DG excels on fights where there are multiple damage types going out at once, for instance Mimiron p2.
+There are also fights like Freya where Ground Tremor requires DG to mitigate.
+Generally, I prefer the strong consistency and tank utility DG provides. The personal dps is low enough to be worth giving up for the extra consistency.
+
+For specifically Algalon, where the tank also benefits from the general DR from DG against Algalon, not to mention the chances of an arcane barrage or cosmic smash landing in the external's active time (though we note star deaths can be timed around cosmics) - I would say if and only if you are in a pumper parse guild who has good gear, high skill level, and your guild is fine with you slacking on the tank external, fine, take the very meager personal dps increase from the AM talent build.
+
+For the vast majority of people, DG is just much smoother on Algalon. If you are progging the fight, or even if your kills are shaky and people die on the fight, eat the personal dps loss and just use DG. You're less likely to have someone low-roll a resist on AM and take huge damage that is coincident with an (unmitigated) Arcane Barrage or distant Cosmic Smash splash.
+
 
 # Appendix: data from log
 
@@ -195,60 +214,60 @@ Swedge  5 - 45.7
 Beef    5 - 45.7
 
 _AM&DG_
-Attlee 6 - 53.4%
-Vim    6 - 40.1%
-Brut   6 - 45.7%
-Papa   6 - 62.8%
-Bisel  6 - 47.85%
-Veri   6 - 52.04%
-Shmaa  6 - 56.2%
-Pukko  6 - 45.7%
-Beu    6 - 52.0%
-Lepsy  6 - 53.4%
-Tinder 6 - 56.2%
-Dark   6 - 59.1%
-Shifty 6 - 48.9%
-Pink   6 - 61.2%
-Papi   6 - 53.4%
-Gryf   6 - 53.4%
-Swedge 6 - 37.9%
+Attlee 6 - 53.4
+Vim    6 - 40.1
+Brut   6 - 45.7
+Papa   6 - 62.8
+Bisel  6 - 47.9
+Veri   6 - 52.0
+Shmaa  6 - 56.2
+Pukko  6 - 45.7
+Beu    6 - 52.0
+Lepsy  6 - 53.4
+Tinder 6 - 56.2
+Dark   6 - 59.1
+Shifty 6 - 48.9
+Pink   6 - 61.2
+Papi   6 - 53.4
+Gryf   6 - 53.4
+Swedge 6 - 37.9
 
 _Unmitigated_
-Attlee 7 - 22.4%
-Attlee 8 - 22.4%
-Vim    7 - 18.5%
-Vim    8 - 28.7%
-Brut   5 - 22.4% (outranged dsac)
-Brut   7 - 22.4%
-Brut   8 - 12.7%
-Papa   3 - 34.8% (outranged dsac)
-Papa   5 - 16.2% (outranged dsac)
-Papa   7 - 16.2%
-Papa   8 - 25.5%
-Bisel  7 - 25.5%
-Bisel  8 - 25.5%
-Veri   7 - 40.0%
-Veri   8 - 30.0%
-Shmaa  5 - 27.0% (outranged dsac)
-Shmaa  7 - 34.2%
-Shmaa  8 - 27.0%
-Pukko  7 - 22.4%
-Pukko  8 - 22.4%
-Beu    7 - 30.1%
-Beu    8 - 40.0%
-Lepsy  7 - 32.1%
-Lepsy  8 - 37.9%
-Tinder 7 - 36.2%
-Tinder 8 - 27.0%
-Dark   7 - 33.7%
-Dark   8 - 33.4%
-Shifty 7 - 36.2%
-Shifty 8 - 48.9%
-Pink   7 - 32.1%
-Pink   8 - 12.7%
-Papi   7 - 41.8%
-Papi   8 - 32.1%
-Gryf   8 - 22.4%
+Attlee 7 - 22.4
+Attlee 8 - 22.4
+Vim    7 - 18.5
+Vim    8 - 28.7
+Brut   5 - 22.4 (outranged dsac)
+Brut   7 - 22.4
+Brut   8 - 12.7
+Papa   3 - 34.8 (outranged dsac)
+Papa   5 - 16.2 (outranged dsac)
+Papa   7 - 16.2
+Papa   8 - 25.5
+Bisel  7 - 25.5
+Bisel  8 - 25.5
+Veri   7 - 40.0
+Veri   8 - 30.0
+Shmaa  5 - 27.0 (outranged dsac)
+Shmaa  7 - 34.2
+Shmaa  8 - 27.0
+Pukko  7 - 22.4
+Pukko  8 - 22.4
+Beu    7 - 30.1
+Beu    8 - 40.0
+Lepsy  7 - 32.1
+Lepsy  8 - 37.9
+Tinder 7 - 36.2
+Tinder 8 - 27.0
+Dark   7 - 33.7
+Dark   8 - 33.4
+Shifty 7 - 36.2
+Shifty 8 - 48.9
+Pink   7 - 32.1
+Pink   8 - 12.7
+Papi   7 - 41.8
+Papi   8 - 32.1
+Gryf   8 - 22.4
 Emoa   7 - 32.1
 Emoa   8 - 22.4
 ```
