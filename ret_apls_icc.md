@@ -264,4 +264,6 @@ The corresponding DPS distribution for no reset fishing is below:
 and the DPS distribution with fishing is below:
 ![withish_90s](https://github.com/hypernormalisation/zeal/blob/main/figs/t3_withfish_90s.png?raw=true)
 
-
+To my ability to check this by eye, they are the same distribution.
+Which means with the very finite amount of attempts any given player has on any ICC boss, it's likely not worrying about any "highroll potential" at all.
+Just always prio HoW > Judge > CS > DS on single-target.
