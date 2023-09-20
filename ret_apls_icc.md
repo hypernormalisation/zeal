@@ -130,7 +130,8 @@ We'll also need to consider mana usage on the simulation, especially after the f
 
 # Basic ability priorities
 
-Let's do something a bit unorthodox; let's sim at a very high fight time, but give the player a very high MP5 value to ensure we don't run up against mana issues.
+Let's do something a bit unorthodox; let's sim at a very high fight time (5 mins), but give the player a very high MP5 value (say, +500) to ensure we don't run up against mana issues.
+We can reduce the number of iterations to 10k because each individual iteration has a longer fight to average out crit/hit/proc rates.
 In this, I'm hoping to find basic rough priorities that sim quite well, that we can then tweak as we need to.
 
 First, we'll construct a very basic APL:
@@ -151,4 +152,77 @@ Basic APL 1  : 15952 dps
 ```
 
 Now, ofc the legacy rotation is doing things like casting plea to deal with mana limitations that don't exist, so the APL coming ahead here is no surprise.
+
+Let's test some basic priorities and see how they fare.
+
+```
+HoW > Judge > CS > DS > Cons > Exo > HW : 15956
+HoW > Judge > CS > DS > Exo > Cons > HW : 15952
+Judge > HoW > CS > DS > Exo > Cons > HW : 15939
+HoW > CS > Judge > DS > Exo > Cons > HW : 15933
+HoW > Judge > DS > CS > Exo > Cons > HW : 15856
+```
+
+One thing to note, even when CS is prio'd relatively low in the order, we don't see Three Truths drop off in the log data.
+The time for the stacks to fall off, 15s, is sufficiently high that the sim naturally plays around the libram well enough with a basic prio system.
+That's slightly less work for us.
+
+It's also very obviously the case that Judgement is such a good ability for pure dps even without the mana sustain being factored in, that it's very hard to imagine it not being the top ability to *generally* prio in any single-target SoV situation.
+
+It seems that even with the T10 2pc reset, the prio order we found all the way back in p1 to be pretty optimal of
+```
+HoW > Judge > CS > DS > Cons > HW
+```
+still holds up very well.
+
+Now, we can think of some case-sensitive refinements to this priority that might be interesting to check.
+
+## Case-sensitive adjustments to the prio.
+
+So, the prio we are working with for now is:
+
+```
+HoW > Judge > CS > DS > Cons > Exo > HW : 15956 dps
+```
+
+There are some possible situations where it could be beneficial to switch up the prio:
+- casting DS at higher prio if we come off GCD *very close* to the end of a swing, to fish for a 2pc proc.
+- casting a lower prio ability like consecrate to get it on cooldown near the start of a swing, if we still have time to cast DS before our current swing
+
+Let's introduce a new action: `cast divine storm over CS if our swing timer has just X seconds left`.
+
+To prevent this action interfering with our Three Truths stacking near the start of the fight, we'll introduce another action: `cast CS at highest prio if Formidable stacks are < 5`.
+
+We'll also go up to 50k iterations on the sim to get some more precise numbers.
+
+```
+Base prio                       : 15959 dps
+with provision for CS stacking  : 15949 dps
+```
+
+So, somewhat surprisingly to me, it's *not even worth prioritising CS to get Five Truths stacked*.
+You seem to just plain miss dps from casting other better abilities, or from desyncing the rest of the priority?
+The exact reason is unclear, but it appears to just not be worth modifying your opening prio to get the Libram buff stacked asap.
+
+Now let's check how this looks with *just the DS clause* where it can be cast at higher prio than CS to fish for a 2pc reset proc if the next swing ends before X seconds, for a variety of possible X values.
+
+```
+Base prio        : 15959 dps
+< 0.1s remaining : 15957 dps
+< 0.2s remaining : 15955 dps
+< 0.3s remaining : 15954 dps
+< 0.4s remaining : 15950 dps
+< 0.5s remaining : 15948 dps
+< 1.0s remaining : 15946 dps
+< 1.5s remaining : 15934 dps
+```
+
+Well, it seems like any opportunity to prio DS higher than CS results in a very slight dps loss.
+When we combine this with the fact that DS is a more mana intense ability, when we start accounting for mana usage in our tests again it's almost certain that any swing-timer based higher prioritisation of DS is just going to result in a dps loss.
+That's a little disappointing.
+
+
+
+
+
 
