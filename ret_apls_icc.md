@@ -246,3 +246,22 @@ With no fishing for resets:
 With fishing for resets:
 ![withfish_5mins](https://github.com/hypernormalisation/zeal/blob/main/figs/t3_withfish_5mins.png?raw=true)
 
+Based on the above, there isn't really any "highroll potential". At this fight length the reliability of DS prio'd low wins out even in the upper reaches of each distribution.
+
+Now, based on that, a reasonable question might be if we see any highroll potential on shorter encounters.
+Let's run the same tests but sim at 90s with 200k iterations so we really sample the dps distribution.
+
+```
+At 5 mins:
+
+Base prio        : 16957 dps
+< 1.0s remaining : 16938 dps
+```
+
+The corresponding DPS distribution for no reset fishing is below:
+
+
+and the DPS distribution with fishing is below:
+![Alt text](image.png)
+
+
