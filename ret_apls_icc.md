@@ -124,6 +124,23 @@ With this in mind, we should perhaps sim at times of 1 minute when testing openi
 If we find good overall priority orders first, we can supercede these in our openers as further optimisations.
 
 So let's start with some 5 minute simulations to get a feel for the different possible ability priorities.
+We'll first need a basic APL skeleton.
 
-# Establishing single-target rough priorities
+We'll also need to consider mana usage on the simulation, especially after the fixes to the JoW proc rate and the increased casts of DS/HW we expect in ICC.
+
+# Basic ability priorities
+
+Let's do something a bit unorthodox; let's sim at a very high fight time, but give the player a very high MP5 value to ensure we don't run up against mana issues.
+In this, I'm hoping to find basic rough priorities that sim quite well, that we can then tweak as we need to.
+
+First, we'll construct a very basic APL:
+
+![Alt text](image.png)
+
+Under these such conditions (link 2 in the above sheet) we see the following figures:
+
+```
+Legacy: 15876 dps
+```
+
 
