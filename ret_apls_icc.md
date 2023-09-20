@@ -240,5 +240,9 @@ That surprises me, but the relative difference in damages relative to the much s
 
 I know some people will wonder about high-roll potential so let's look at the dps histograms over 50k iterations for the base rotation and then when we fish for DS reset at <1s remaining on swing timer.
 
+With no fishing for resets:
+![nofish_5mins](https://github.com/hypernormalisation/zeal/blob/main/figs/t3_nofish_5min.png?raw=true)
 
+With fishing for resets:
+![withfish_5mins](https://github.com/hypernormalisation/zeal/blob/main/figs/t3_withfish_5min.png?raw=true)
 
