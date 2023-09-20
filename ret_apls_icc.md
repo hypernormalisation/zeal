@@ -84,4 +84,5 @@ Sheet with such a test:
 > https://docs.google.com/spreadsheets/d/1cT1D5g1Z6ErRWYnOoqpLjTG5APsxo6KRItxksmqVZAk/edit?usp=sharing
 
 Relevant plot:
+
 ![ret1](https://github.com/hypernormalisation/zeal/blob/main/figs/ret1.png?raw=true)
