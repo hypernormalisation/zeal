@@ -46,6 +46,8 @@ Divine Plea threshold 75%
 20k iterations
 Confirmed 0% time OOM.
 P4 gear presets.
+Lich King Hc preset.
+AM spec.
 
 Rotation 1:
 HoW > Judge > CS > DS > Cons > Exo > HW
@@ -71,18 +73,49 @@ What is the explanation for this?
 
 It could be that 90s fights simply produce a particularly unfavourable distribution of cast sequences, and shorter or longer fights than this have slightly more numbers of high-damage casts abilities like Judgement or HoW. If so, that isn't particularly indicative of anything actionable by a player in an encounter with an indeterminate fight time.
 
-Let's conduct another test with some more rotations, and the same sim settings as before.
+### Scanning fight length with different fight length variances
+
+Our primary goal is to construct a good general-purpose rotation for ret in ICC.
+Therefore in choosing fight length and its associated variance, we should aim to not construct settings that are particularly sensitive to very precise fight lengths.
+
+A good way to probe this might be to examine how a particular rotation's dps changes as a function of fight length, for a variety of different FL variances.
 
 ```
-TEST 2: do different fight length variances lead to more pronounced differences in rotations?
+TEST 2
 
-Rotation 1: same as before
-Rotation 2: same as before
-Rotation 3: HoW > Judge > DS > CS > Cons > Exo > HW
-Rotation 4: Judge > HoW > DS > CS > Cons > Exo > HW
-Rotation 5: Judge > HoW > CS > DS > Exo > Cons > HW
+Rotation 1: HoW > Judge > CS > DS > Cons > Exo
+(removing Holy Wrath to ensure we don't OOM at longer fight lengths on legacy)
+
+20k iterations
+
++/- 5s
+
+70s  : 17349
+75s  : 17198
+80s  : 17048
+85s  : 16894
+90s  : 16731
+95s  : 16663
+100s : 16644
+105s : 16620
+110s : 16567
+115s : 16462
+120s : 16366
+125s : 16364
+130s : 16430
+135s : 16493
+140s : 16543
+145s : 16594
+150s : 16591
+155s : 16518
+160s : 16420
+165s : 16323
+170s : 16212
+175s : 16100
+180s : 15996
+
++/- 10s
 
 
 
 ```
-
