@@ -1,8 +1,9 @@
 # Ret rotations and WoWSims APLs in ICC
 
-There are two upcoming changes to the retribution rotation in Icecrown Citadel (ICC):
+
+Moving into ICC, there are two primary gearing effects that could result in optimal ret rotations being different from previous phases:
 1. the inclusion of the Libram of Three Truths and its stacking strength buff, and
-2. the ICC 2pc bonus
+2. the ICC 2pc bonus, which has a 40% chance to reset the cooldown of Divine Storm on a successful autoattack.
 
 These, along with the very different stats on ICC gear and the powerful 4pc set bonus on judgements and seal damages, warrant a re-examination of Retribution paladin rotations and priority lists.
 
