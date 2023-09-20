@@ -81,5 +81,5 @@ Therefore in choosing fight length and its associated variance, we should aim to
 A good way to probe this might be to examine how a particular rotation's dps changes as a function of fight length, for a variety of different FL variances.
 
 Sheet with such a test:
-`https://docs.google.com/spreadsheets/d/1cT1D5g1Z6ErRWYnOoqpLjTG5APsxo6KRItxksmqVZAk/edit?usp=sharing`
+> https://docs.google.com/spreadsheets/d/1cT1D5g1Z6ErRWYnOoqpLjTG5APsxo6KRItxksmqVZAk/edit?usp=sharing
 
