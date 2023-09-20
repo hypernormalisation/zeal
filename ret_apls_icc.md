@@ -135,7 +135,7 @@ In this, I'm hoping to find basic rough priorities that sim quite well, that we 
 
 First, we'll construct a very basic APL:
 
-![Basic APL 1]([image.png](https://github.com/hypernormalisation/zeal/blob/main/figs/basic_apl_1.png?raw=true))
+![Basic APL 1](https://github.com/hypernormalisation/zeal/blob/main/figs/basic_apl_1.png?raw=true)
 
 - we prepot
 - we cancel Chaos Bane
