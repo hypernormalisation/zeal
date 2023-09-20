@@ -63,3 +63,15 @@ Judge > HoW > CS > Cons > DS > Exo > HW
 
 ```
 
+We can see in both cases a slight trend upwards in dps as the fight length variance increases.
+In all fight ranges, the numbers of cooldowns usable across the board remains constant.
+What is the explanation for this?
+
+It could be that 90s fights simply produce a particularly unfavourable distribution of cast sequences, and shorter or longer fights than this have slightly more numbers of high-damage casts abilities like Judgement or HoW. If so, that isn't particularly indicative of anything actionable by a player in an encounter with an indeterminate fight time.
+
+Let's conduct another test with some more rotations, and the same sim settings as before.
+
+```
+
+```
+
