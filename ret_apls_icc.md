@@ -103,5 +103,27 @@ If you are in a top guild with *very specific kill times*, then very precise fig
 
 As such, we will proceed with 20s as our fight length variance.
 
+### What fight length(s) should be chosen?
 
+As I argued in the last note I wrote on this subject [available here](https://github.com/hypernormalisation/zeal/blob/main/ret_prios.md), there are advantages to simming at relatively high fight times (of around 5 minutes or more).
+
+When constructing first-come-first-served rotations, we are very interested in how well the cooldown timings sync up, or *cooldown clash*.
+Simming at high fight times allows us to better isolate effects of cooldown clash because things like:
+- how well a particular rotation syncs up with execute phase
+- numbers of casts under specific cooldowns or trinket procs
+are much more pronounced in simulations of lower fight times.
+Simming at a high fight time dilutes these.
+
+It is also of great interest to see how openers compare in the rotation.
+While ret's opener is quite simple, stacking the Three Truths libram buff and Seal of Vengeance are areas where optimisation can be found - for instance, one may wish to prioritise CS over certain other abilities only when the Three Truths buff is not yet fully stacked (or the stacks are about to time out).
+
+We should probably therefore investigate lower fight times as well as larger ones, to get more pronounced and isolated measurements of how our opening sequences perform.
+
+With this in mind, we should perhaps sim at times of 1 minute when testing opening sequences, and 5 minutes when we are trying to establish overall priority orders.
+
+If we find good overall priority orders first, we can supercede these in our openers as further optimisations.
+
+So let's start with some 5 minute simulations to get a feel for the different possible ability priorities.
+
+# Establishing single-target rough priorities
 
