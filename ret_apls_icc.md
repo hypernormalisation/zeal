@@ -38,6 +38,8 @@ Ret being a spec that largely spams abilities (and has an execute ability), it c
 Let's first use the legacy rotation to conduct a small test looking at the sensitivity of dps to fight length variance.
 
 ```
+TEST 1: fight length variance and dps stability
+
 Rotation type: Custom
 All legacy options ticked.
 Divine Plea threshold 75%
@@ -72,6 +74,15 @@ It could be that 90s fights simply produce a particularly unfavourable distribut
 Let's conduct another test with some more rotations, and the same sim settings as before.
 
 ```
+TEST 2: do different fight length variances lead to more pronounced differences in rotations?
+
+Rotation 1: same as before
+Rotation 2: same as before
+Rotation 3: HoW > Judge > DS > CS > Cons > Exo > HW
+Rotation 4: Judge > HoW > DS > CS > Cons > Exo > HW
+Rotation 5: Judge > HoW > CS > DS > Exo > Cons > HW
+
+
 
 ```
 
