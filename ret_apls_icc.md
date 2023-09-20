@@ -221,8 +221,24 @@ Well, it seems like any opportunity to prio DS higher than CS results in a very 
 When we combine this with the fact that DS is a more mana intense ability, when we start accounting for mana usage in our tests again it's almost certain that any swing-timer based higher prioritisation of DS is just going to result in a dps loss.
 That's a little disappointing.
 
+Let's do a quick test where we run the same check, but prio DS higher than Judgement and CS under the right conditions.
 
 
+
+```
+Base prio        : 15959 dps
+< 0.2s remaining : 15958 dps
+< 0.5s remaining : 15960 dps
+< 1.0s remaining : 15956 dps
+```
+
+We see the same results.
+We should also note that prioing judgement even lower in this case will further compound mana issues.
+
+It looks like it's never worth fishing for a DS reset proc based on the state of your swing timer.
+That surprises me, but the relative difference in damages relative to the much shorter cooldown of CS (even accounting for DS procs) means casting CS in single-target is always your play.
+
+I know some people will wonder about high-roll potential so let's look at the dps histograms over 50k iterations for the base rotation and then when we fish for DS reset at <1s remaining on swing timer.
 
 
 
