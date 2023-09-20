@@ -141,7 +141,7 @@ First, we'll construct a very basic APL:
 - we cancel Chaos Bane
 - Hand of Reckoning is cast on cooldown
 - cooldowns are cast as they come up
-- our basic prio is HoW > Judge > CS > DS > Exo > Cons (but only if 4s left of the fight) > Holy Wrath
+- our basic prio is `HoW > Judge > CS > DS > Exo > Cons (but only if 4s left of the fight) > Holy Wrath`
 
 Under these such conditions (link 2 in the above sheet) we see the following figures:
 
