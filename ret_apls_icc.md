@@ -244,5 +244,5 @@ With no fishing for resets:
 ![nofish_5mins](https://github.com/hypernormalisation/zeal/blob/main/figs/t3_nofish_5min.png?raw=true)
 
 With fishing for resets:
-![withfish_5mins](https://github.com/hypernormalisation/zeal/blob/main/figs/t3_withfish_5min.png?raw=true)
+![withfish_5mins](https://github.com/hypernormalisation/zeal/blob/main/figs/t3_withfish_5mins.png?raw=true)
 
