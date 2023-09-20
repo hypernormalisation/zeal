@@ -70,8 +70,9 @@ Judge > HoW > CS > Cons > DS > Exo > HW
 We can see in both cases a slight trend upwards in dps as the fight length variance increases.
 In all fight ranges, the numbers of cooldowns usable across the board remains constant.
 What is the explanation for this?
+The answer is likely that at values above 90s, third procs of Death's Choice become possible, which counteracts the downward trend from spending less time under the effects of Bloodlust.
 
-It could be that 90s fights simply produce a particularly unfavourable distribution of cast sequences, and shorter or longer fights than this have slightly more numbers of high-damage casts abilities like Judgement or HoW. If so, that isn't particularly indicative of anything actionable by a player in an encounter with an indeterminate fight time.
+It could also be that 90s fights simply produce a particularly unfavourable distribution of cast sequences, and shorter or longer fights than this have slightly more numbers of high-damage casts abilities like Judgement or HoW. If so, that isn't particularly indicative of anything actionable by a player in an encounter with an indeterminate fight time.
 
 ### Scanning fight length with different fight length variances
 
@@ -86,3 +87,21 @@ Sheet with such a test:
 Relevant plot:
 
 ![ret1](https://github.com/hypernormalisation/zeal/blob/main/figs/ret1.png?raw=true)
+
+The DPS structure visible in the lower time variance distributions arises primarily from subsequent cooldown and trinket uses becoming possible as the fight gets longer, which is offsetting less time being spent under bloodlust.
+
+It is very hard to say if effects arising from average number-of-casts are particularly visible in these distributions.
+It is perhaps possible that some additional, non-trinket related structure may be present in the 5s and 10s variance curves at a fight length of around 90s (the very sharp downswing at a mean time of 90s in particular); but we cannot be certain.
+
+### When should we sim granular times, and broader times?
+
+I would make the argument that simming at broader times is more useful when considering rotational optimisations.
+We want a general-purpose rotation that is applicable to a wide variety of situations in ICC.
+As such, we are less interested in edge effects arising from additional trinket procs, number of casts of Avenging Wrath/Hyperspeed Accelerator etc.
+
+If you are in a top guild with *very specific kill times*, then very precise fight times may be useful in helping you make gear choices, but this is a very distinctly different goal from ours.
+
+As such, we will proceed with 20s as our fight length variance.
+
+
+
