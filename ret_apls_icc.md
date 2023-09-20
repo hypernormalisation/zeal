@@ -135,12 +135,20 @@ In this, I'm hoping to find basic rough priorities that sim quite well, that we 
 
 First, we'll construct a very basic APL:
 
-![Alt text](image.png)
+![Basic APL 1]([image.png](https://github.com/hypernormalisation/zeal/blob/main/figs/basic_apl_1.png?raw=true))
+
+- we prepot
+- we cancel Chaos Bane
+- Hand of Reckoning is cast on cooldown
+- cooldowns are cast as they come up
+- our basic prio is HoW > Judge > CS > DS > Exo > Cons (but only if 4s left of the fight) > Holy Wrath
 
 Under these such conditions (link 2 in the above sheet) we see the following figures:
 
 ```
-Legacy: 15876 dps
+Legacy       : 15876 dps
+Basic APL 1  : 15952 dps
 ```
 
+Now, ofc the legacy rotation is doing things like casting plea to deal with mana limitations that don't exist, so the APL coming ahead here is no surprise.
 
