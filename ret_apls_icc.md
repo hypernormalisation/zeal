@@ -259,9 +259,9 @@ Base prio        : 16957 dps
 ```
 
 The corresponding DPS distribution for no reset fishing is below:
-
+![nofish_90s](https://github.com/hypernormalisation/zeal/blob/main/figs/t3_nofish_90s.png?raw=true)
 
 and the DPS distribution with fishing is below:
-![Alt text](image.png)
+![withish_90s](https://github.com/hypernormalisation/zeal/blob/main/figs/t3_withfish_90s.png?raw=true)
 
 
