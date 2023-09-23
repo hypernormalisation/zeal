@@ -276,3 +276,25 @@ In theory this could give you better consecrate uptime for a similar number of D
 Checked adding clauses to prio Cons higher than DS if you can still get the DS off before the next auto but it's still costing some 35 dps over the regular prio.
 
 We can look at this in more detail for cleave situations, but for single-target, it's looking like most of the refinements to any APL will be to do with mana management and good Plea usage.
+
+## Double checking the opener on short fight lengths.
+
+I want to have another look at the Three Truths stacking on a shorter fight, to see where the effect might be more obvious.
+This will help double check that we should not prioritise CS over Judge when stacking 3T.
+
+On a 90s fight the results are:
+
+```
+Regular prio  : 16927 dps
+Prio 3T stack : 16895 dps
+```
+
+So no, stacking 3T is definitely not preferable at all.
+
+# Basic mana management
+
+We want Divine Plea to be used on open GCDs below a certain mana threshold.
+This threshold can be tunable.
+You can implement such an action as follows:
+
+![Alt text](figs/plea_conditional.png)
