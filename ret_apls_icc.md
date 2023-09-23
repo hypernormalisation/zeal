@@ -267,3 +267,12 @@ and the DPS distribution with fishing is below:
 To my ability to check this by eye, they are the same distribution.
 Which means with the very finite amount of attempts any given player has on any ICC boss, it's likely not worrying about any "highroll potential" at all.
 Just always prio HoW > Judge > CS > DS on single-target.
+
+## Situations where DS could shift to lower prio
+
+Let's look at this from the other angle: is it ever worth shifting DS down in prio when you can get another ability *and* a subsequent DS off before a swing?
+In theory this could give you better consecrate uptime for a similar number of DS casts, but I doubt it's good.
+
+Checked adding clauses to prio Cons higher than DS if you can still get the DS off before the next auto but it's still costing some 35 dps over the regular prio.
+
+We can look at this in more detail for cleave situations, but for single-target, it's looking like most of the refinements to any APL will be to do with mana management and good Plea usage.
