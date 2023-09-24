@@ -293,8 +293,57 @@ So no, stacking 3T is definitely not preferable at all.
 
 # Basic mana management
 
-We want Divine Plea to be used on open GCDs below a certain mana threshold.
-This threshold can be tunable.
-You can implement such an action as follows:
+Now, a good APL should handle mana management by not OOMing on any fight length.
+I think a good strategy for tuning the APL would be the following:
+- first, find what the baseline performance is at any fight length with unlimited mana, via an artificial MP5 boost
+- then make something that conserves mana wisely even on unrealistically long fight lengths, and does not OOM
+- then tune the mana management actions so that we get as close to the unlimited mana dps as possible, across a variety of fight lengths.
 
-![Alt text](figs/plea_conditional.png)
+Link to relevant sheet with some comparisons and numbers:
+- https://docs.google.com/spreadsheets/d/1cT1D5g1Z6ErRWYnOoqpLjTG5APsxo6KRItxksmqVZAk/edit?usp=sharing
+
+
+Let's start at a 10 minute encounter where mana is really under pressure.
+Baseline infinite mana dps on this fight time, using min-max unrealistic APL: 15872 dps
+
+## Test 1: Rules to Plea on open GCD, and to always Plea.
+
+First lets add a rule that searches for a "reasonably" open GCD and tries to cast Plea.
+Does this cast Plea often enough to keep our mana up?
+
+Let's put in a requirement for 70% mana before Plea is considered.
+We'll check we don't delay any active ability at all, by using spell time-to-ready requirements.
+
+If you delay everything, you don't really get any open GCDs at all. Unforch.
+
+This makes me wonder if passive expertise setup with consecrate glyph is worth looking at.
+It might also change up the baseline priority in interesting ways. Hmmm.
+Ok, long story short, it doesn't.
+
+# But that's an interesting question
+
+When the sim has infinite mana to work with, SoV glyph setup is more performant than cons glyph setup.
+What about when there's mana limitations?
+
+Let's develop the APL for mana management as we were doing, but compare the two setups.
+It's very possible that cons glyph setup gives enough mana leeway via multiple mechanisms to overturn the difference once a smart mana management system is in place, over a decent fight length.
+
+Again let's start at 10 minute fights to really exaggerate the mana effects.
+
+- I see that when my open GCD requirement for Plea includes literally every active ability, Plea basically never gets pressed. We should take out the shitter abilities, Exo/Cons/HW, and see how often we get those "semi-open" GCDs.
+- that brings it up to 3.5 over the fight. Still aggressively OOMing and not casting Plea enough.
+- if we back this up with a requirement to always plea when we don't have actives, but don't care about open GCDs, we get this up to 9 casts, the appropriate amount for this fight length.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
