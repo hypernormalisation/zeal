@@ -139,7 +139,61 @@ The probability `p_j` of having a judgement cast in the past period `D` is simpl
 
 Judgement of command due to a quirk in the spell tables rolls on spell hit, which has a 17% chance to miss by default. We'll assume the ret has no source of spell hit on gear and this applies in full.
 
-Taking `p_jhit` as 0.83 the chance of no Spell Vulnerability proc from a judgement is
+Taking `p_jhit` as 0.83 the chance of no Spell Vulnerability proc from a recent judgement is
 
 `p_nojudge = 1 - (D/J * p_jhit * p_nf)`
+
+### Total uptime term
+
+The total uptime is then
+
+```
+U = 1 - p_noswing * p_nojudge
+```
+
+## Sample uptime values
+
+Let's plug some numbers in. Assume:
+
+- judgement cast every 10s
+- every swing is a twist attempt
+- scrolls are up for first 20s then down rest of the fight
+- full haste enchants and WCB
+
+Expected uptimes are then:
+
+```
+- 60s fight,  U = 45.1%
+- 120s fight, U = 44%
+```
+
+# Calculating raid damage increase 
+
+To look at an encounter and see how much extra DPS the raid would have had, we can find any fight of interest on WCL and enter the following filter expression:
+
+`ability.type!=1`
+
+which isolates magic damage.
+
+### Meta SpeedrunComp with 6 casters
+
+In the following speed kill of Ouro (currently ranked #4 on AQ speedruns) by the guild <Dense>, the magic damage dealt by the raid is about 6.7k dps:
+
+- https://fresh.warcraftlogs.com/reports/yRTkDw4fm8ZBJGP1?fight=46&type=damage-done&pins=2%24Off%24%23244F4B%24expression%24ability.type%21%3D1
+
+With Nightfall, the bonus damage we'd expect from a 1 minute fight would then be:
+
+`bonus_dps = 6700 * 0.15 * 0.45 ~= 452dps`
+
+### More caster-heavy composition
+
+For fun, let's look at the top Ouro performance by a ret:
+
+- https://fresh.warcraftlogs.com/reports/X7v2kN1BMDjzqV8A?fight=66&type=damage-done
+
+The ret's personal dps was about 905dps.
+
+The raid's magic dps as a whole was 10646dps, with a hypothetical bonus from Spell Vulnerability of 718dps.
+
+It's likely the ret would have lost at most 200dps (likely less) using Nightfall instead of Sulfuras, so the bonus to this relatively-high performing raid group would have been 500dps overall, or about half an extra dps player for the raid.
 
