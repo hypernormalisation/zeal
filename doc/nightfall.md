@@ -28,7 +28,7 @@ The Spell Vulnerability proc chance at 2ppm with a base weapon speed of 3.5 is
 
 `p_sv = 2 * 3.5/60 ~= 0.117`
 
-We'll calculate the per-swing chance to proc now assuming the ret is hitcapped and hitting from behind with a 6.5% chance to be dodged (that could be reduced to 6% by wearing Edgemaster's Handguards for +7 axe skill).
+We'll calculate the per-swing chance to proc now assuming the ret is hitcapped and hitting from behind with a 6.5% chance to be dodged.
 
 Therefore `p_hit = 0.935`.
 
